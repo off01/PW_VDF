@@ -1,0 +1,18 @@
+{
+  "name": "pw_vdf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.39.0",
+    "@types/node": "^20.8.6"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "moment": "^2.29.4"
+  }
+}

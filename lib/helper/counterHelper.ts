@@ -26,3 +26,19 @@ export function incrementCounterserviceFeasibilityId(): number {
     fs.writeFileSync(counterFilePath, JSON.stringify(data, null, 2)); // Změna zde
     return newCounter;
 }
+
+export function incrementCounterservicePartyId(): number {
+    const data = JSON.parse(fs.readFileSync(counterFilePath, 'utf-8'));
+    const newCounter = data.idPF + 1;
+    data.idPF = newCounter;
+    fs.writeFileSync(counterFilePath, JSON.stringify(data, null, 2)); // Změna zde
+    return newCounter;
+}
+
+export function incrementCounterserviceCustomerAppointmentId(): number {
+    const data = JSON.parse(fs.readFileSync(counterFilePath, 'utf-8'));
+    const newCounter = data.idCA + 1;
+    data.idCA = newCounter;
+    fs.writeFileSync(counterFilePath, JSON.stringify(data, null, 2)); // Změna zde
+    return newCounter;
+}

@@ -166,6 +166,186 @@ export async function createActivationL3OrderBody () {
     return orderBody;
 }
 
+export async function createActivationL1OrderBody (WHSDATA: string) {
+    const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+    const idSO = incrementCounterOrderId();
+    let orderBody = {
+        "id": [
+            {
+                "value": `PW_${idSO}`, //JM -- defaultně dle kuchařky 'SO'
+                "schemeAgencyName": "TMCZ"
+            }
+        ],
+        "status": "New",
+        "type": "Activation",
+        "created": {
+            "value": `${timestamp}`
+        },
+        "createdBy": {
+            "value": "JASOBOUR",
+            "schemeAgencyName": "TMCZ"
+        },
+        "parts": {
+            "lineItem": [
+                {
+                    "id": [
+                        {
+                            "value": "1",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "Create",
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": "WHSHFCCONN",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSite": {
+                        "contactPeople": [
+                            {
+                                "contactPerson": {
+                                    "individualName": {
+                                        "title": "Ing.",
+                                        "firstName": "John",
+                                        "familyName": "Smith"
+                                    },
+                                    "language": "CZ",
+                                    "contactPoint": [
+                                        {
+                                            "email": {
+                                                "fullAddress": "j.smith@gmail.com"
+                                            },
+                                            "telephone": {
+                                                "subscriberNumber": "+420123456789"
+                                            },
+                                            "postal": {
+                                                "characteristic": {
+                                                    "characteristicsValue": [
+                                                        {
+                                                            "characteristicName": "locationFlatId",
+                                                            "value": "1991951"
+                                                        },
+                                                        {
+                                                            "characteristicName": "buildingId",
+                                                            "value": "358913"
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": [
+                        {
+                            "value": "2",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "Create",
+                    "relatedLineItem": [
+                        {
+                            "id": [
+                                {
+                                    "value": "1",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": "WHSFBBSERVICE",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": [
+                        {
+                            "value": "3",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "Create",
+                    "relatedLineItem": [
+                        {
+                            "id": [
+                                {
+                                    "value": "2",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": `${WHSDATA}`,
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": [
+                        {
+                            "value": "4",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "Create",
+                    "relatedLineItem": [
+                        {
+                            "id": [
+                                {
+                                    "value": "2",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": "WHSHWCG31P",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "note": [
+                {
+                    "content": "Optional information"
+                }
+            ]
+        }
+    };
+    return orderBody;
+}
+
 export async function createModificationL3OrderBody () {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
     const idSO = incrementCounterOrderId();
@@ -374,7 +554,7 @@ export async function createModificationL3OrderBody () {
     return orderBody;
 }
 
-export async function createTerminationL3OrderBody () {
+export async function createTerminationL3OrderBody (idASSET_sub: string) {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
     const idSO = incrementCounterOrderId();
     let orderBody = {
@@ -415,7 +595,7 @@ export async function createTerminationL3OrderBody () {
                             "characteristicsValue": [
                                 {
                                     "characteristicName": "whsAssetId",
-                                    "value": "{{idASSET_sub}}"
+                                    "value": `${idASSET_sub}`
                                 }
                             ]
                         }

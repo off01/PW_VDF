@@ -1,5 +1,7 @@
 {
-  "diagnosticId": 3,
-  "idSO": 57,
-  "idSF": 47
+  "diagnosticId": 5,
+  "idSO": 101,
+  "idSF": 49,
+  "idPF": 26,
+  "idCA": 15
 }

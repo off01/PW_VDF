@@ -1,3 +1,5 @@
+// LocationFlatIds (L3)
+
 export function getLocationFlatIdsWithCondition(body: any): string[] {
     return body.parts.lineItem
         .filter((item: any) => {
@@ -11,6 +13,27 @@ export function getLocationFlatIdsWithCondition(body: any): string[] {
         })
         .filter(Boolean);
 }
+
+// WHS_WAS ids (L1)
+
+export function extractWHSWAS(response: any): string[] {
+    const WHSWASValues: string[] = [];
+
+    response.forEach((item: any) => {
+        item.id.forEach((idItem: any) => {
+            const value = idItem.value;
+            if(value.startsWith('WHS_WAS')) {
+                //console.log(value);  // Vypíše hodnotu na konzoli
+                if(!WHSWASValues.includes(value)) {
+                    WHSWASValues.push(value);  // Uloží hodnotu do pole, pokud již není uložena
+                }
+            }
+        });
+    });
+
+    return WHSWASValues;  // Vrátí pole s hodnotami WHS_WAS
+}
+
 
 export function getRandomElement(arr: any[]): any {
     let randomIndex = Math.floor(Math.random() * arr.length);

@@ -2,7 +2,7 @@ import { expect, request } from "@playwright/test";
 import { incrementCounterOrderId } from "../helper/counterHelper"
 import moment from "moment"
 
-export async function createActivationL3OrderBody () {
+export async function createActivationL3OrderBody (WHSDATA: string, WHSHW: string) {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
     const idSO = incrementCounterOrderId();
     let orderBody = {
@@ -118,7 +118,7 @@ export async function createActivationL3OrderBody () {
                         {
                             "id": [
                                 {
-                                    "value": "WHSDATA009",
+                                    "value": `${WHSDATA}`,
                                     "schemeAgencyName": "TMCZ"
                                 }
                             ]
@@ -148,7 +148,7 @@ export async function createActivationL3OrderBody () {
                         {
                             "id": [
                                 {
-                                    "value": "WHSHWONT",
+                                    "value": `${WHSHW}`,
                                     "schemeAgencyName": "TMCZ"
                                 }
                             ]
@@ -166,7 +166,7 @@ export async function createActivationL3OrderBody () {
     return orderBody;
 }
 
-export async function createActivationL1OrderBody (WHSDATA: string) {
+export async function createActivationL1OrderBody (WHSDATA: string, WHSHW: string) {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
     const idSO = incrementCounterOrderId();
     let orderBody = {
@@ -328,7 +328,7 @@ export async function createActivationL1OrderBody (WHSDATA: string) {
                         {
                             "id": [
                                 {
-                                    "value": "WHSHWCG31P",
+                                    "value": `${WHSHW}`,
                                     "schemeAgencyName": "TMCZ"
                                 }
                             ]
@@ -589,6 +589,64 @@ export async function createTerminationL3OrderBody (idASSET_sub: string) {
                             "id": [
                                 {
                                     "value": "WHSFTTHCONN",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ],
+                            "characteristicsValue": [
+                                {
+                                    "characteristicName": "whsAssetId",
+                                    "value": `${idASSET_sub}`
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "note": [
+                {
+                    "content": "Optional information"
+                }
+            ]
+        }
+    };
+    return orderBody;
+}
+
+export async function createTerminationL1OrderBody (idASSET_sub: string) {
+    const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+    const idSO = incrementCounterOrderId();
+    let orderBody = {
+        "id": [
+            {
+                "value": `PW_${idSO}`,
+                "schemeAgencyName": "TMCZ"
+            }
+        ],
+        "status": "New",
+        "type": "Termination",
+        "created": {
+            "value": `${timestamp}`
+        },
+        "createdBy": {
+            "value": "JASOBOUR",
+            "schemeAgencyName": "TMCZ"
+        },
+        "parts": {
+            "lineItem": [
+                {
+                    "id": [
+                        {
+                            "value": "1",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "Delete",
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": "WHSHFCCONN",
                                     "schemeAgencyName": "TMCZ"
                                 }
                             ],

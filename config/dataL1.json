@@ -1,0 +1,100 @@
+{
+    "testConfigs": [
+        {
+            "tariff": "WHSDATA001",
+            "hardwareType": "WHSHWCG31P"
+        },
+        {
+            "tariff": "WHSDATA001",
+            "hardwareType": "WHSHWCG31"
+        },
+        {
+            "tariff": "WHSDATA001",
+            "hardwareType": "WHSHWCBYOD"
+        },
+        {
+            "tariff": "WHSDATA002",
+            "hardwareType": "WHSHWCG31P"
+        },
+        {
+            "tariff": "WHSDATA002",
+            "hardwareType": "WHSHWCG31"
+        },
+        {
+            "tariff": "WHSDATA002",
+            "hardwareType": "WHSHWCBYOD"
+        },        
+        {
+            "tariff": "WHSDATA003",
+            "hardwareType": "WHSHWCG31P"
+        },
+        {
+            "tariff": "WHSDATA003",
+            "hardwareType": "WHSHWCG31"
+        },
+        {
+            "tariff": "WHSDATA003",
+            "hardwareType": "WHSHWCBYOD"
+        },
+        {
+            "tariff": "WHSDATA004",
+            "hardwareType": "WHSHWCG31P"
+        },
+        {
+            "tariff": "WHSDATA004",
+            "hardwareType": "WHSHWCG31"
+        },
+        {
+            "tariff": "WHSDATA004",
+            "hardwareType": "WHSHWCBYOD"
+        },
+        {
+            "tariff": "WHSDATA005",
+            "hardwareType": "WHSHWCG31P"
+        },
+        {
+            "tariff": "WHSDATA005",
+            "hardwareType": "WHSHWCG31"
+        },
+        {
+            "tariff": "WHSDATA005",
+            "hardwareType": "WHSHWCBYOD"
+        },
+        {
+            "tariff": "WHSDATA006",
+            "hardwareType": "WHSHWCG31P"
+        },
+        {
+            "tariff": "WHSDATA006",
+            "hardwareType": "WHSHWCG31"
+        },
+        {
+            "tariff": "WHSDATA006",
+            "hardwareType": "WHSHWCBYOD"
+        },
+        {
+            "tariff": "WHSDATA007",
+            "hardwareType": "WHSHWCG31P"
+        },
+        {
+            "tariff": "WHSDATA007",
+            "hardwareType": "WHSHWCG31"
+        },
+        {
+            "tariff": "WHSDATA007",
+            "hardwareType": "WHSHWCBYOD"
+        },
+        {
+            "tariff": "WHSDATA008",
+            "hardwareType": "WHSHWCG31P"
+        },
+        {
+            "tariff": "WHSDATA008",
+            "hardwareType": "WHSHWCG31"
+        },
+        {
+            "tariff": "WHSDATA008",
+            "hardwareType": "WHSHWCBYOD"
+        }
+    ]
+}

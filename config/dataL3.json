@@ -1,0 +1,12 @@
+{
+    "testConfigs": [
+        {
+            "tariff": "WHSDATA009",
+            "hardwareType": "WHSHWONT"
+        },
+        {
+            "tariff": "WHSDATA009",
+            "hardwareType": "WHSHWCBYOD"
+        }
+    ]
+}

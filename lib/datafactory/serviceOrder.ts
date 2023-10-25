@@ -175,6 +175,49 @@ export async function serviceOrderProvisioning () {
     return orderBody;
 }
 
+export async function serviceOrderL1Provisioning (macAddress: string) {
+    const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+    let orderBody = [
+        {
+            "op": "replace",
+            "path": "/status",
+            "value": "Provisioning"
+        },
+        {
+            "op": "replace",
+            "path": "/lastModified",
+            "value": {
+                "value": `${timestamp}`
+            }
+        },
+        {
+            "op": "replace",
+            "path": "/lastModifiedBy",
+            "value": {
+                "value": "API2VF",
+                "schemeAgencyName": "TMCZ"
+            }
+        },
+        {
+            "op": "add",
+            "path": "/parts.lineItem[3].serviceSpecification[0].characteristicsValue",
+            "value": {
+                "characteristicsValue": [
+                    {
+                        "characteristicName": "macAddress",
+                        "value": `${macAddress}`
+                    },
+                    {
+                        "characteristicName": "hwType",
+                        "value": "Compal CH7465"
+                    }
+                ]
+            }
+        }
+    ];
+    return orderBody;
+}
+
 export async function serviceOrderClosed () {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
     let orderBody = [

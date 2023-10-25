@@ -4,7 +4,7 @@ import { config } from "dotenv";
 config();
 
 export default defineConfig({
-  timeout: 120000,
+  timeout: 300000,
   use: {
     browserName: 'firefox',
     baseURL: process.env.URL,

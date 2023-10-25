@@ -669,3 +669,326 @@ export async function createTerminationL1OrderBody (idASSET_sub: string) {
     };
     return orderBody;
 }
+
+export async function createPortationL1OrderBody (mopid: string, WHSDATA: string, WHSHW: string) {
+    const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+    const idSO = incrementCounterOrderId();
+    let orderBody = {
+        "id": [
+            {
+                "value": `PW_${idSO}`,
+                "schemeAgencyName": "TMCZ"
+            }
+        ],
+        "status": "New",
+        "type": "Portation",
+        "created": {
+            "value": `${timestamp}`
+        },
+        "createdBy": {
+            "value": "JASOBOUR",
+            "schemeAgencyName": "TMCZ"
+        },
+        "parts": {
+            "lineItem": [
+                {
+                    "id": [
+                        {
+                            "value": "1",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "Portation",
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": "WHSHFCCONN",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSite": {
+                        "contactPeople": [
+                            {
+                                "contactPerson": {
+                                    "contactPoint": [
+                                        {
+                                            "postal": {
+                                                "characteristic": {
+                                                    "characteristicsValue": [
+                                                        {
+                                                            "characteristicName": "mopid",
+                                                            "value": `${mopid}`
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": [
+                        {
+                            "value": "2",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "Portation",
+                    "relatedLineItem": [
+                        {
+                            "id": [
+                                {
+                                    "value": "1",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": "WHSFBBSERVICE",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": [
+                        {
+                            "value": "3",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "Portation",
+                    "relatedLineItem": [
+                        {
+                            "id": [
+                                {
+                                    "value": "2",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": `${WHSDATA}`,
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": [
+                        {
+                            "value": "4",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "Portation",
+                    "relatedLineItem": [
+                        {
+                            "id": [
+                                {
+                                    "value": "2",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": `${WHSHW}`,
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    };
+    return orderBody;
+}
+
+export async function createPortationL3OrderBody (mopid: string, WHSDATA: string, WHSHW: string) {
+    const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+    const idSO = incrementCounterOrderId();
+    let orderBody = {
+        "id": [
+            {
+                "value": `PW_${idSO}`,
+                "schemeAgencyName": "TMCZ"
+            }
+        ],
+        "status": "New",
+        "type": "Portation",
+        "created": {
+            "value": `${timestamp}`
+        },
+        "createdBy": {
+            "value": "NEO",
+            "schemeAgencyName": "TMCZ"
+        },
+        "parts": {
+            "lineItem": [
+                {
+                    "id": [
+                        {
+                            "value": "1",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "Portation",
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": "WHSFTTHCONN",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSite": {
+                        "contactPeople": [
+                            {
+                                "contactPerson": {
+                                    "contactPoint": [
+                                        {
+                                            "postal": {
+                                                "characteristic": {
+                                                    "characteristicsValue": [
+                                                        {
+                                                            "characteristicName": "mopid",
+                                                            "value": `${mopid}`
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": [
+                        {
+                            "value": "2",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "Portation",
+                    "relatedLineItem": [
+                        {
+                            "id": [
+                                {
+                                    "value": "1",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": "WHSFBBSERVICE",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": [
+                        {
+                            "value": "3",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "Portation",
+                    "relatedLineItem": [
+                        {
+                            "id": [
+                                {
+                                    "value": "2",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": `${WHSDATA}`,
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": [
+                        {
+                            "value": "4",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "Portation",
+                    "relatedLineItem": [
+                        {
+                            "id": [
+                                {
+                                    "value": "2",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": `${WHSHW}`,
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "note": [
+                {
+                    "content": "Optional information"
+                }
+            ]
+        }
+    };
+    return orderBody;
+}

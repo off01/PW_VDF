@@ -5,8 +5,8 @@ import { waitForExpectedStatus } from "../../lib/helper/waitingStatus";
 import { fetchOrderIdTerminationL3, fetchOrderIdTerminationL1 } from "../../lib/helper/dbQuerries";
 
 
-test.describe("Aktivace test",async () => {
-    test('Terminační objenávka pro WHSDATA009 L3', async ({ request }) => {
+test.describe("Terminace L3",async () => {
+    test('Terminační objenávka pro L3', async ({ request }) => {
         const idASSET_sub = await fetchOrderIdTerminationL3();
         if (!idASSET_sub) {
             throw new Error("Failed to fetch idWHS_SO from the database.");

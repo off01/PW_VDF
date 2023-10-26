@@ -6,6 +6,7 @@ import { getRandomElement, extractWHSWAS } from "../../lib/helper/listofflats";
 import { waitForExpectedStatus } from "../../lib/helper/waitingStatus";
 import { getTomorrowDate } from "../../lib/helper/timeGenerator";
 import { recordResults } from "../../lib/helper/fileOperations";
+import { checkResponseStatus } from "../../lib/helper/expectsAsserts";
 import * as fs from 'fs';
 
 const L1config = JSON.parse(fs.readFileSync('config/dataL1.json', 'utf8'));
@@ -26,7 +27,7 @@ test.describe(`Aktivace test L1 spolu s HW`,async () => {
                     data: requestBody
                 });
                 
-                expect(response.status()).toBe(201);
+                await checkResponseStatus(response, 201);
                 
                 const body = await response.json();
                 idWHS_SO = body.id[1].value;
@@ -36,7 +37,7 @@ test.describe(`Aktivace test L1 spolu s HW`,async () => {
             await test.step("Ask for status QuestionsReady", async () => {
                 const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`);
 
-                expect(response.status()).toBe(200);
+                await checkResponseStatus(response, 200);
                 
                 const body = await waitForExpectedStatus(request, "QuestionsReady", idWHS_SO, 10, 5000);
                 //console.log(JSON.stringify(body, null, 2));
@@ -45,7 +46,7 @@ test.describe(`Aktivace test L1 spolu s HW`,async () => {
             await test.step("Details required for provisioning", async () => {
                 const response = await request.get(`/partyFeedbackSpecificationAPI/partyFeedbackSpecification?relatedObjectId=${idWHS_SO}`);
 
-                expect(response.status()).toBe(200);
+                await checkResponseStatus(response, 200);
                 
                 const body = await response.json();
                 idWHS_PFS = body[0].ids[0].value;
@@ -58,7 +59,7 @@ test.describe(`Aktivace test L1 spolu s HW`,async () => {
                     data: requestBody
                 });
 
-                expect(response.status()).toBe(201);
+                await checkResponseStatus(response, 201);
 
                 const body = await response.json();
                 idWHS_PF = body.id[1].value;
@@ -67,7 +68,7 @@ test.describe(`Aktivace test L1 spolu s HW`,async () => {
             await test.step("Ask for status QuestionsReady", async () => {
                 const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`);
 
-                expect(response.status()).toBe(200);
+                await checkResponseStatus(response, 200);
 
                 const body = await waitForExpectedStatus(request, "AppointmentRequired", idWHS_SO);
             })   
@@ -76,7 +77,7 @@ test.describe(`Aktivace test L1 spolu s HW`,async () => {
                 const tomorrowDate = await getTomorrowDate();
                 const response = await request.get(`/WorkforceAppointmentSlotAPI/workforceAppointmentSlot?fromDate=${tomorrowDate}T06:00:00.000%2B01:00&relatedObjectId=${idWHS_SO}&type=Installation`);
 
-                expect(response.status()).toBe(200);
+                await checkResponseStatus(response, 200);
 
                 const body = await response.json();
                 const whs_was_ids = extractWHSWAS(body);
@@ -90,7 +91,8 @@ test.describe(`Aktivace test L1 spolu s HW`,async () => {
                     data: requestBody
                 });
                 
-                expect(response.status()).toBe(201);
+                await checkResponseStatus(response, 201);
+                
                 const body = await response.json();
                 //console.log(JSON.stringify(body, null, 2));
                 console.log(idWHS_SO, idASSET_ser)

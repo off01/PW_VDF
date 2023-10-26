@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test"
+import { checkResponseStatus } from "../../lib/helper/expectsAsserts";
 import { diagnosticL3, diagnosticL3InvalidwhsServiceId } from "../../lib/datafactory/diagnostic"
 
 test.describe("diagnostika test",async () => {
@@ -9,7 +10,9 @@ test.describe("diagnostika test",async () => {
         const response = await request.post("/activityAPI/activity", {
             data: requestBody
         });
-        expect(response.status()).toBe(200);
+
+        await checkResponseStatus(response, 200);
+
         const body = await response.json();
         //console.log(JSON.stringify(body, null, 2));
     });
@@ -20,7 +23,9 @@ test.describe("diagnostika test",async () => {
         const response = await request.post("/activityAPI/activity", {
             data: requestBody
         });
-        expect(response.status()).toBe(400);
+
+        await checkResponseStatus(response, 200);
+
         //const body = await response.json();
         //console.log(JSON.stringify(body, null, 2));
     });

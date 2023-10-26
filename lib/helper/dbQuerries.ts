@@ -174,3 +174,70 @@ export async function fetchOrderIdPortationMopIdL3(): Promise<string | null> {
         }
     }
 }
+
+export async function fetchInactiveAssetId(): Promise<string | null> {
+    let connection;
+
+    try {
+        connection = await oracledb.getConnection(WHS_DB_CONFIG);
+        const query = `
+        SELECT si.WHS_ASSET_ID    
+        FROM "ORDER" o 
+        JOIN SUBSCRIPTION_ITEM si ON (o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID)
+        WHERE 1=1
+        AND si.PRODUCT_CODE in ('WHSHFCCONN','WHSFTTHCONN')
+        AND o.PARTNER_ORDER_ID LIKE 'PW%'
+        AND si.STATUS IN ('Suspend')
+        `;
+
+        const result = await connection.execute(query);
+
+        if (result.rows && result.rows.length > 0) {
+            return result.rows[0][0] as string;
+        }
+
+        throw new Error("No idASSET_sub found in the database.");
+
+    } catch (err) {
+        console.error(err);
+        throw err;
+    } finally {
+        if (connection) {
+            await connection.close();
+        }
+    }
+}
+
+export async function fetchActiveAssetId(): Promise<string | null> {
+    let connection;
+
+    try {
+        connection = await oracledb.getConnection(WHS_DB_CONFIG);
+        const query = `
+        SELECT si.WHS_ASSET_ID  
+        FROM "ORDER" o 
+        JOIN SUBSCRIPTION_ITEM si ON (o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID)
+        WHERE 1=1
+        AND si.PRODUCT_CODE in ('WHSHFCCONN')
+        AND o.PARTNER_ORDER_ID LIKE 'PW%'
+        AND o.STATUS IN ('Closed')
+        AND si.STATUS IN ('Active')
+        `;
+
+        const result = await connection.execute(query);
+
+        if (result.rows && result.rows.length > 0) {
+            return result.rows[0][0] as string;
+        }
+
+        throw new Error("No idASSET_sub found in the database.");
+
+    } catch (err) {
+        console.error(err);
+        throw err;
+    } finally {
+        if (connection) {
+            await connection.close();
+        }
+    }
+}

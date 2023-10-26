@@ -5,6 +5,7 @@ import { getLocationFlatIdsWithCondition, getRandomElement } from "../../lib/hel
 import { serviceOrderL3, serviceOrderL3Provisioning, } from "../../lib/datafactory/serviceOrder";
 import { waitForExpectedStatus } from "../../lib/helper/waitingStatus";
 import { findIndexOfWHSHWONT } from "../../lib/helper/findIndex";
+import { checkResponseStatus } from "../../lib/helper/expectsAsserts";
 //import { getTariffs } from "../../lib/helper/fileOperations";
 import * as fs from 'fs';
 
@@ -25,7 +26,9 @@ test.describe("Aktivace test L3 spolu s HW",async () => {
                 const response = await request.post(`/serviceOrderAPI/v2/serviceOrder`, {
                     data: requestBody
                 });
-                expect(response.status()).toBe(201);
+
+                await checkResponseStatus(response, 201);
+                
                 const body = await response.json();
                 //console.log(JSON.stringify(body, null, 2));
                 idbuildingId = body.parts.lineItem[0].serviceSite.contactPeople[0].contactPerson.contactPoint[0].postal.characteristic.characteristicsValue[1].value;
@@ -40,7 +43,9 @@ test.describe("Aktivace test L3 spolu s HW",async () => {
                 const response = await request.post(`/serviceFeasibilityAPI/v2/serviceFeasibility/check`, {
                     data: requestBody
                 });
-                expect(response.status()).toBe(200);
+
+                await checkResponseStatus(response, 200);
+                
                 const body = await response.json();
                 //console.log(JSON.stringify(body, null, 2));
                 let availableFlatIds = getLocationFlatIdsWithCondition(body);
@@ -52,7 +57,8 @@ test.describe("Aktivace test L3 spolu s HW",async () => {
             await test.step("Info about selected locationFlatid", async () => {
                 const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`);
 
-                expect(response.status()).toBe(200);
+                await checkResponseStatus(response, 200);
+
                 const body = await waitForExpectedStatus(request, "WaitForRealization", idWHS_SO);
                 //console.log(JSON.stringify(body, null, 2));
             })   
@@ -63,7 +69,9 @@ test.describe("Aktivace test L3 spolu s HW",async () => {
                 const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
                     data: requestBody
                 });
-                expect(response.status()).toBe(200);
+
+                await checkResponseStatus(response, 200);
+
                 const body = await response.json();
                 console.log(JSON.stringify(body, null, 2));
             })
@@ -71,7 +79,8 @@ test.describe("Aktivace test L3 spolu s HW",async () => {
             await test.step("Details required for provisioning", async () => {
                 const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`);
 
-                expect(response.status()).toBe(200);
+                await checkResponseStatus(response, 200);
+
                 const body = await response.json();
                 IndexOfWHSHWONT = findIndexOfWHSHWONT(body);
                 //console.log(JSON.stringify(body, null, 2));
@@ -84,7 +93,8 @@ test.describe("Aktivace test L3 spolu s HW",async () => {
                     data: requestBody
                 });
 
-                expect(response.status()).toBe(200);
+                await checkResponseStatus(response, 200);
+                
                 const body = await response.json();
                 console.log(JSON.stringify(body, null, 2));
                 //console.log();

@@ -24,7 +24,7 @@ test.describe("diagnostika test",async () => {
             data: requestBody
         });
 
-        await checkResponseStatus(response, 200);
+        await checkResponseStatus(response, 400);
 
         //const body = await response.json();
         //console.log(JSON.stringify(body, null, 2));

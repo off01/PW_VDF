@@ -44,8 +44,8 @@ export async function serviceOrderL3 (idlocationFlatId: string) {
 
 export async function serviceOrderL3Provisioning (IndexOfWHSHWONT: number) {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
-    const randomrsnNumber = generateKey();
-    const randomrid = generateRandomHex();
+    const randomrid = generateKey();
+    const randomrsnNumber = generateRandomHex();
     let orderBody = [
         {
             "op": "replace",
@@ -65,20 +65,8 @@ export async function serviceOrderL3Provisioning (IndexOfWHSHWONT: number) {
             "op": "replace",
             "path": "/lastModifiedBy",
             "value": {
-                "value": "API2VF",
+                "value": "SMITH",
                 "schemeAgencyName": "TMCZ"
-            }
-        },
-        {
-            "op": "add",
-            "path": "/parts.lineItem[0].serviceSite.contactPeople[0].contactPoint[0].postal.characteristics.characteristicsValue",
-            "value": {
-                "characteristicsValue": [
-                    {
-                        "characteristicName": "visitClassification",
-                        "value": "SDU_COMPLEX"
-                    }
-                ]
             }
         },
         {

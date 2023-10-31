@@ -3,5 +3,5 @@ node_modules/
 /playwright-report/
 /playwright/.cache/
 .env
-config/db.config.ts
-/results
+/config/db.config.ts
+/results/

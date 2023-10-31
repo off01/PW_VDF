@@ -8,5 +8,13 @@
             "tariff": "WHSDATA009",
             "hardwareType": "WHSHWCBYOD"
         }
+    ],
+    "hardwares": [
+        {
+            "hardwareType": "WHSHWONT"
+        },
+        {
+            "hardwareType": "WHSHWCBYOD"
+        }
     ]
 }

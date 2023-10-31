@@ -346,7 +346,7 @@ export async function createActivationL1OrderBody (WHSDATA: string, WHSHW: strin
     return orderBody;
 }
 
-export async function createModificationL3OrderBody () {
+export async function createModificationL3OrderBody (idASSET_sub: string, idASSET_ser: string, WHSDATA: string, idASSET_ass1: string, WHSHW_OG: string, idASSET_ass2: string, randomrsnNumber_OG: string, randomrid_OG: string, WHSHW: string) {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
     const idSO = incrementCounterOrderId();
     let orderBody = {
@@ -387,7 +387,7 @@ export async function createModificationL3OrderBody () {
                             "characteristicsValue": [
                                 {
                                     "characteristicName": "whsAssetId",
-                                    "value": "{{idASSET_sub}}"
+                                    "value": `${idASSET_sub}`
                                 }
                             ]
                         }
@@ -423,7 +423,7 @@ export async function createModificationL3OrderBody () {
                             "characteristicsValue": [
                                 {
                                     "characteristicName": "whsAssetId",
-                                    "value": "{{idASSET_ser}}"
+                                    "value": `${idASSET_ser}`
                                 }
                             ]
                         }
@@ -452,14 +452,14 @@ export async function createModificationL3OrderBody () {
                         {
                             "id": [
                                 {
-                                    "value": "WHSDATA009",
+                                    "value": `${WHSDATA}`,
                                     "schemeAgencyName": "TMCZ"
                                 }
                             ],
                             "characteristicsValue": [
                                 {
                                     "characteristicName": "whsAssetId",
-                                    "value": "{{idASSET_ass1}}"
+                                    "value": `${idASSET_ass1}`
                                 }
                             ]
                         }
@@ -488,18 +488,18 @@ export async function createModificationL3OrderBody () {
                         {
                             "id": [
                                 {
-                                    "value": "WHSHWONT",
+                                    "value": `${WHSHW_OG}`,
                                     "schemeAgencyName": "TMCZ"
                                 }
                             ],
                             "characteristicsValue": [
                                 {
                                     "characteristicName": "whsAssetId",
-                                    "value": "{{idASSET_ass2}}"
+                                    "value": `${idASSET_ass2}`
                                 },
                                 {
                                     "characteristicName": "snNumber",
-                                    "value": "{{randomrsnNumber}}"
+                                    "value": `${randomrsnNumber_OG}`
                                 },
                                 {
                                     "characteristicName": "hwType",
@@ -507,7 +507,7 @@ export async function createModificationL3OrderBody () {
                                 },
                                 {
                                     "characteristicName": "rid",
-                                    "value": "{{randomrid}}"
+                                    "value": `${randomrid_OG}`
                                 }
                             ]
                         }
@@ -536,7 +536,7 @@ export async function createModificationL3OrderBody () {
                         {
                             "id": [
                                 {
-                                    "value": "WHSHWONT",
+                                    "value": `${WHSHW}`,
                                     "schemeAgencyName": "TMCZ"
                                 }
                             ]

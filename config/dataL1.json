@@ -96,5 +96,16 @@
             "tariff": "WHSDATA008",
             "hardwareType": "WHSHWCBYOD"
         }
+    ],
+    "hardwares": [
+        {
+            "hardwareType": "WHSHWCG31P"
+        },
+        {
+            "hardwareType": "WHSHWCG31"
+        },
+        {
+            "hardwareType": "WHSHWCBYOD"
+        }
     ]
 }

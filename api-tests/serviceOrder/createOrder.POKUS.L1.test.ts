@@ -1,40 +1,31 @@
 import { test, expect } from "@playwright/test"
-import { createActivationL1OrderBody } from "../../lib/datafactory/createOrder"
-import { serviceOrderL1Provisioning } from "../../lib/datafactory/serviceOrder"
-import { questionaryL1 } from "../../lib/datafactory/partyFeedback"
-import { customerAppointmentL1 } from "../../lib/datafactory/customerAppointment"
-import { getRandomElement, extractWHSWAS } from "../../lib/helper/listofflats";
-import { waitForExpectedStatus } from "../../lib/helper/waitingStatus";
-import { getTomorrowDate } from "../../lib/helper/timeGenerator";
-import { recordResults, getTestCases } from "../../lib/helper/fileOperations";
-import { generateMacAddress } from "../../lib/helper/randomGenerator";
-import * as fs from 'fs';
+import { fetchDataModificationL3 } from "../../lib/helper/dbQuerries";
 
-const testCases = JSON.parse(fs.readFileSync('results/results.json', 'utf8'));
 
-test.describe("Provisioning",async () => {
-    testCases.forEach(testCase => {
-        const idWHS_SO = testCase.idWHS_SO;
-        test(`Nahození HW pro ${testCases.idWHS_SO}`, async ({ request }) => {
-            await test.step("Ask for status", async () => {
-                const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`);
 
-                expect(response.status()).toBe(200);
-                const body = await waitForExpectedStatus(request, "Realized", idWHS_SO);
-                console.log(JSON.stringify(body, null, 2));
-            })
-            
-            await test.step("WHS Partner requests provisioning start", async () => {
-                const macAddress = generateMacAddress()
-                let requestBody = await serviceOrderL1Provisioning(macAddress);
+test.describe("Resume L1",async () => {
+    test('Obnovení suspendovaného assetu', async ({ request }) => {
+        const data  = await fetchDataModificationL3();
+        if (!data) {
+            throw new Error("Failed to fetch idWHS_SO from the database.");
+        }
+        
+        const idASSET_sub = data.WHS_ASSET_ID1;
+        const idASSET_ser = data.WHS_ASSET_ID2;
+        const idASSET_ass1 = data.WHS_ASSET_ID3;
+        const idASSET_ass2 = data.WHS_ASSET_ID4;
+        const randomrsnNumber_OG = data.snNumber;
+        const randomrid_OG = data.rid;
+        const WHSHW_OG = data.HW;
+        const macAddress = data.macAddress;
 
-                const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
-                    data: requestBody
-                });
-                expect(response.status()).toBe(200);
-                const body = await response.json();
-                console.log(JSON.stringify(body, null, 2));
-            })
-        });
+        console.log(idASSET_sub)
+        console.log(idASSET_ser)
+        console.log(idASSET_ass1)
+        console.log(idASSET_ass2)
+        console.log(randomrsnNumber_OG)
+        console.log(randomrid_OG)
+        console.log(WHSHW_OG)
+        console.log(macAddress)
     });
 });

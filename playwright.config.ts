@@ -1,5 +1,7 @@
 import { defineConfig, devices, firefox } from '@playwright/test';
 import { config } from "dotenv";
+import { testPlanFilter } from "allure-playwright/dist/testplan";
+
 
 config();
 
@@ -16,7 +18,8 @@ export default defineConfig({
     },
   },
   retries: 0,
-  reporter: [["list"], ["html"]],
+  grep: testPlanFilter(),
+  reporter: [["list"], ["html"], ["allure-playwright"]],
   /* projects: [
     {
       name: 'Firefox',

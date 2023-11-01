@@ -554,6 +554,418 @@ export async function createModificationL3OrderBody (idASSET_sub: string, idASSE
     return orderBody;
 }
 
+export async function createModificationSwapHWL1OrderBody (idASSET_sub: string, idASSET_ser: string, WHSDATA: string, idASSET_ass1: string, WHSHW_OG: string, idASSET_ass2: string, macAddress: string, WHSHW: string) {
+    const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+    const idSO = incrementCounterOrderId();
+    let orderBody = {
+        "id": [
+            {
+                "value": `PW_${idSO}`,
+                "schemeAgencyName": "TMCZ"
+            }
+        ],
+        "status": "New",
+        "type": "Modification",
+        "created": {
+            "value": `${timestamp}`
+        },
+        "createdBy": {
+            "value": "JASOBOUR",
+            "schemeAgencyName": "TMCZ"
+        },
+        "parts": {
+            "lineItem": [
+                {
+                    "id": [
+                        {
+                            "value": "1",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "NoChange",
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": "WHSHFCCONN",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ],
+                            "characteristicsValue": [
+                                {
+                                    "characteristicName": "whsAassetId",
+                                    "value": `${idASSET_sub}`
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": [
+                        {
+                            "value": "2",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "NoChange",
+                    "relatedLineItem": [
+                        {
+                            "id": [
+                                {
+                                    "value": "1",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": "WHSFBBSERVICE",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ],
+                            "characteristicsValue": [
+                                {
+                                    "characteristicName": "whsAassetId",
+                                    "value": `${idASSET_ser}`
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": [
+                        {
+                            "value": "3",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "NoChange",
+                    "relatedLineItem": [
+                        {
+                            "id": [
+                                {
+                                    "value": "2",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": `${WHSDATA}`,
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ],
+                            "characteristicsValue": [
+                                {
+                                    "characteristicName": "whsAassetId",
+                                    "value": `${idASSET_ass1}`
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": [
+                        {
+                            "value": "4",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "Delete",
+                    "relatedLineItem": [
+                        {
+                            "id": [
+                                {
+                                    "value": "2",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": `${WHSHW_OG}`,
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ],
+                            "characteristicsValue": [
+                                {
+                                    "characteristicName": "whsAassetId",
+                                    "value": `${idASSET_ass2}`
+                                },
+                                {
+                                    "characteristicName": "macAddress",
+                                    "value": `${macAddress}`
+                                },
+                                {
+                                    "characteristicName": "hwType",
+                                    "value": "Compal CH7465"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": [
+                        {
+                            "value": "5",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "Create",
+                    "relatedLineItem": [
+                        {
+                            "id": [
+                                {
+                                    "value": "2",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": `${WHSHW}`,
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "note": [
+                {
+                    "content": "Optional information"
+                }
+            ]
+        }
+    };
+    return orderBody;
+}
+
+export async function createModificationSwapHWL3OrderBody (idASSET_sub: string, idASSET_ser: string, WHSDATA: string, idASSET_ass1: string, WHSHW_OG: string, idASSET_ass2: string, randomrsnNumber_OG: string, randomrid_OG: string, WHSHW: string) {
+    const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+    const idSO = incrementCounterOrderId();
+    let orderBody = {
+        "id": [
+            {
+                "value": `PW_${idSO}`,
+                "schemeAgencyName": "TMCZ"
+            }
+        ],
+        "status": "New",
+        "type": "Modification",
+        "created": {
+            "value": `${timestamp}`
+        },
+        "createdBy": {
+            "value": "SMITH",
+            "schemeAgencyName": "TMCZ"
+        },
+        "parts": {
+            "lineItem": [
+                {
+                    "id": [
+                        {
+                            "value": "1",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "NoChange",
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": "WHSFTTHCONN",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ],
+                            "characteristicsValue": [
+                                {
+                                    "characteristicName": "whsAssetId",
+                                    "value": `${idASSET_sub}`
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": [
+                        {
+                            "value": "2",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "NoChange",
+                    "relatedLineItem": [
+                        {
+                            "id": [
+                                {
+                                    "value": "1",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": "WHSFBBSERVICE",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ],
+                            "characteristicsValue": [
+                                {
+                                    "characteristicName": "whsAssetId",
+                                    "value": `${idASSET_ser}`
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": [
+                        {
+                            "value": "3",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "NoChange",
+                    "relatedLineItem": [
+                        {
+                            "id": [
+                                {
+                                    "value": "2",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": `${WHSDATA}`,
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ],
+                            "characteristicsValue": [
+                                {
+                                    "characteristicName": "whsAssetId",
+                                    "value": `${idASSET_ass1}`
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": [
+                        {
+                            "value": "4",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "Delete",
+                    "relatedLineItem": [
+                        {
+                            "id": [
+                                {
+                                    "value": "2",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": `${WHSHW_OG}`,
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ],
+                            "characteristicsValue": [
+                                {
+                                    "characteristicName": "whsAssetId",
+                                    "value": `${idASSET_ass2}`
+                                },
+                                {
+                                    "characteristicName": "snNumber",
+                                    "value": `${randomrsnNumber_OG}`
+                                },
+                                {
+                                    "characteristicName": "hwType",
+                                    "value": "Raisecom ISCOM HT803G-07"
+                                },
+                                {
+                                    "characteristicName": "rid",
+                                    "value": `${randomrid_OG}`
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": [
+                        {
+                            "value": "5",
+                            "schemeAgencyName": "TMCZ"
+                        }
+                    ],
+                    "status": "New",
+                    "action": "Create",
+                    "relatedLineItem": [
+                        {
+                            "id": [
+                                {
+                                    "value": "2",
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ],
+                    "serviceSpecification": [
+                        {
+                            "id": [
+                                {
+                                    "value": `${WHSHW}`,
+                                    "schemeAgencyName": "TMCZ"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "note": [
+                {
+                    "content": "Optional information"
+                }
+            ]
+        }
+    };
+    return orderBody;
+}
+
 export async function createTerminationL3OrderBody (idASSET_sub: string) {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
     const idSO = incrementCounterOrderId();

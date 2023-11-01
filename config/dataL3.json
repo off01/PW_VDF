@@ -9,12 +9,22 @@
             "hardwareType": "WHSHWCBYOD"
         }
     ],
-    "hardwares": [
-        {
-            "hardwareType": "WHSHWONT"
+    "hardwarePairs": [
+        { 
+            "original": "WHSHWONT", 
+            "new": "WHSHWONT" 
+        },
+        { 
+            "original": "WHSHWONT",
+            "new": "WHSHWCBYOD"
         },
         {
-            "hardwareType": "WHSHWCBYOD"
+            "original": "WHSHWCBYOD",
+            "new": "WHSHWCBYOD"
+        },
+        { 
+            "original": "WHSHWCBYOD", 
+            "new": "WHSHWONT" 
         }
     ]
 }

@@ -97,15 +97,42 @@
             "hardwareType": "WHSHWCBYOD"
         }
     ],
-    "hardwares": [
-        {
-            "hardwareType": "WHSHWCG31P"
+    "hardwarePairs": [
+        { 
+            "original": "WHSHWCG31P", 
+            "new": "WHSHWCG31P" 
+        },
+        { 
+            "original": "WHSHWCG31P",
+            "new": "WHSHWCG31"
         },
         {
-            "hardwareType": "WHSHWCG31"
+            "original": "WHSHWCG31P",
+            "new": "WHSHWCBYOD"
+        },
+        { 
+            "original": "WHSHWCG31", 
+            "new": "WHSHWCG31P" 
+        },
+        { 
+            "original": "WHSHWCG31",
+            "new": "WHSHWCG31"
         },
         {
-            "hardwareType": "WHSHWCBYOD"
+            "original": "WHSHWCG31",
+            "new": "WHSHWCBYOD"
+        },
+        { 
+            "original": "WHSHWCBYOD", 
+            "new": "WHSHWCG31P" 
+        },
+        { 
+            "original": "WHSHWCBYOD",
+            "new": "WHSHWCG31"
+        },
+        {
+            "original": "WHSHWCBYOD",
+            "new": "WHSHWCBYOD"
         }
     ]
 }

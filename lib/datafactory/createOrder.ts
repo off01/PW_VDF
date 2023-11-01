@@ -346,7 +346,7 @@ export async function createActivationL1OrderBody (WHSDATA: string, WHSHW: strin
     return orderBody;
 }
 
-export async function createModificationL3OrderBody (idASSET_sub: string, idASSET_ser: string, WHSDATA: string, idASSET_ass1: string, WHSHW_OG: string, idASSET_ass2: string, randomrsnNumber_OG: string, randomrid_OG: string, WHSHW: string) {
+export async function createModificationChangeTariffL1OrderBody (idASSET_sub: string, idASSET_ser: string, WHSDATA: string, idASSET_ass1: string, WHSHW_OG: string, idASSET_ass2: string, macAddress: string, WHSHW: string) {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
     const idSO = incrementCounterOrderId();
     let orderBody = {
@@ -362,7 +362,7 @@ export async function createModificationL3OrderBody (idASSET_sub: string, idASSE
             "value": `${timestamp}`
         },
         "createdBy": {
-            "value": "SMITH",
+            "value": "JASOBOUR",
             "schemeAgencyName": "TMCZ"
         },
         "parts": {
@@ -380,13 +380,13 @@ export async function createModificationL3OrderBody (idASSET_sub: string, idASSE
                         {
                             "id": [
                                 {
-                                    "value": "WHSFTTHCONN",
+                                    "value": "WHSHFCCONN",
                                     "schemeAgencyName": "TMCZ"
                                 }
                             ],
                             "characteristicsValue": [
                                 {
-                                    "characteristicName": "whsAssetId",
+                                    "characteristicName": "whsAassetId",
                                     "value": `${idASSET_sub}`
                                 }
                             ]
@@ -422,7 +422,7 @@ export async function createModificationL3OrderBody (idASSET_sub: string, idASSE
                             ],
                             "characteristicsValue": [
                                 {
-                                    "characteristicName": "whsAssetId",
+                                    "characteristicName": "whsAassetId",
                                     "value": `${idASSET_ser}`
                                 }
                             ]
@@ -437,7 +437,7 @@ export async function createModificationL3OrderBody (idASSET_sub: string, idASSE
                         }
                     ],
                     "status": "New",
-                    "action": "NoChange",
+                    "action": "Delete",
                     "relatedLineItem": [
                         {
                             "id": [
@@ -458,7 +458,7 @@ export async function createModificationL3OrderBody (idASSET_sub: string, idASSE
                             ],
                             "characteristicsValue": [
                                 {
-                                    "characteristicName": "whsAssetId",
+                                    "characteristicName": "whsAassetId",
                                     "value": `${idASSET_ass1}`
                                 }
                             ]
@@ -473,7 +473,7 @@ export async function createModificationL3OrderBody (idASSET_sub: string, idASSE
                         }
                     ],
                     "status": "New",
-                    "action": "Delete",
+                    "action": "NoChange",
                     "relatedLineItem": [
                         {
                             "id": [
@@ -494,20 +494,16 @@ export async function createModificationL3OrderBody (idASSET_sub: string, idASSE
                             ],
                             "characteristicsValue": [
                                 {
-                                    "characteristicName": "whsAssetId",
+                                    "characteristicName": "whsAassetId",
                                     "value": `${idASSET_ass2}`
                                 },
                                 {
-                                    "characteristicName": "snNumber",
-                                    "value": `${randomrsnNumber_OG}`
+                                    "characteristicName": "macAddress",
+                                    "value": `${macAddress}`
                                 },
                                 {
                                     "characteristicName": "hwType",
-                                    "value": "Raisecom ISCOM HT803G-07"
-                                },
-                                {
-                                    "characteristicName": "rid",
-                                    "value": `${randomrid_OG}`
+                                    "value": "Compal CH7465"
                                 }
                             ]
                         }
@@ -547,6 +543,7 @@ export async function createModificationL3OrderBody (idASSET_sub: string, idASSE
             "note": [
                 {
                     "content": "Optional information"
+                    
                 }
             ]
         }

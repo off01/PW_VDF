@@ -134,5 +134,789 @@
             "original": "WHSHWCBYOD",
             "new": "WHSHWCBYOD"
         }
+    ],
+    "allowedCombinationForChange": [
+        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA001",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA001", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA001", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA001", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA002",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA001", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA001", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA001", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA003",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA001", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA001", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA004",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA001", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA001", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA005",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA001", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA001", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA006",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA001", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA001", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA007",
+            "newTariff": "WHSDATA008", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA001", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA001", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA002", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA003", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA004", 
+            "originalHW": "WHSHWCBYOD" 
+        },
+        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA005", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA006", 
+            "originalHW": "WHSHWCBYOD" 
+        },        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCG31P" 
+        },
+        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCG31" 
+        },
+        { 
+            "originalTariff": "WHSDATA008",
+            "newTariff": "WHSDATA007", 
+            "originalHW": "WHSHWCBYOD" 
+        }
     ]
 }

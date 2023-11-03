@@ -1,7 +1,8 @@
 import fs from "fs";
 import path from "path";
+import config from '../../config/config';
 
-const counterFilePath = path.join(__dirname, 'counter.json');
+const counterFilePath = path.join(__dirname, `../../config/${config.currentEnv}/counter.json`);
 
 export function incrementCounterDiagnosticId(): number {
     const data = JSON.parse(fs.readFileSync(counterFilePath, 'utf-8'));

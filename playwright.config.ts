@@ -1,15 +1,12 @@
 import { defineConfig, devices, firefox } from '@playwright/test';
-import { config } from "dotenv";
+import config from "./config/config";
 import { testPlanFilter } from "allure-playwright/dist/testplan";
-
-
-config();
 
 export default defineConfig({
   timeout: 300000,
   use: {
     browserName: 'firefox',
-    baseURL: process.env.URL,
+    baseURL: config.baseURL,
     ignoreHTTPSErrors: true,
     trace: "retain-on-failure",
     extraHTTPHeaders: {
@@ -28,3 +25,4 @@ export default defineConfig({
     // Pokud chcete přidat Webkit, doplňte další projektovou konfiguraci zde
   ], */
 });
+

@@ -1,5 +1,7 @@
 import oracledb from 'oracledb';
-import { WHS_DB_CONFIG, FBB_DB_CONFIG } from '../../config/db.config';
+import config from '../../config/config';
+
+const { WHS_DB_CONFIG, FBB_DB_CONFIG } = config.dbConfig;
 
 export async function fetchOrderId(): Promise<string | null> {
     let connection;

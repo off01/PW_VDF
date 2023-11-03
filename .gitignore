@@ -2,7 +2,8 @@ node_modules/
 /test-results/
 /playwright-report/
 /playwright/.cache/
-.env
-/config/db.config.ts
 /results/
 /allure-results/
+/config/INT
+/config/PRE
+/config/SYS2

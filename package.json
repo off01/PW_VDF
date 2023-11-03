@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "set-env:sys2": "powershell -Command \"Set-Content config/currentEnv.json '{\\\"NODE_ENV\\\": \\\"SYS2\\\"}'\"",
+    "set-env:int": "powershell -Command \"Set-Content config/currentEnv.json '{\\\"NODE_ENV\\\": \\\"INT\\\"}'\"",
+    "set-env:pre": "powershell -Command \"Set-Content config/currentEnv.json '{\\\"NODE_ENV\\\": \\\"PRE\\\"}'\""
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -11,7 +15,9 @@
     "@playwright/test": "^1.39.0",
     "@types/node": "^20.8.6",
     "allure-commandline": "^2.24.1",
-    "allure-playwright": "^2.9.2"
+    "allure-playwright": "^2.9.2",
+    "cross-env": "^7.0.3",
+    "jest": "^29.7.0"
   },
   "dependencies": {
     "dotenv": "^16.3.1",

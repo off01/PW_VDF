@@ -1,4 +1,3 @@
-import { expect, request } from "@playwright/test";
 import { incrementCounterDiagnosticId } from "../helper/counterHelper"
 
 

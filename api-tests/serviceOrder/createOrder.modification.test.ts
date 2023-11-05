@@ -4,7 +4,7 @@ import { serviceOrderL3Provisioning, serviceOrderClosed, TEMPserviceOrderL1Provi
 import { waitForExpectedStatus } from "../../lib/helper/waitingStatus";
 import { generateMacAddress } from "../../lib/helper/randomGenerator";
 import { findIndexOfWHSHWONT } from "../../lib/helper/findIndex";
-import { checkResponseStatus } from "../../lib/helper/expectsAsserts";
+import { checkResponseStatus, checkForNullValues } from "../../lib/helper/expectsAsserts";
 import { fetchDataModificationL1_tariff, fetchDataModificationL1_L3_WH } from "../../lib/helper/dbQuerries";
 import * as fs from 'fs';
 
@@ -122,6 +122,7 @@ test.describe("Modifikace L1 - SWAP HW",async () => {
                 await checkResponseStatus(response, 201);
                 
                 const body = await response.json();
+                expect(checkForNullValues(body)).toBe(false)
                 //console.log(JSON.stringify(body, null, 2));
                 idWHS_SO = body.id[1].value;
                 console.log(idWHS_SO)
@@ -133,6 +134,7 @@ test.describe("Modifikace L1 - SWAP HW",async () => {
                 await checkResponseStatus(response, 200);
                 
                 const body = await waitForExpectedStatus(request, "NoAppointment", idWHS_SO, 10, 5000);
+                expect(checkForNullValues(body)).toBe(false)
                 //console.log(JSON.stringify(body, null, 2));
             })
             
@@ -147,6 +149,7 @@ test.describe("Modifikace L1 - SWAP HW",async () => {
                 await checkResponseStatus(response, 200);
 
                 const body = await response.json();
+                expect(checkForNullValues(body)).toBe(false)
                 //console.log(JSON.stringify(body, null, 2));
             })
 
@@ -156,6 +159,7 @@ test.describe("Modifikace L1 - SWAP HW",async () => {
                 await checkResponseStatus(response, 200);
                 
                 const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO, 10, 5000);
+                expect(checkForNullValues(body)).toBe(false)
                 //console.log(JSON.stringify(body, null, 2));
             })
 
@@ -169,6 +173,7 @@ test.describe("Modifikace L1 - SWAP HW",async () => {
                 await checkResponseStatus(response, 200);
 
                 const body = await response.json();
+                expect(checkForNullValues(body)).toBe(false)
                 //console.log(JSON.stringify(body, null, 2));
             })
         });
@@ -202,6 +207,7 @@ test.describe("Modifikace L1 - Změna tarifu",async () => {
                 await checkResponseStatus(response, 201);
                 
                 const body = await response.json();
+                expect(checkForNullValues(body)).toBe(false)
                 //console.log(JSON.stringify(body, null, 2));
                 idWHS_SO = body.id[1].value;
                 console.log(idWHS_SO)
@@ -213,6 +219,7 @@ test.describe("Modifikace L1 - Změna tarifu",async () => {
                 await checkResponseStatus(response, 200);
 
                 const body = await waitForExpectedStatus(request, "NoAppointment", idWHS_SO, 60, 5000);
+                expect(checkForNullValues(body)).toBe(false)
                 //console.log(JSON.stringify(body, null, 2));
             })
 
@@ -226,6 +233,7 @@ test.describe("Modifikace L1 - Změna tarifu",async () => {
                 await checkResponseStatus(response, 200);
 
                 const body = await response.json();
+                expect(checkForNullValues(body)).toBe(false)
                 //console.log(JSON.stringify(body, null, 2));
             })
 
@@ -235,6 +243,7 @@ test.describe("Modifikace L1 - Změna tarifu",async () => {
                 await checkResponseStatus(response, 200);
 
                 const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO, 60, 5000);
+                expect(checkForNullValues(body)).toBe(false)
                 //console.log(JSON.stringify(body, null, 2));
             })
 
@@ -248,6 +257,7 @@ test.describe("Modifikace L1 - Změna tarifu",async () => {
                 await checkResponseStatus(response, 200);
 
                 const body = await response.json();
+                expect(checkForNullValues(body)).toBe(false)
                 //console.log(JSON.stringify(body, null, 2));
             })
         });

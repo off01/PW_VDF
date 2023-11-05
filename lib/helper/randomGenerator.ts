@@ -48,3 +48,28 @@ export function generateMacAddress(): string {
     return macAddress;
 }
 
+
+/**
+ * Generates a random number of specified length.
+ *
+ * @param {number} length - The length of the random number.
+ * @returns {string} - A random number as a string.
+ */
+
+export function randomTextGenerator(length: number): string {
+    let words = ["Lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore", "magna", "aliqua"];
+    let text = '';
+    let currentLength = 0;
+    while (currentLength < length) {
+        var wordIndex = Math.floor(Math.random() * words.length);
+        var word = words[wordIndex];
+        if (currentLength + word.length <= length) {
+            text += word + " ";
+            currentLength += word.length + 1;
+        } else {
+            break;
+        }
+    }
+    return text.trim();
+}
+

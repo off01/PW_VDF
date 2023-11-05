@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test"
 import { serviceResume } from "../../lib/datafactory/customerServiceInventoryItem"
-import { checkResponseStatus } from "../../lib/helper/expectsAsserts";
+import { checkResponseStatus, checkForNullValues } from "../../lib/helper/expectsAsserts";
 import { fetchInactiveAssetId } from "../../lib/helper/dbQuerries";
 
 
@@ -22,6 +22,7 @@ test.describe("Resume L1",async () => {
             await checkResponseStatus(response, 200);
 
             const body = await response.json();
+            expect(checkForNullValues(body)).toBe(false)
             console.log(JSON.stringify(body, null, 2));
         })
     });

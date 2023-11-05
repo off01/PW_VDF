@@ -1,10 +1,10 @@
 import { test, expect } from "@playwright/test"
 import { checkResponseStatus } from "../../lib/helper/expectsAsserts";
-import { fetchOrderId } from "../../lib/helper/dbQuerries";
+import { fetchOrderIdCancelL3 } from "../../lib/helper/dbQuerries";
 
-test.describe("Cancel test", async () => {
-    test('Zrušení rozpracované objenávky', async ({ request }) => {
-        const idWHS_SO = await fetchOrderId();
+test.describe("Ověření funkčnosti GET", async () => {
+    test('Návrat rozpracované objednávky', async ({ request }) => {
+        const idWHS_SO = await fetchOrderIdCancelL3();
         if (!idWHS_SO) {
             throw new Error("Failed to fetch idWHS_SO from the database.");
         }

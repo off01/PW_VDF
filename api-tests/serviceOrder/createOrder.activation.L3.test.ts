@@ -5,7 +5,7 @@ import { getLocationFlatIdsWithCondition, getRandomElement } from "../../lib/hel
 import { serviceOrderL3, serviceOrderL3Provisioning, } from "../../lib/datafactory/serviceOrder";
 import { waitForExpectedStatus } from "../../lib/helper/waitingStatus";
 import { findIndexOfWHSHWONT } from "../../lib/helper/findIndex";
-import { checkResponseStatus } from "../../lib/helper/expectsAsserts";
+import { checkResponseStatus, checkForNullValues } from "../../lib/helper/expectsAsserts";
 //import { getTariffs } from "../../lib/helper/fileOperations";
 import * as fs from 'fs';
 
@@ -30,6 +30,7 @@ test.describe("Aktivace test L3 spolu s HW",async () => {
                 await checkResponseStatus(response, 201);
                 
                 const body = await response.json();
+                expect(checkForNullValues(body)).toBe(false)
                 //console.log(JSON.stringify(body, null, 2));
                 idbuildingId = body.parts.lineItem[0].serviceSite.contactPeople[0].contactPerson.contactPoint[0].postal.characteristic.characteristicsValue[1].value;
                 idWHS_SO = body.id[1].value;
@@ -47,6 +48,7 @@ test.describe("Aktivace test L3 spolu s HW",async () => {
                 await checkResponseStatus(response, 200);
                 
                 const body = await response.json();
+                expect(checkForNullValues(body)).toBe(false)
                 //console.log(JSON.stringify(body, null, 2));
                 let availableFlatIds = getLocationFlatIdsWithCondition(body);
                 idlocationFlatId = getRandomElement(availableFlatIds);
@@ -60,6 +62,7 @@ test.describe("Aktivace test L3 spolu s HW",async () => {
                 await checkResponseStatus(response, 200);
 
                 const body = await waitForExpectedStatus(request, "WaitForRealization", idWHS_SO);
+                expect(checkForNullValues(body)).toBe(false)
                 //console.log(JSON.stringify(body, null, 2));
             })   
 
@@ -73,6 +76,7 @@ test.describe("Aktivace test L3 spolu s HW",async () => {
                 await checkResponseStatus(response, 200);
 
                 const body = await response.json();
+                expect(checkForNullValues(body)).toBe(false)
                 console.log(JSON.stringify(body, null, 2));
             })
 
@@ -82,6 +86,7 @@ test.describe("Aktivace test L3 spolu s HW",async () => {
                 await checkResponseStatus(response, 200);
 
                 const body = await response.json();
+                expect(checkForNullValues(body)).toBe(false)
                 IndexOfWHSHWONT = findIndexOfWHSHWONT(body);
                 //console.log(JSON.stringify(body, null, 2));
             })   
@@ -96,6 +101,7 @@ test.describe("Aktivace test L3 spolu s HW",async () => {
                 await checkResponseStatus(response, 200);
                 
                 const body = await response.json();
+                expect(checkForNullValues(body)).toBe(false)
                 console.log(JSON.stringify(body, null, 2));
                 //console.log();
             })   

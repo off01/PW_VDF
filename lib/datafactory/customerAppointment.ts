@@ -1,4 +1,3 @@
-import { expect, request } from "@playwright/test";
 import { incrementCounterserviceCustomerAppointmentId } from "../helper/counterHelper"
 import moment from "moment"
 

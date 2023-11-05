@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test"
 import { serviceOrderClosed } from "../../lib/datafactory/serviceOrder"
-import { checkResponseStatus } from "../../lib/helper/expectsAsserts";
+import { checkResponseStatus, checkForNullValues } from "../../lib/helper/expectsAsserts";
 import { waitForExpectedStatus } from "../../lib/helper/waitingStatus";
 import * as fs from 'fs';
 
@@ -16,6 +16,7 @@ test.describe("Closure",async () => {
                 await checkResponseStatus(response, 200);
 
                 const body = await waitForExpectedStatus(request, "InstallationDone", idWHS_SO);
+                expect(checkForNullValues(body)).toBe(false)
                 console.log(JSON.stringify(body, null, 2));
             })
             
@@ -29,6 +30,7 @@ test.describe("Closure",async () => {
                 await checkResponseStatus(response, 200);
 
                 const body = await response.json();
+                expect(checkForNullValues(body)).toBe(false)
                 console.log(JSON.stringify(body, null, 2));
             })
         });

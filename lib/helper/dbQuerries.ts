@@ -3,7 +3,7 @@ import config from '../../config/config';
 
 const { WHS_DB_CONFIG, FBB_DB_CONFIG } = config.dbConfig;
 
-export async function fetchOrderId(): Promise<string | null> {
+export async function fetchOrderIdCancelL3(): Promise<string | null> {
     let connection;
 
     try {
@@ -14,6 +14,40 @@ export async function fetchOrderId(): Promise<string | null> {
             JOIN SUBSCRIPTION_ITEM si ON (o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID)
             WHERE 1=1
             AND si.PRODUCT_CODE LIKE 'WHSFTTHCONN'
+            AND o."TYPE" = 'Activation'
+            AND o.PARTNER_ORDER_ID LIKE 'PW%'
+            AND o.STATUS NOT IN ('Closed','Canceled')
+        `;
+
+        const result = await connection.execute(query);
+
+        if (result.rows && result.rows.length > 0) {
+            return result.rows[0][0] as string;
+        }
+
+        throw new Error("No idWHS_SO found in the database.");
+
+    } catch (err) {
+        console.error(err);
+        throw err;
+    } finally {
+        if (connection) {
+            await connection.close();
+        }
+    }
+}
+
+export async function fetchOrderIdCancelL1(): Promise<string | null> {
+    let connection;
+
+    try {
+        connection = await oracledb.getConnection(WHS_DB_CONFIG);
+        const query = `
+            SELECT o.ORDER_ID  
+            FROM "ORDER" o 
+            JOIN SUBSCRIPTION_ITEM si ON (o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID)
+            WHERE 1=1
+            AND si.PRODUCT_CODE LIKE 'WHSHFCCONN'
             AND o."TYPE" = 'Activation'
             AND o.PARTNER_ORDER_ID LIKE 'PW%'
             AND o.STATUS NOT IN ('Closed','Canceled')
@@ -61,7 +95,7 @@ export async function fetchOrderIdTerminationL3(): Promise<string | null> {
             return result.rows[0][0] as string;
         }
 
-        throw new Error("No idASSET_sub found in the database.");
+        throw new Error("No DATA found in the database.");
 
     } catch (err) {
         console.error(err);
@@ -97,7 +131,7 @@ export async function fetchOrderIdTerminationL1(): Promise<string | null> {
             return result.rows[0][0] as string;
         }
 
-        throw new Error("No idASSET_sub found in the database.");
+        throw new Error("No DATA found in the database.");
 
     } catch (err) {
         console.error(err);
@@ -131,7 +165,7 @@ export async function fetchOrderIdPortationMopIdL1(): Promise<string | null> {
             return result.rows[0][0] as string;
         }
 
-        throw new Error("No idASSET_sub found in the database.");
+        throw new Error("No DATA found in the database.");
 
     } catch (err) {
         console.error(err);
@@ -165,7 +199,7 @@ export async function fetchOrderIdPortationMopIdL3(): Promise<string | null> {
             return result.rows[0][0] as string;
         }
 
-        throw new Error("No idASSET_sub found in the database.");
+        throw new Error("No DATA found in the database.");
 
     } catch (err) {
         console.error(err);
@@ -198,7 +232,7 @@ export async function fetchInactiveAssetId(): Promise<string | null> {
             return result.rows[0][0] as string;
         }
 
-        throw new Error("No idASSET_sub found in the database.");
+        throw new Error("No DATA found in the database.");
 
     } catch (err) {
         console.error(err);
@@ -232,7 +266,7 @@ export async function fetchActiveAssetId(): Promise<string | null> {
             return result.rows[0][0] as string;
         }
 
-        throw new Error("No idASSET_sub found in the database.");
+        throw new Error("No DATA found in the database.");
 
     } catch (err) {
         console.error(err);
@@ -335,7 +369,7 @@ export async function fetchDataModificationL1_L3_WH(hwdb: string): Promise<{[key
             }
         }
 
-        throw new Error("No idASSET_sub found in the database.");
+        throw new Error("No DATA found in the database.");
 
     } catch (err) {
         console.error(err);
@@ -439,7 +473,7 @@ export async function fetchDataModificationL1_tariff(tariffdb: string, hwdb: str
             }
         }
 
-        throw new Error("No idASSET_sub found in the database.");
+        throw new Error("No DATA found in the database.");
 
     } catch (err) {
         console.error(err);

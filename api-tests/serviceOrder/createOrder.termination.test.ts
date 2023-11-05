@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test"
 import { createTerminationL3OrderBody, createTerminationL1OrderBody } from "../../lib/datafactory/createOrder"
 import { serviceOrderProvisioning, serviceOrderClosed } from "../../lib/datafactory/serviceOrder";
 import { waitForExpectedStatus } from "../../lib/helper/waitingStatus";
-import { checkResponseStatus } from "../../lib/helper/expectsAsserts";
+import { checkResponseStatus, checkForNullValues } from "../../lib/helper/expectsAsserts";
 import { fetchOrderIdTerminationL3, fetchOrderIdTerminationL1 } from "../../lib/helper/dbQuerries";
 
 
@@ -10,7 +10,7 @@ test.describe("Terminace L3",async () => {
     test('Terminační objenávka pro L3', async ({ request }) => {
         const idASSET_sub = await fetchOrderIdTerminationL3();
         if (!idASSET_sub) {
-            throw new Error("Failed to fetch idWHS_SO from the database.");
+            throw new Error("Failed to fetch DATA from the database.");
         }
         let idWHS_SO: string;
         
@@ -24,7 +24,7 @@ test.describe("Terminace L3",async () => {
             await checkResponseStatus(response, 201);
 
             const body = await response.json();
-            console.log(JSON.stringify(body, null, 2));
+            expect(checkForNullValues(body)).toBe(false)
             idWHS_SO = body.id[1].value;
             console.log(idASSET_sub)
             console.log(idWHS_SO)
@@ -36,7 +36,7 @@ test.describe("Terminace L3",async () => {
             await checkResponseStatus(response, 200);
 
             const body = await waitForExpectedStatus(request, "WaitForRealization", idWHS_SO);
-            //console.log(JSON.stringify(body, null, 2));
+            expect(checkForNullValues(body)).toBe(false)
         })
         
         await test.step("WHS Partner requests provisioning start", async () => {
@@ -49,7 +49,7 @@ test.describe("Terminace L3",async () => {
             await checkResponseStatus(response, 200);
             
             const body = await response.json();
-            console.log(JSON.stringify(body, null, 2));
+            expect(checkForNullValues(body)).toBe(false)
         })
 
         await test.step("Ask for status", async () => {
@@ -58,7 +58,7 @@ test.describe("Terminace L3",async () => {
             await checkResponseStatus(response, 200);
 
             const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO);
-            //console.log(JSON.stringify(body, null, 2));
+            expect(checkForNullValues(body)).toBe(false)
         })
 
         await test.step("Close", async () => {
@@ -71,7 +71,7 @@ test.describe("Terminace L3",async () => {
             await checkResponseStatus(response, 200);
             
             const body = await response.json();
-            console.log(JSON.stringify(body, null, 2));
+            expect(checkForNullValues(body)).toBe(false)
         })
     });
 });
@@ -80,7 +80,7 @@ test.describe("Terminace L1",async () => {
     test('Terminační objenávka pro L1', async ({ request }) => {
         const idASSET_sub = await fetchOrderIdTerminationL1();
         if (!idASSET_sub) {
-            throw new Error("Failed to fetch idWHS_SO from the database.");
+            throw new Error("Failed to fetch DATA from the database.");
         }
         let idWHS_SO: string;
         
@@ -94,7 +94,7 @@ test.describe("Terminace L1",async () => {
             await checkResponseStatus(response, 201);
             
             const body = await response.json();
-            console.log(JSON.stringify(body, null, 2));
+            expect(checkForNullValues(body)).toBe(false)
             idWHS_SO = body.id[1].value;
             console.log(idASSET_sub)
             console.log(idWHS_SO)
@@ -106,7 +106,7 @@ test.describe("Terminace L1",async () => {
             await checkResponseStatus(response, 200);
 
             const body = await waitForExpectedStatus(request, "NoAppointment", idWHS_SO);
-            //console.log(JSON.stringify(body, null, 2));
+            expect(checkForNullValues(body)).toBe(false)
         })
         
         await test.step("WHS Partner requests provisioning start", async () => {
@@ -119,7 +119,7 @@ test.describe("Terminace L1",async () => {
             await checkResponseStatus(response, 200);
             
             const body = await response.json();
-            console.log(JSON.stringify(body, null, 2));
+            expect(checkForNullValues(body)).toBe(false)
         })
 
         await test.step("Ask for status", async () => {
@@ -128,7 +128,7 @@ test.describe("Terminace L1",async () => {
             await checkResponseStatus(response, 200);
             
             const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO);
-            //console.log(JSON.stringify(body, null, 2));
+            expect(checkForNullValues(body)).toBe(false)
         })
 
         await test.step("Close", async () => {
@@ -141,7 +141,7 @@ test.describe("Terminace L1",async () => {
             await checkResponseStatus(response, 200);
             
             const body = await response.json();
-            console.log(JSON.stringify(body, null, 2));
+            expect(checkForNullValues(body)).toBe(false)
         })
     });
 });

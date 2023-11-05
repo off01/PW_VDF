@@ -4,7 +4,7 @@ import { serviceOrderL1Provisioning, serviceOrderL3Provisioning, serviceOrderClo
 import { waitForExpectedStatus } from "../../lib/helper/waitingStatus";
 import { generateMacAddress } from "../../lib/helper/randomGenerator";
 import { findIndexOfWHSHWONT } from "../../lib/helper/findIndex";
-import { checkResponseStatus } from "../../lib/helper/expectsAsserts";
+import { checkResponseStatus, checkForNullValues } from "../../lib/helper/expectsAsserts";
 import { fetchOrderIdPortationMopIdL1, fetchOrderIdPortationMopIdL3 } from "../../lib/helper/dbQuerries";
 import * as fs from 'fs';
 
@@ -29,7 +29,7 @@ test.describe("Portace L1",async () => {
                 await checkResponseStatus(response, 201);
 
                 const body = await response.json();
-                //console.log(JSON.stringify(body, null, 2));
+                expect(checkForNullValues(body)).toBe(false)
                 idWHS_SO = body.id[1].value;
                 console.log(idWHS_SO)
             })    
@@ -40,7 +40,7 @@ test.describe("Portace L1",async () => {
                 await checkResponseStatus(response, 200);
 
                 const body = await waitForExpectedStatus(request, "NoAppointment", idWHS_SO, 10, 5000);
-                //console.log(JSON.stringify(body, null, 2));
+                expect(checkForNullValues(body)).toBe(false)
             })
             
             await test.step("WHS Partner requests provisioning start", async () => {
@@ -54,7 +54,7 @@ test.describe("Portace L1",async () => {
                 await checkResponseStatus(response, 200);
 
                 const body = await response.json();
-                //console.log(JSON.stringify(body, null, 2));
+                expect(checkForNullValues(body)).toBe(false)
             })
 
             await test.step("Ask for status", async () => {
@@ -63,7 +63,7 @@ test.describe("Portace L1",async () => {
                 await checkResponseStatus(response, 200);
 
                 const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO);
-                //console.log(JSON.stringify(body, null, 2));
+                expect(checkForNullValues(body)).toBe(false)
             })
 
             await test.step("Close", async () => {
@@ -76,7 +76,7 @@ test.describe("Portace L1",async () => {
                 await checkResponseStatus(response, 200);
                 
                 const body = await response.json();
-                //console.log(JSON.stringify(body, null, 2));
+                expect(checkForNullValues(body)).toBe(false)
             })
         });
     });
@@ -100,9 +100,11 @@ test.describe("Portace L3",async () => {
                 const response = await request.post(`/serviceOrderAPI/v2/serviceOrder`, {
                     data: requestBody
                 });
-                expect(response.status()).toBe(201);
+
+                await checkResponseStatus(response, 201);
+
                 const body = await response.json();
-                //console.log(JSON.stringify(body, null, 2));
+                expect(checkForNullValues(body)).toBe(false)
                 idWHS_SO = body.id[1].value;
                 console.log(idWHS_SO)
             })    
@@ -110,10 +112,11 @@ test.describe("Portace L3",async () => {
             await test.step("Details required for provisioning", async () => {
                 const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`);
 
-                expect(response.status()).toBe(200);
+                await checkResponseStatus(response, 200);
+
                 const body = await waitForExpectedStatus(request, "WaitForRealization", idWHS_SO, 10, 5000);
+                expect(checkForNullValues(body)).toBe(false)
                 IndexOfWHSHWONT = findIndexOfWHSHWONT(body);
-                //console.log(JSON.stringify(body, null, 2));
             })
             
             await test.step("WHS Partner requests provisioning start", async () => {
@@ -122,17 +125,20 @@ test.describe("Portace L3",async () => {
                 const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
                     data: requestBody
                 });
-                expect(response.status()).toBe(200);
+
+                await checkResponseStatus(response, 200);
+
                 const body = await response.json();
-                //console.log(JSON.stringify(body, null, 2));
+                expect(checkForNullValues(body)).toBe(false)
             })
 
             await test.step("Ask for status", async () => {
                 const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`);
 
-                expect(response.status()).toBe(200);
+                await checkResponseStatus(response, 200);
+
                 const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO, 60, 5000);
-                //console.log(JSON.stringify(body, null, 2));
+                expect(checkForNullValues(body)).toBe(false)
             })
 
             await test.step("Close", async () => {
@@ -141,9 +147,11 @@ test.describe("Portace L3",async () => {
                 const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
                     data: requestBody
                 });
-                expect(response.status()).toBe(200);
+
+                await checkResponseStatus(response, 200);
+
                 const body = await response.json();
-                //console.log(JSON.stringify(body, null, 2));
+                expect(checkForNullValues(body)).toBe(false)
             })
         });
     });

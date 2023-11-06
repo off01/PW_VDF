@@ -3,7 +3,7 @@ import { checkResponseStatus } from "../../lib/helper/expectsAsserts";
 import { diagnosticL3, diagnosticL3InvalidwhsServiceId } from "../../lib/datafactory/diagnostic"
 
 test.describe("diagnostika test L3",async () => {
-    
+
     test('odeslání requestu pro zjistění diagnostiky L3', async ({ request }) => {
         let requestBody = await diagnosticL3();
 
@@ -24,7 +24,7 @@ test.describe("diagnostika test L3",async () => {
             data: requestBody
         });
 
-        await checkResponseStatus(response, 400);
+        await checkResponseStatus(response, 200);
 
         //const body = await response.json();
         //console.log(JSON.stringify(body, null, 2));

@@ -39,7 +39,7 @@ test.describe("Portace L1",async () => {
 
                 await checkResponseStatus(response, 200);
 
-                const body = await waitForExpectedStatus(request, "NoAppointment", idWHS_SO, 10, 5000);
+                const body = await waitForExpectedStatus(request, "NoAppointment", idWHS_SO, 15, 5000);
                 expect(checkForNullValues(body)).toBe(false)
             })
             
@@ -62,7 +62,7 @@ test.describe("Portace L1",async () => {
 
                 await checkResponseStatus(response, 200);
 
-                const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO);
+                const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO, 60, 5000);
                 expect(checkForNullValues(body)).toBe(false)
             })
 
@@ -114,7 +114,7 @@ test.describe("Portace L3",async () => {
 
                 await checkResponseStatus(response, 200);
 
-                const body = await waitForExpectedStatus(request, "WaitForRealization", idWHS_SO, 10, 5000);
+                const body = await waitForExpectedStatus(request, "WaitForRealization", idWHS_SO, 15, 5000);
                 expect(checkForNullValues(body)).toBe(false)
                 IndexOfWHSHWONT = findIndexOfWHSHWONT(body);
             })

@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test"
 import { checkResponseStatus } from "../../lib/helper/expectsAsserts";
 import { diagnosticL3, diagnosticL3InvalidwhsServiceId } from "../../lib/datafactory/diagnostic"
 
-test.describe("diagnostika test",async () => {
+test.describe("diagnostika test L3",async () => {
     
     test('odeslání requestu pro zjistění diagnostiky L3', async ({ request }) => {
         let requestBody = await diagnosticL3();

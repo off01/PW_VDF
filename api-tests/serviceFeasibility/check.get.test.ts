@@ -15,7 +15,7 @@ test.describe("Ověření funkčnosti GET", async () => {
             await checkResponseStatus(response, 200);
             
             const body = await response.json();
-            console.log(JSON.stringify(body, null, 2));
+            //console.log(JSON.stringify(body, null, 2));
         })
     });
 });

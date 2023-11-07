@@ -1,13 +1,15 @@
 import { incrementCounterOrderId } from "../helper/counterHelper"
 import moment from "moment"
+import * as dotenv from 'dotenv';
 
 export async function createActivationL3OrderBody (WHSDATA: string, WHSHW: string) {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
     const idSO = incrementCounterOrderId();
+    const idPrefix = process.env.ID_PREFIX || 'PW'
     let orderBody = {
         "id": [
             {
-                "value": `PW_${idSO}`,
+                "value": `${idPrefix}_${idSO}`,
                 "schemeAgencyName": "TMCZ"
             }
         ],
@@ -168,10 +170,11 @@ export async function createActivationL3OrderBody (WHSDATA: string, WHSHW: strin
 export async function createActivationL1OrderBody (WHSDATA: string, WHSHW: string) {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
     const idSO = incrementCounterOrderId();
+    const idPrefix = process.env.ID_PREFIX || 'PW'
     let orderBody = {
         "id": [
             {
-                "value": `PW_${idSO}`, //JM -- defaultně dle kuchařky 'SO'
+                "value": `${idPrefix}_${idSO}`, //JM -- defaultně dle kuchařky 'SO'
                 "schemeAgencyName": "TMCZ"
             }
         ],
@@ -348,10 +351,11 @@ export async function createActivationL1OrderBody (WHSDATA: string, WHSHW: strin
 export async function createModificationChangeTariffL1OrderBody (idASSET_sub: string, idASSET_ser: string, WHSDATA: string, idASSET_ass1: string, WHSHW_OG: string, idASSET_ass2: string, macAddress: string, WHSHW: string) {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
     const idSO = incrementCounterOrderId();
+    const idPrefix = process.env.ID_PREFIX || 'PW'
     let orderBody = {
         "id": [
             {
-                "value": `PW_${idSO}`,
+                "value": `${idPrefix}_${idSO}`,
                 "schemeAgencyName": "TMCZ"
             }
         ],
@@ -553,10 +557,11 @@ export async function createModificationChangeTariffL1OrderBody (idASSET_sub: st
 export async function createModificationSwapHWL1OrderBody (idASSET_sub: string, idASSET_ser: string, WHSDATA: string, idASSET_ass1: string, WHSHW_OG: string, idASSET_ass2: string, macAddress: string, WHSHW: string) {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
     const idSO = incrementCounterOrderId();
+    const idPrefix = process.env.ID_PREFIX || 'PW'
     let orderBody = {
         "id": [
             {
-                "value": `PW_${idSO}`,
+                "value": `${idPrefix}_${idSO}`,
                 "schemeAgencyName": "TMCZ"
             }
         ],
@@ -757,10 +762,11 @@ export async function createModificationSwapHWL1OrderBody (idASSET_sub: string, 
 export async function createModificationSwapHWL3OrderBody (idASSET_sub: string, idASSET_ser: string, WHSDATA: string, idASSET_ass1: string, WHSHW_OG: string, idASSET_ass2: string, randomrsnNumber_OG: string, randomrid_OG: string, WHSHW: string) {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
     const idSO = incrementCounterOrderId();
+    const idPrefix = process.env.ID_PREFIX || 'PW'
     let orderBody = {
         "id": [
             {
-                "value": `PW_${idSO}`,
+                "value": `${idPrefix}_${idSO}`,
                 "schemeAgencyName": "TMCZ"
             }
         ],
@@ -965,10 +971,11 @@ export async function createModificationSwapHWL3OrderBody (idASSET_sub: string, 
 export async function createTerminationL3OrderBody (idASSET_sub: string) {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
     const idSO = incrementCounterOrderId();
+    const idPrefix = process.env.ID_PREFIX || 'PW'
     let orderBody = {
         "id": [
             {
-                "value": `PW_${idSO}`,
+                "value": `${idPrefix}_${idSO}`,
                 "schemeAgencyName": "TMCZ"
             }
         ],
@@ -1023,10 +1030,11 @@ export async function createTerminationL3OrderBody (idASSET_sub: string) {
 export async function createTerminationL1OrderBody (idASSET_sub: string) {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
     const idSO = incrementCounterOrderId();
+    const idPrefix = process.env.ID_PREFIX || 'PW'
     let orderBody = {
         "id": [
             {
-                "value": `PW_${idSO}`,
+                "value": `${idPrefix}_${idSO}`,
                 "schemeAgencyName": "TMCZ"
             }
         ],
@@ -1081,10 +1089,11 @@ export async function createTerminationL1OrderBody (idASSET_sub: string) {
 export async function createPortationL1OrderBody (mopid: string, WHSDATA: string, WHSHW: string) {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
     const idSO = incrementCounterOrderId();
+    const idPrefix = process.env.ID_PREFIX || 'PW'
     let orderBody = {
         "id": [
             {
-                "value": `PW_${idSO}`,
+                "value": `${idPrefix}_${idSO}`,
                 "schemeAgencyName": "TMCZ"
             }
         ],
@@ -1240,10 +1249,11 @@ export async function createPortationL1OrderBody (mopid: string, WHSDATA: string
 export async function createPortationL3OrderBody (mopid: string, WHSDATA: string, WHSHW: string) {
     const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
     const idSO = incrementCounterOrderId();
+    const idPrefix = process.env.ID_PREFIX || 'PW'
     let orderBody = {
         "id": [
             {
-                "value": `PW_${idSO}`,
+                "value": `${idPrefix}_${idSO}`,
                 "schemeAgencyName": "TMCZ"
             }
         ],

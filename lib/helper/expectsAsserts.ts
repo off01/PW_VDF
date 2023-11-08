@@ -8,10 +8,16 @@
  */
 
 export async function checkResponseStatus(response: any, expectedStatus: number) {
-    if (response.status() !== expectedStatus) {
-        const body = await response.json();
-        throw new Error(`Expected status ${expectedStatus} but received ${response.status()}. Response body: ${JSON.stringify(body, null, 2)}`);
-    }
+  if (response.status() !== expectedStatus) {
+    const body = await response.json();
+    throw new Error(
+      `Expected status ${expectedStatus} but received ${response.status()}. Response body: ${JSON.stringify(
+        body,
+        null,
+        2
+      )}`
+    );
+  }
 }
 
 /**
@@ -25,16 +31,15 @@ export async function checkResponseStatus(response: any, expectedStatus: number)
  */
 
 export function checkForNullValues(obj: any): boolean {
-    for (let key in obj) {
-        if (obj[key] === null) {
-            return true;
-        }
-        if (typeof obj[key] === 'object' && obj[key] !== null) {
-            if (checkForNullValues(obj[key])) {
-                return true;
-            }
-        }
+  for (let key in obj) {
+    if (obj[key] === null) {
+      return true;
     }
-    return false;
+    if (typeof obj[key] === "object" && obj[key] !== null) {
+      if (checkForNullValues(obj[key])) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
-

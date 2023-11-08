@@ -1,40 +1,40 @@
-import { test, expect } from "@playwright/test"
-import { serviceOrderL1Provisioning } from "../../lib/datafactory/serviceOrder"
+import { test, expect } from "@playwright/test";
+import { serviceOrderL1Provisioning } from "../../lib/datafactory/serviceOrder";
 import { waitForExpectedStatus } from "../../lib/helper/waitingStatus";
 import { generateMacAddress } from "../../lib/helper/randomGenerator";
 import { checkResponseStatus, checkForNullValues } from "../../lib/helper/expectsAsserts";
-import * as fs from 'fs';
+import * as fs from "fs";
 
-const testCases = JSON.parse(fs.readFileSync('results/results.json', 'utf8'));
+const testCases = JSON.parse(fs.readFileSync("results/results.json", "utf8"));
 
-test.describe("Provisioning",async () => {
-    testCases.forEach(testCase => {
-        const idWHS_SO = testCase.idWHS_SO;
-        test(`Nahození HW pro ${idWHS_SO}`, async ({ request }) => {
-            await test.step("Ask for status", async () => {
-                const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`);
+test.describe("Provisioning", async () => {
+  testCases.forEach((testCase) => {
+    const idWHS_SO = testCase.idWHS_SO;
+    test(`Nahození HW pro ${idWHS_SO}`, async ({ request }) => {
+      await test.step("Ask for status", async () => {
+        const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`);
 
-                await checkResponseStatus(response, 200);
+        await checkResponseStatus(response, 200);
 
-                const body = await waitForExpectedStatus(request, "Realized", idWHS_SO);
-                expect(checkForNullValues(body)).toBe(false)
-                console.log(JSON.stringify(body, null, 2));
-            })
-            
-            await test.step("WHS Partner requests provisioning start", async () => {
-                const macAddress = generateMacAddress()
-                let requestBody = await serviceOrderL1Provisioning(macAddress);
+        const body = await waitForExpectedStatus(request, "Realized", idWHS_SO);
+        expect(checkForNullValues(body)).toBe(false);
+        console.log(JSON.stringify(body, null, 2));
+      });
 
-                const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
-                    data: requestBody
-                });
+      await test.step("WHS Partner requests provisioning start", async () => {
+        const macAddress = generateMacAddress();
+        let requestBody = await serviceOrderL1Provisioning(macAddress);
 
-                await checkResponseStatus(response, 200);
-
-                const body = await response.json();
-                expect(checkForNullValues(body)).toBe(false)
-                console.log(JSON.stringify(body, null, 2));
-            })
+        const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
+          data: requestBody,
         });
+
+        await checkResponseStatus(response, 200);
+
+        const body = await response.json();
+        expect(checkForNullValues(body)).toBe(false);
+        console.log(JSON.stringify(body, null, 2));
+      });
     });
+  });
 });

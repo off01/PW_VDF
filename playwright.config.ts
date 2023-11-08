@@ -1,17 +1,17 @@
-import { defineConfig, devices, firefox } from '@playwright/test';
+import { defineConfig, devices, firefox } from "@playwright/test";
 import config from "./config/config";
 import { testPlanFilter } from "allure-playwright/dist/testplan";
 
 export default defineConfig({
   timeout: 300000,
   use: {
-    browserName: 'firefox',
+    browserName: "firefox",
     baseURL: config.baseURL,
     ignoreHTTPSErrors: true,
     trace: "retain-on-failure",
     extraHTTPHeaders: {
       "Content-Type": "application/json",
-      "Authorization": "Basic dGVzdGluZzp0ZXN0aW5nMTIz"
+      Authorization: "Basic dGVzdGluZzp0ZXN0aW5nMTIz",
     },
   },
   retries: 0,
@@ -25,4 +25,3 @@ export default defineConfig({
     // Pokud chcete přidat Webkit, doplňte další projektovou konfiguraci zde
   ], */
 });
-

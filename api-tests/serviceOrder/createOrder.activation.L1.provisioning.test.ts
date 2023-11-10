@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
-import { serviceOrderL1Provisioning } from "../../lib/datafactory/serviceOrder";
-import { waitForExpectedStatus } from "../../lib/helper/waitingStatus";
-import { generateMacAddress } from "../../lib/helper/randomGenerator";
-import { checkResponseStatus, checkForNullValues } from "../../lib/helper/expectsAsserts";
+import { serviceOrderL1Provisioning } from "@datafactory/serviceOrder";
+import { waitForExpectedStatus } from "@helper/waitingStatus";
+import { generateMacAddress } from "@helper/randomGenerator";
+import { checkResponseStatus, checkForNullValues } from "@helper/expectsAsserts";
 import * as fs from "fs";
 
 const testCases = JSON.parse(fs.readFileSync("results/results.json", "utf8"));

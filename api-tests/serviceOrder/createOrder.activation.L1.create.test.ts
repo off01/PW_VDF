@@ -1,12 +1,12 @@
 import { test, expect } from "@playwright/test";
-import { createActivationL1OrderBody } from "../../lib/datafactory/createOrder";
-import { questionaryL1 } from "../../lib/datafactory/partyFeedback";
-import { customerAppointmentL1 } from "../../lib/datafactory/customerAppointment";
-import { getRandomElement, extractWHSWAS } from "../../lib/helper/listofflats";
-import { waitForExpectedStatus } from "../../lib/helper/waitingStatus";
-import { getTomorrowDate } from "../../lib/helper/timeGenerator";
-import { recordResults } from "../../lib/helper/fileOperations";
-import { checkResponseStatus, checkForNullValues } from "../../lib/helper/expectsAsserts";
+import { createActivationL1OrderBody } from "@datafactory/createOrder";
+import { questionaryL1 } from "@datafactory/partyFeedback";
+import { customerAppointmentL1 } from "@datafactory/customerAppointment";
+import { getRandomElement, extractWHSWAS } from "@helper/listofflats";
+import { waitForExpectedStatus } from "@helper/waitingStatus";
+import { getTomorrowDate } from "@helper/timeGenerator";
+import { recordResults } from "@helper/fileOperations";
+import { checkResponseStatus, checkForNullValues } from "@helper/expectsAsserts";
 import * as fs from "fs";
 
 const L1config = JSON.parse(fs.readFileSync("config/dataL1.json", "utf8"));

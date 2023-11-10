@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
-import { serviceOrderClosed } from "../../lib/datafactory/serviceOrder";
-import { checkResponseStatus, checkForNullValues } from "../../lib/helper/expectsAsserts";
-import { waitForExpectedStatus } from "../../lib/helper/waitingStatus";
+import { serviceOrderClosed } from "@datafactory/serviceOrder";
+import { checkResponseStatus, checkForNullValues } from "@helper/expectsAsserts";
+import { waitForExpectedStatus } from "@helper/waitingStatus";
 import * as fs from "fs";
 
 const testCases = JSON.parse(fs.readFileSync("results/results.json", "utf8"));

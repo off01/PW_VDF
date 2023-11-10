@@ -1,15 +1,15 @@
 import { test, expect } from "@playwright/test";
-import { createPortationL1OrderBody, createPortationL3OrderBody } from "../../lib/datafactory/createOrder";
+import { createPortationL1OrderBody, createPortationL3OrderBody } from "@datafactory/createOrder";
 import {
   serviceOrderL1Provisioning,
   serviceOrderL3Provisioning,
   serviceOrderClosed,
-} from "../../lib/datafactory/serviceOrder";
-import { waitForExpectedStatus } from "../../lib/helper/waitingStatus";
-import { generateMacAddress } from "../../lib/helper/randomGenerator";
-import { findIndexOfWHSHWONT } from "../../lib/helper/findIndex";
-import { checkResponseStatus, checkForNullValues } from "../../lib/helper/expectsAsserts";
-import { fetchOrderIdPortationMopIdL1, fetchOrderIdPortationMopIdL3 } from "../../lib/helper/dbQuerries";
+} from "@datafactory/serviceOrder";
+import { waitForExpectedStatus } from "@helper/waitingStatus";
+import { generateMacAddress } from "@helper/randomGenerator";
+import { findIndexOfWHSHWONT } from "@helper/findIndex";
+import { checkResponseStatus, checkForNullValues } from "@helper/expectsAsserts";
+import { fetchOrderIdPortationMopIdL1, fetchOrderIdPortationMopIdL3 } from "@helper/dbQuerries";
 import * as fs from "fs";
 
 const L1config = JSON.parse(fs.readFileSync("config/dataL1.json", "utf8"));

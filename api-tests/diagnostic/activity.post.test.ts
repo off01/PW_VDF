@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test"; // eslint-disable-line
-import { checkResponseStatus } from "../../lib/helper/expectsAsserts";
-import { diagnosticL3, diagnosticL3InvalidwhsServiceId } from "../../lib/datafactory/diagnostic";
+import { checkResponseStatus } from "@helper/expectsAsserts";
+import { diagnosticL3, diagnosticL3InvalidwhsServiceId } from "@datafactory/diagnostic";
 
 test.describe("diagnostika test L3", async () => {
   test("odeslání requestu pro zjistění diagnostiky L3", async ({ request }) => {

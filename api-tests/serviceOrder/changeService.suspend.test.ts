@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
-import { serviceSuspend } from "../../lib/datafactory/customerServiceInventoryItem";
-import { checkResponseStatus, checkForNullValues } from "../../lib/helper/expectsAsserts";
-import { fetchActiveAssetId } from "../../lib/helper/dbQuerries";
+import { serviceSuspend } from "@datafactory/customerServiceInventoryItem";
+import { checkResponseStatus, checkForNullValues } from "@helper/expectsAsserts";
+import { fetchActiveAssetId } from "@helper/dbQuerries";
 
 test.describe("Suspend L1", async () => {
   test("Suspendace assetu", async ({ request }) => {

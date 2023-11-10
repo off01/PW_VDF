@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
-import { serviceOrderCancel } from "../../lib/datafactory/serviceOrder";
-import { checkResponseStatus, checkForNullValues } from "../../lib/helper/expectsAsserts";
-import { fetchOrderIdCancelL3, fetchOrderIdCancelL1 } from "../../lib/helper/dbQuerries";
+import { serviceOrderCancel } from "@datafactory/serviceOrder";
+import { checkResponseStatus, checkForNullValues } from "@helper/expectsAsserts";
+import { fetchOrderIdCancelL3, fetchOrderIdCancelL1 } from "@helper/dbQuerries";
 
 test.describe("Cancel L3", async () => {
   test("Zrušení rozpracované objednávky L3", async ({ request }) => {

@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test"; // eslint-disable-line
-import { checkResponseStatus } from "../../lib/helper/expectsAsserts";
-import { fetchOrderIdCancelL3 } from "../../lib/helper/dbQuerries";
+import { checkResponseStatus } from "@helper/expectsAsserts";
+import { fetchOrderIdCancelL3 } from "@helper/dbQuerries";
 
 test.describe("Ověření funkčnosti GET", async () => {
   test("Návrat rozpracované objednávky", async ({ request }) => {

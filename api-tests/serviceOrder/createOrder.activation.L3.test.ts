@@ -1,11 +1,11 @@
 import { test, expect } from "@playwright/test";
-import { createActivationL3OrderBody } from "../../lib/datafactory/createOrder";
-import { checkL3 } from "../../lib/datafactory/serviceFeasibility";
-import { getLocationFlatIdsWithCondition, getRandomElement } from "../../lib/helper/listofflats";
-import { serviceOrderL3, serviceOrderL3Provisioning } from "../../lib/datafactory/serviceOrder";
-import { waitForExpectedStatus } from "../../lib/helper/waitingStatus";
-import { findIndexOfWHSHWONT } from "../../lib/helper/findIndex";
-import { checkResponseStatus, checkForNullValues } from "../../lib/helper/expectsAsserts";
+import { createActivationL3OrderBody } from "@datafactory/createOrder";
+import { checkL3 } from "@datafactory/serviceFeasibility";
+import { getLocationFlatIdsWithCondition, getRandomElement } from "@helper/listofflats";
+import { serviceOrderL3, serviceOrderL3Provisioning } from "@datafactory/serviceOrder";
+import { waitForExpectedStatus } from "@helper/waitingStatus";
+import { findIndexOfWHSHWONT } from "@helper/findIndex";
+import { checkResponseStatus, checkForNullValues } from "@helper/expectsAsserts";
 //import { getTariffs } from "../../lib/helper/fileOperations";
 import * as fs from "fs";
 

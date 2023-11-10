@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
-      "@datafactory/*": ["./lib/datafactory/*"],
-      "@helpers/*": ["./lib/helpers/*"]
+      "@datafactory/*": ["lib/datafactory/*"],
+      "@helper/*": ["lib/helper/*"]
     }
   }
 }

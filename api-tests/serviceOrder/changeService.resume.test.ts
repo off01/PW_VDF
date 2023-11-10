@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
-import { serviceResume } from "../../lib/datafactory/customerServiceInventoryItem";
-import { checkResponseStatus, checkForNullValues } from "../../lib/helper/expectsAsserts";
-import { fetchInactiveAssetId } from "../../lib/helper/dbQuerries";
+import { serviceResume } from "@datafactory/customerServiceInventoryItem";
+import { checkResponseStatus, checkForNullValues } from "@helper/expectsAsserts";
+import { fetchInactiveAssetId } from "@helper/dbQuerries";
 
 test.describe("Resume L1", async () => {
   test("Obnovení suspendovaného assetu", async ({ request }) => {

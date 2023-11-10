@@ -3,18 +3,18 @@ import {
   createModificationChangeTariffL1OrderBody,
   createModificationSwapHWL1OrderBody,
   createModificationSwapHWL3OrderBody,
-} from "../../lib/datafactory/createOrder";
+} from "@datafactory/createOrder";
 import {
   serviceOrderL3Provisioning,
   serviceOrderClosed,
   TEMPserviceOrderL1Provisioning,
   serviceOrderProvisioning,
-} from "../../lib/datafactory/serviceOrder";
-import { waitForExpectedStatus } from "../../lib/helper/waitingStatus";
-import { generateMacAddress } from "../../lib/helper/randomGenerator";
-import { findIndexOfWHSHWONT } from "../../lib/helper/findIndex";
-import { checkResponseStatus, checkForNullValues } from "../../lib/helper/expectsAsserts";
-import { fetchDataModificationL1_tariff, fetchDataModificationL1_L3_WH } from "../../lib/helper/dbQuerries";
+} from "@datafactory/serviceOrder";
+import { waitForExpectedStatus } from "@helper/waitingStatus";
+import { generateMacAddress } from "@helper/randomGenerator";
+import { findIndexOfWHSHWONT } from "@helper/findIndex";
+import { checkResponseStatus, checkForNullValues } from "@helper/expectsAsserts";
+import { fetchDataModificationL1_tariff, fetchDataModificationL1_L3_WH } from "@helper/dbQuerries";
 import * as fs from "fs";
 
 const L3config = JSON.parse(fs.readFileSync("config/dataL3.json", "utf8"));

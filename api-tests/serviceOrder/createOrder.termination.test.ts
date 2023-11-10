@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
-import { createTerminationL3OrderBody, createTerminationL1OrderBody } from "../../lib/datafactory/createOrder";
-import { serviceOrderProvisioning, serviceOrderClosed } from "../../lib/datafactory/serviceOrder";
-import { waitForExpectedStatus } from "../../lib/helper/waitingStatus";
-import { checkResponseStatus, checkForNullValues } from "../../lib/helper/expectsAsserts";
-import { fetchOrderIdTerminationL3, fetchOrderIdTerminationL1 } from "../../lib/helper/dbQuerries";
+import { createTerminationL3OrderBody, createTerminationL1OrderBody } from "@datafactory/createOrder";
+import { serviceOrderProvisioning, serviceOrderClosed } from "@datafactory/serviceOrder";
+import { waitForExpectedStatus } from "@helper/waitingStatus";
+import { checkResponseStatus, checkForNullValues } from "@helper/expectsAsserts";
+import { fetchOrderIdTerminationL3, fetchOrderIdTerminationL1 } from "@helper/dbQuerries";
 
 test.describe("Terminace L3", async () => {
   test("Terminační objenávka pro L3", async ({ request }) => {

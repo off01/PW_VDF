@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { fetchDataModificationL1_L3_WH } from "../../lib/helper/dbQuerries";
+import { fetchDataModificationL1_L3_WH } from "@helper/dbQuerries";
 import * as fs from "fs";
 
 const L1config = JSON.parse(fs.readFileSync("config/dataL1.json", "utf8"));

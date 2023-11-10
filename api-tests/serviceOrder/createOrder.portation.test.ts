@@ -24,7 +24,7 @@ test.describe("Portace L1", async () => {
       let idWHS_SO: string;
 
       await test.step("Create", async () => {
-        let requestBody = await createPortationL1OrderBody(mopid, config.tariff, config.hardwareType);
+        const requestBody = await createPortationL1OrderBody(mopid, config.tariff, config.hardwareType);
 
         const response = await request.post(`/serviceOrderAPI/v2/serviceOrder`, {
           data: requestBody,
@@ -49,7 +49,7 @@ test.describe("Portace L1", async () => {
 
       await test.step("WHS Partner requests provisioning start", async () => {
         const macAddress = generateMacAddress();
-        let requestBody = await serviceOrderL1Provisioning(macAddress);
+        const requestBody = await serviceOrderL1Provisioning(macAddress);
 
         const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
           data: requestBody,
@@ -71,7 +71,7 @@ test.describe("Portace L1", async () => {
       });
 
       await test.step("Close", async () => {
-        let requestBody = await serviceOrderClosed();
+        const requestBody = await serviceOrderClosed();
 
         const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
           data: requestBody,
@@ -99,7 +99,7 @@ test.describe("Portace L3", async () => {
       let IndexOfWHSHWONT: number;
 
       await test.step("Create", async () => {
-        let requestBody = await createPortationL3OrderBody(mopid, config.tariff, config.hardwareType);
+        const requestBody = await createPortationL3OrderBody(mopid, config.tariff, config.hardwareType);
 
         const response = await request.post(`/serviceOrderAPI/v2/serviceOrder`, {
           data: requestBody,
@@ -124,7 +124,7 @@ test.describe("Portace L3", async () => {
       });
 
       await test.step("WHS Partner requests provisioning start", async () => {
-        let requestBody = await serviceOrderL3Provisioning(IndexOfWHSHWONT);
+        const requestBody = await serviceOrderL3Provisioning(IndexOfWHSHWONT);
 
         const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
           data: requestBody,
@@ -146,7 +146,7 @@ test.describe("Portace L3", async () => {
       });
 
       await test.step("Close", async () => {
-        let requestBody = await serviceOrderClosed();
+        const requestBody = await serviceOrderClosed();
 
         const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
           data: requestBody,

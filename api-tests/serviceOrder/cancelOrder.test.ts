@@ -21,7 +21,7 @@ test.describe("Cancel L3", async () => {
     });
 
     await test.step("Details required for provisioning #2", async () => {
-      let requestBody = await serviceOrderCancel();
+      const requestBody = await serviceOrderCancel();
 
       const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
         data: requestBody,
@@ -49,11 +49,11 @@ test.describe("Cancel L1", async () => {
       await checkResponseStatus(response, 200);
 
       const body = await response.json();
-      //console.log(JSON.stringify(body, null, 2));
+      console.log(JSON.stringify(body, null, 2));
     });
 
     await test.step("Details required for provisioning #2", async () => {
-      let requestBody = await serviceOrderCancel();
+      const requestBody = await serviceOrderCancel();
 
       const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
         data: requestBody,
@@ -62,7 +62,7 @@ test.describe("Cancel L1", async () => {
       await checkResponseStatus(response, 200);
 
       const body = await response.json();
-      //console.log(JSON.stringify(body, null, 2));
+      console.log(JSON.stringify(body, null, 2));
       console.log(idWHS_SO);
     });
   });

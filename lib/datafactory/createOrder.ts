@@ -1,12 +1,11 @@
 import { incrementCounterOrderId } from "../helper/counterHelper";
 import moment from "moment";
-import * as dotenv from "dotenv";
 
 export async function createActivationL3OrderBody(WHSDATA: string, WHSHW: string) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
   const idSO = incrementCounterOrderId();
   const idPrefix = process.env.ID_PREFIX || "PW";
-  let orderBody = {
+  const orderBody = {
     id: [
       {
         value: `${idPrefix}_${idSO}`,
@@ -171,7 +170,7 @@ export async function createActivationL1OrderBody(WHSDATA: string, WHSHW: string
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
   const idSO = incrementCounterOrderId();
   const idPrefix = process.env.ID_PREFIX || "PW";
-  let orderBody = {
+  const orderBody = {
     id: [
       {
         value: `${idPrefix}_${idSO}`, //JM -- defaultně dle kuchařky 'SO'
@@ -361,7 +360,7 @@ export async function createModificationChangeTariffL1OrderBody(
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
   const idSO = incrementCounterOrderId();
   const idPrefix = process.env.ID_PREFIX || "PW";
-  let orderBody = {
+  const orderBody = {
     id: [
       {
         value: `${idPrefix}_${idSO}`,
@@ -575,7 +574,7 @@ export async function createModificationSwapHWL1OrderBody(
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
   const idSO = incrementCounterOrderId();
   const idPrefix = process.env.ID_PREFIX || "PW";
-  let orderBody = {
+  const orderBody = {
     id: [
       {
         value: `${idPrefix}_${idSO}`,
@@ -790,7 +789,7 @@ export async function createModificationSwapHWL3OrderBody(
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
   const idSO = incrementCounterOrderId();
   const idPrefix = process.env.ID_PREFIX || "PW";
-  let orderBody = {
+  const orderBody = {
     id: [
       {
         value: `${idPrefix}_${idSO}`,
@@ -999,7 +998,7 @@ export async function createTerminationL3OrderBody(idASSET_sub: string) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
   const idSO = incrementCounterOrderId();
   const idPrefix = process.env.ID_PREFIX || "PW";
-  let orderBody = {
+  const orderBody = {
     id: [
       {
         value: `${idPrefix}_${idSO}`,
@@ -1058,7 +1057,7 @@ export async function createTerminationL1OrderBody(idASSET_sub: string) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
   const idSO = incrementCounterOrderId();
   const idPrefix = process.env.ID_PREFIX || "PW";
-  let orderBody = {
+  const orderBody = {
     id: [
       {
         value: `${idPrefix}_${idSO}`,
@@ -1117,7 +1116,7 @@ export async function createPortationL1OrderBody(mopid: string, WHSDATA: string,
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
   const idSO = incrementCounterOrderId();
   const idPrefix = process.env.ID_PREFIX || "PW";
-  let orderBody = {
+  const orderBody = {
     id: [
       {
         value: `${idPrefix}_${idSO}`,
@@ -1277,7 +1276,7 @@ export async function createPortationL3OrderBody(mopid: string, WHSDATA: string,
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
   const idSO = incrementCounterOrderId();
   const idPrefix = process.env.ID_PREFIX || "PW";
-  let orderBody = {
+  const orderBody = {
     id: [
       {
         value: `${idPrefix}_${idSO}`,

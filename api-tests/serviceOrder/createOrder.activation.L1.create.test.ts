@@ -16,14 +16,14 @@ test.describe(`Aktivace test L1 spolu s HW`, async () => {
     test(`Aktivační objednávka pro ${config.tariff} L1 s hardware typem ${config.hardwareType}`, async ({
       request,
     }) => {
-      let idWHS_SO: string = "";
+      let idWHS_SO = "";
       let idWHS_PFS: string;
       let idWHS_WAS: string;
-      let idWHS_PF: string;
-      let idASSET_ser: string = "";
+      let idWHS_PF: string; // eslint-disable-line
+      let idASSET_ser = "";
 
       await test.step("Create", async () => {
-        let requestBody = await createActivationL1OrderBody(config.tariff, config.hardwareType);
+        const requestBody = await createActivationL1OrderBody(config.tariff, config.hardwareType);
 
         const response = await request.post(`/serviceOrderAPI/v2/serviceOrder`, {
           data: requestBody,
@@ -59,7 +59,7 @@ test.describe(`Aktivace test L1 spolu s HW`, async () => {
       });
 
       await test.step("Create", async () => {
-        let requestBody = await questionaryL1(idWHS_PFS, idWHS_SO);
+        const requestBody = await questionaryL1(idWHS_PFS, idWHS_SO);
 
         const response = await request.post(`/partyFeedbackAPI/partyFeedback`, {
           data: requestBody,
@@ -96,7 +96,7 @@ test.describe(`Aktivace test L1 spolu s HW`, async () => {
       });
 
       await test.step("Create", async () => {
-        let requestBody = await customerAppointmentL1(idWHS_WAS);
+        const requestBody = await customerAppointmentL1(idWHS_WAS);
 
         const response = await request.post(`/customerAppointmentAPI/v2/customerAppointment`, {
           data: requestBody,

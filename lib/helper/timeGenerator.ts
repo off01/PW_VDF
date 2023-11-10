@@ -9,6 +9,3 @@ export function getTomorrowDate(): string {
 
   return `${year}-${month}-${day}`;
 }
-
-// Použití funkce
-const tomorrowDate = getTomorrowDate();

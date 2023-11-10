@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/test"; // eslint-disable-line
 import LoginPage from "../../pip/page-objects/LoginPage";
 
 test("Login to Vodafone Portal", async ({ page }) => {

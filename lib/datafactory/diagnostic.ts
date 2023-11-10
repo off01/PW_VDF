@@ -2,7 +2,7 @@ import { incrementCounterDiagnosticId } from "../helper/counterHelper";
 
 export async function diagnosticL3() {
   const idDiagnostic = incrementCounterDiagnosticId();
-  let orderBody = {
+  const orderBody = {
     id: `D_${idDiagnostic}`,
     type: "Diagnostics",
     relatedEntity: [
@@ -17,7 +17,7 @@ export async function diagnosticL3() {
 
 export async function diagnosticL3InvalidwhsServiceId() {
   const idDiagnostic = incrementCounterDiagnosticId();
-  let orderBody = {
+  const orderBody = {
     id: `D_${idDiagnostic}`,
     type: "Diagnostics",
     relatedEntity: [

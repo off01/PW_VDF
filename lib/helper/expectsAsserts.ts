@@ -31,7 +31,7 @@ export async function checkResponseStatus(response: any, expectedStatus: number)
  */
 
 export function checkForNullValues(obj: any): boolean {
-  for (let key in obj) {
+  for (const key in obj) {
     if (obj[key] === null) {
       return true;
     }

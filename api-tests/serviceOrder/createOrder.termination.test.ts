@@ -14,7 +14,7 @@ test.describe("Terminace L3", async () => {
     let idWHS_SO: string;
 
     await test.step("Create", async () => {
-      let requestBody = await createTerminationL3OrderBody(idASSET_sub);
+      const requestBody = await createTerminationL3OrderBody(idASSET_sub);
 
       const response = await request.post(`/serviceOrderAPI/v2/serviceOrder`, {
         data: requestBody,
@@ -39,7 +39,7 @@ test.describe("Terminace L3", async () => {
     });
 
     await test.step("WHS Partner requests provisioning start", async () => {
-      let requestBody = await serviceOrderProvisioning();
+      const requestBody = await serviceOrderProvisioning();
 
       const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
         data: requestBody,
@@ -61,7 +61,7 @@ test.describe("Terminace L3", async () => {
     });
 
     await test.step("Close", async () => {
-      let requestBody = await serviceOrderClosed();
+      const requestBody = await serviceOrderClosed();
 
       const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
         data: requestBody,
@@ -84,7 +84,7 @@ test.describe("Terminace L1", async () => {
     let idWHS_SO: string;
 
     await test.step("Create", async () => {
-      let requestBody = await createTerminationL1OrderBody(idASSET_sub);
+      const requestBody = await createTerminationL1OrderBody(idASSET_sub);
 
       const response = await request.post(`/serviceOrderAPI/v2/serviceOrder`, {
         data: requestBody,
@@ -109,7 +109,7 @@ test.describe("Terminace L1", async () => {
     });
 
     await test.step("WHS Partner requests provisioning start", async () => {
-      let requestBody = await serviceOrderProvisioning();
+      const requestBody = await serviceOrderProvisioning();
 
       const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
         data: requestBody,
@@ -131,7 +131,7 @@ test.describe("Terminace L1", async () => {
     });
 
     await test.step("Close", async () => {
-      let requestBody = await serviceOrderClosed();
+      const requestBody = await serviceOrderClosed();
 
       const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
         data: requestBody,

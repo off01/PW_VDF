@@ -23,7 +23,7 @@ test.describe("Provisioning", async () => {
 
       await test.step("WHS Partner requests provisioning start", async () => {
         const macAddress = generateMacAddress();
-        let requestBody = await serviceOrderL1Provisioning(macAddress);
+        const requestBody = await serviceOrderL1Provisioning(macAddress);
 
         const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
           data: requestBody,

@@ -22,7 +22,7 @@ test.describe("Aktivace test L3 spolu s HW", async () => {
       let IndexOfWHSHWONT: number;
 
       await test.step("Create", async () => {
-        let requestBody = await createActivationL3OrderBody(config.tariff, config.hardwareType);
+        const requestBody = await createActivationL3OrderBody(config.tariff, config.hardwareType);
 
         const response = await request.post(`/serviceOrderAPI/v2/serviceOrder`, {
           data: requestBody,
@@ -42,7 +42,7 @@ test.describe("Aktivace test L3 spolu s HW", async () => {
       });
 
       await test.step("serviceFeasibility", async () => {
-        let requestBody = await checkL3(idbuildingId, idWHS_SO);
+        const requestBody = await checkL3(idbuildingId, idWHS_SO);
 
         const response = await request.post(`/serviceFeasibilityAPI/v2/serviceFeasibility/check`, {
           data: requestBody,
@@ -53,7 +53,7 @@ test.describe("Aktivace test L3 spolu s HW", async () => {
         const body = await response.json();
         expect(checkForNullValues(body)).toBe(false);
         //console.log(JSON.stringify(body, null, 2));
-        let availableFlatIds = getLocationFlatIdsWithCondition(body);
+        const availableFlatIds = getLocationFlatIdsWithCondition(body);
         idlocationFlatId = getRandomElement(availableFlatIds);
         //console.log(idlocationFlatId)
         //console.log(availableFlatIds)
@@ -70,7 +70,7 @@ test.describe("Aktivace test L3 spolu s HW", async () => {
       });
 
       await test.step("Info about selected locationFlatid #2", async () => {
-        let requestBody = await serviceOrderL3(idlocationFlatId);
+        const requestBody = await serviceOrderL3(idlocationFlatId);
 
         const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
           data: requestBody,
@@ -95,7 +95,7 @@ test.describe("Aktivace test L3 spolu s HW", async () => {
       });
 
       await test.step("Details required for provisioning #2", async () => {
-        let requestBody = await serviceOrderL3Provisioning(IndexOfWHSHWONT);
+        const requestBody = await serviceOrderL3Provisioning(IndexOfWHSHWONT);
 
         const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
           data: requestBody,

@@ -3,7 +3,7 @@ import { generateKey, generateRandomHex } from "../helper/randomGenerator";
 
 export async function serviceOrderL3(idlocationFlatId: string) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
-  let orderBody = [
+  const orderBody = [
     {
       op: "replace",
       path: "/status",
@@ -44,7 +44,7 @@ export async function serviceOrderL3Provisioning(IndexOfWHSHWONT: number) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
   const randomrid = generateKey();
   const randomrsnNumber = generateRandomHex();
-  let orderBody = [
+  const orderBody = [
     {
       op: "replace",
       path: "/status",
@@ -91,7 +91,7 @@ export async function serviceOrderL3Provisioning(IndexOfWHSHWONT: number) {
 
 export async function serviceOrderCancel() {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
-  let orderBody = [
+  const orderBody = [
     {
       op: "replace",
       path: "/status",
@@ -134,7 +134,7 @@ export async function serviceOrderCancel() {
 
 export async function serviceOrderProvisioning() {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
-  let orderBody = [
+  const orderBody = [
     {
       op: "replace",
       path: "/status",
@@ -161,7 +161,7 @@ export async function serviceOrderProvisioning() {
 
 export async function serviceOrderL1Provisioning(macAddress: string) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
-  let orderBody = [
+  const orderBody = [
     {
       op: "replace",
       path: "/status",
@@ -204,7 +204,7 @@ export async function serviceOrderL1Provisioning(macAddress: string) {
 
 export async function TEMPserviceOrderL1Provisioning(macAddress: string) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
-  let orderBody = [
+  const orderBody = [
     {
       op: "replace",
       path: "/status",
@@ -247,7 +247,7 @@ export async function TEMPserviceOrderL1Provisioning(macAddress: string) {
 
 export async function serviceOrderClosed() {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
-  let orderBody = [
+  const orderBody = [
     {
       op: "replace",
       path: "/status",

@@ -56,7 +56,7 @@ export function generateMacAddress(): string {
  */
 
 export function randomTextGenerator(length: number): string {
-  let words = [
+  const words = [
     "Lorem",
     "ipsum",
     "dolor",
@@ -80,8 +80,8 @@ export function randomTextGenerator(length: number): string {
   let text = "";
   let currentLength = 0;
   while (currentLength < length) {
-    var wordIndex = Math.floor(Math.random() * words.length);
-    var word = words[wordIndex];
+    const wordIndex = Math.floor(Math.random() * words.length);
+    const word = words[wordIndex];
     if (currentLength + word.length <= length) {
       text += word + " ";
       currentLength += word.length + 1;

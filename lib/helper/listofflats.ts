@@ -35,6 +35,6 @@ export function extractWHSWAS(response: any): string[] {
 }
 
 export function getRandomElement(arr: any[]): any {
-  let randomIndex = Math.floor(Math.random() * arr.length);
+  const randomIndex = Math.floor(Math.random() * arr.length);
   return arr[randomIndex];
 }

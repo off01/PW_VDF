@@ -39,7 +39,7 @@ test.describe("Modifikace L3 - SWAP HW", async () => {
       let IndexOfWHSHWONT: number;
 
       await test.step("Create", async () => {
-        let requestBody = await createModificationSwapHWL3OrderBody(
+        const requestBody = await createModificationSwapHWL3OrderBody(
           idASSET_sub,
           idASSET_ser,
           WHSDATA,
@@ -74,7 +74,7 @@ test.describe("Modifikace L3 - SWAP HW", async () => {
       });
 
       await test.step("Details required for provisioning #2", async () => {
-        let requestBody = await serviceOrderL3Provisioning(IndexOfWHSHWONT);
+        const requestBody = await serviceOrderL3Provisioning(IndexOfWHSHWONT);
 
         const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
           data: requestBody,
@@ -93,11 +93,11 @@ test.describe("Modifikace L3 - SWAP HW", async () => {
         await checkResponseStatus(response, 200);
 
         const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO, 10, 5000);
-        //console.log(JSON.stringify(body, null, 2));
+        console.log(JSON.stringify(body, null, 2));
       });
 
       await test.step("Close", async () => {
-        let requestBody = await serviceOrderClosed();
+        const requestBody = await serviceOrderClosed();
 
         const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
           data: requestBody,
@@ -105,7 +105,7 @@ test.describe("Modifikace L3 - SWAP HW", async () => {
 
         await checkResponseStatus(response, 200);
 
-        const body = await response.json();
+        //const body = await response.json();
         //console.log(JSON.stringify(body, null, 2));
       });
     });
@@ -132,7 +132,7 @@ test.describe("Modifikace L1 - SWAP HW", async () => {
       let idWHS_SO: string;
 
       await test.step("Create", async () => {
-        let requestBody = await createModificationSwapHWL1OrderBody(
+        const requestBody = await createModificationSwapHWL1OrderBody(
           idASSET_sub,
           idASSET_ser,
           WHSDATA,
@@ -168,7 +168,7 @@ test.describe("Modifikace L1 - SWAP HW", async () => {
 
       await test.step("WHS Partner requests provisioning start", async () => {
         const macAddress = generateMacAddress();
-        let requestBody = await TEMPserviceOrderL1Provisioning(macAddress);
+        const requestBody = await TEMPserviceOrderL1Provisioning(macAddress);
 
         const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
           data: requestBody,
@@ -192,7 +192,7 @@ test.describe("Modifikace L1 - SWAP HW", async () => {
       });
 
       await test.step("Close", async () => {
-        let requestBody = await serviceOrderClosed();
+        const requestBody = await serviceOrderClosed();
 
         const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
           data: requestBody,
@@ -228,7 +228,7 @@ test.describe("Modifikace L1 - Změna tarifu", async () => {
       let idWHS_SO: string;
 
       await test.step("Create", async () => {
-        let requestBody = await createModificationChangeTariffL1OrderBody(
+        const requestBody = await createModificationChangeTariffL1OrderBody(
           idASSET_sub,
           idASSET_ser,
           WHSDATA,
@@ -263,7 +263,7 @@ test.describe("Modifikace L1 - Změna tarifu", async () => {
       });
 
       await test.step("WHS Partner requests provisioning start", async () => {
-        let requestBody = await serviceOrderProvisioning();
+        const requestBody = await serviceOrderProvisioning();
 
         const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
           data: requestBody,
@@ -287,7 +287,7 @@ test.describe("Modifikace L1 - Změna tarifu", async () => {
       });
 
       await test.step("Close", async () => {
-        let requestBody = await serviceOrderClosed();
+        const requestBody = await serviceOrderClosed();
 
         const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
           data: requestBody,

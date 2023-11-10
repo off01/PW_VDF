@@ -2,7 +2,7 @@ import moment from "moment";
 
 export async function serviceSuspend() {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
-  let orderBody = [
+  const orderBody = [
     {
       op: "test",
       path: "/status",
@@ -34,7 +34,7 @@ export async function serviceSuspend() {
 
 export async function serviceResume() {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
-  let orderBody = [
+  const orderBody = [
     {
       op: "test",
       path: "/status",

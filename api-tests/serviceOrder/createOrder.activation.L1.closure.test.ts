@@ -21,7 +21,7 @@ test.describe("Closure", async () => {
       });
 
       await test.step("WHS Partner requests provisioning start", async () => {
-        let requestBody = await serviceOrderClosed();
+        const requestBody = await serviceOrderClosed();
 
         const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
           data: requestBody,

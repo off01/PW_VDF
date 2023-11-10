@@ -4,7 +4,7 @@ import moment from "moment";
 export async function customerAppointmentL1(idWHS_WAS: string) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
   const idCA = incrementCounterserviceCustomerAppointmentId();
-  let orderBody = {
+  const orderBody = {
     id: [
       {
         value: `CA_${idCA}`,

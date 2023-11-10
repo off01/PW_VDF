@@ -10,7 +10,7 @@ import * as path from "path";
 export async function recordResults(
   idWHS_SO: string,
   idASSET_ser: string,
-  filePath: string = "results/results.json"
+  filePath = "results/results.json"
 ): Promise<void> {
   // Absolutní cesta k souboru JSON
   const absolutePath = path.resolve(__dirname, "../../", filePath);

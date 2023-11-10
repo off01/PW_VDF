@@ -1,10 +1,10 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/test"; // eslint-disable-line
 import { checkResponseStatus } from "../../lib/helper/expectsAsserts";
 import { diagnosticL3, diagnosticL3InvalidwhsServiceId } from "../../lib/datafactory/diagnostic";
 
 test.describe("diagnostika test L3", async () => {
   test("odeslání requestu pro zjistění diagnostiky L3", async ({ request }) => {
-    let requestBody = await diagnosticL3();
+    const requestBody = await diagnosticL3();
 
     const response = await request.post("/activityAPI/activity", {
       data: requestBody,
@@ -12,12 +12,12 @@ test.describe("diagnostika test L3", async () => {
 
     await checkResponseStatus(response, 200);
 
-    const body = await response.json();
+    //const body = await response.json();
     //console.log(JSON.stringify(body, null, 2));
   });
 
   test("odeslání nevalidního requestu pro zjistění diagnostiky L3", async ({ request }) => {
-    let requestBody = await diagnosticL3InvalidwhsServiceId();
+    const requestBody = await diagnosticL3InvalidwhsServiceId();
 
     const response = await request.post("/activityAPI/activity", {
       data: requestBody,

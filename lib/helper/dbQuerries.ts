@@ -270,7 +270,7 @@ export async function fetchActiveAssetId(): Promise<string | null> {
   }
 }
 
-export async function fetchDataModificationL1_L3_WH(hwdb: string): Promise<{ [key: string]: string }> {
+export async function fetchDataModificationL1_L3_WH(hwdb: string): Promise<Record<string, string>> {
   let connection;
 
   try {
@@ -372,10 +372,7 @@ export async function fetchDataModificationL1_L3_WH(hwdb: string): Promise<{ [ke
   }
 }
 
-export async function fetchDataModificationL1_tariff(
-  tariffdb: string,
-  hwdb: string
-): Promise<{ [key: string]: string }> {
+export async function fetchDataModificationL1_tariff(tariffdb: string, hwdb: string): Promise<Record<string, string>> {
   let connection;
 
   try {

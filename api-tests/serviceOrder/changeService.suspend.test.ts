@@ -11,7 +11,7 @@ test.describe("Suspend L1", async () => {
     }
 
     await test.step("WHS Partner requests provisioning start", async () => {
-      let requestBody = await serviceSuspend();
+      const requestBody = await serviceSuspend();
 
       const response = await request.patch(
         `/customerServiceInventoryItemAPI/v2/customerServiceInventoryItem/${idASSET_sub}`,

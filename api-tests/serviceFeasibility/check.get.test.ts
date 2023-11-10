@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/test"; // eslint-disable-line
 import { checkResponseStatus } from "../../lib/helper/expectsAsserts";
 import { fetchOrderIdCancelL3 } from "../../lib/helper/dbQuerries";
 
@@ -15,7 +15,7 @@ test.describe("Ověření funkčnosti GET", async () => {
       await checkResponseStatus(response, 200);
 
       const body = await response.json();
-      //console.log(JSON.stringify(body, null, 2));
+      console.log(JSON.stringify(body, null, 2));
     });
   });
 });

@@ -12,8 +12,8 @@ import {
 } from "@datafactory/serviceOrder";
 import { waitForExpectedStatus } from "@helper/waitingStatus";
 import { generateMacAddress } from "@helper/randomGenerator";
-import { findIndexOfWHSHWONT } from "@helper/findIndex";
-import { checkResponseStatus, checkForNullValues } from "@helper/expectsAsserts";
+import { findIndexOfSpecificValue } from "@helper/findIndex";
+import { checkResponseStatus, checkForNullValues, validateJsonSchema } from "@helper/expectsAsserts";
 import { fetchDataModificationL1_tariff, fetchDataModificationL1_L3_WH } from "@helper/dbQuerries";
 import * as fs from "fs";
 
@@ -61,6 +61,7 @@ test.describe("Modifikace L3 - SWAP HW", async () => {
         //console.log(JSON.stringify(body, null, 2));
         idWHS_SO = body.id[1].value;
         console.log(idWHS_SO);
+        await validateJsonSchema("POST_serviceOrder", "ServiceOrder", body);
       });
 
       await test.step("Ask for status NoAppointment", async () => {
@@ -69,8 +70,9 @@ test.describe("Modifikace L3 - SWAP HW", async () => {
         await checkResponseStatus(response, 200);
 
         const body = await waitForExpectedStatus(request, "WaitForRealization", idWHS_SO, 10, 5000);
-        IndexOfWHSHWONT = findIndexOfWHSHWONT(body);
+        IndexOfWHSHWONT = findIndexOfSpecificValue(body, "WHSHWONT");
         //console.log(JSON.stringify(body, null, 2));
+        await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("Details required for provisioning #2", async () => {
@@ -85,6 +87,7 @@ test.describe("Modifikace L3 - SWAP HW", async () => {
         const body = await response.json();
         console.log(JSON.stringify(body, null, 2));
         //console.log();
+        await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("Ask for status NoAppointment", async () => {
@@ -94,6 +97,7 @@ test.describe("Modifikace L3 - SWAP HW", async () => {
 
         const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO, 10, 5000);
         console.log(JSON.stringify(body, null, 2));
+        await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("Close", async () => {
@@ -105,8 +109,9 @@ test.describe("Modifikace L3 - SWAP HW", async () => {
 
         await checkResponseStatus(response, 200);
 
-        //const body = await response.json();
+        const body = await response.json();
         //console.log(JSON.stringify(body, null, 2));
+        await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
       });
     });
   });
@@ -154,6 +159,7 @@ test.describe("Modifikace L1 - SWAP HW", async () => {
         //console.log(JSON.stringify(body, null, 2));
         idWHS_SO = body.id[1].value;
         console.log(idWHS_SO);
+        await validateJsonSchema("POST_serviceOrder", "ServiceOrder", body);
       });
 
       await test.step("Ask for status NoAppointment", async () => {
@@ -164,6 +170,7 @@ test.describe("Modifikace L1 - SWAP HW", async () => {
         const body = await waitForExpectedStatus(request, "NoAppointment", idWHS_SO, 10, 5000);
         expect(checkForNullValues(body)).toBe(false);
         //console.log(JSON.stringify(body, null, 2));
+        await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("WHS Partner requests provisioning start", async () => {
@@ -179,6 +186,7 @@ test.describe("Modifikace L1 - SWAP HW", async () => {
         const body = await response.json();
         expect(checkForNullValues(body)).toBe(false);
         //console.log(JSON.stringify(body, null, 2));
+        await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("Ask for status NoAppointment", async () => {
@@ -189,6 +197,7 @@ test.describe("Modifikace L1 - SWAP HW", async () => {
         const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO, 10, 5000);
         expect(checkForNullValues(body)).toBe(false);
         //console.log(JSON.stringify(body, null, 2));
+        await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("Close", async () => {
@@ -203,6 +212,7 @@ test.describe("Modifikace L1 - SWAP HW", async () => {
         const body = await response.json();
         expect(checkForNullValues(body)).toBe(false);
         //console.log(JSON.stringify(body, null, 2));
+        await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
       });
     });
   });
@@ -250,6 +260,7 @@ test.describe("Modifikace L1 - Změna tarifu", async () => {
         //console.log(JSON.stringify(body, null, 2));
         idWHS_SO = body.id[1].value;
         console.log(idWHS_SO);
+        await validateJsonSchema("POST_serviceOrder", "ServiceOrder", body);
       });
 
       await test.step("Ask for status", async () => {
@@ -260,6 +271,7 @@ test.describe("Modifikace L1 - Změna tarifu", async () => {
         const body = await waitForExpectedStatus(request, "NoAppointment", idWHS_SO, 60, 5000);
         expect(checkForNullValues(body)).toBe(false);
         //console.log(JSON.stringify(body, null, 2));
+        await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("WHS Partner requests provisioning start", async () => {
@@ -274,6 +286,7 @@ test.describe("Modifikace L1 - Změna tarifu", async () => {
         const body = await response.json();
         expect(checkForNullValues(body)).toBe(false);
         //console.log(JSON.stringify(body, null, 2));
+        await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("Ask for status", async () => {
@@ -284,6 +297,7 @@ test.describe("Modifikace L1 - Změna tarifu", async () => {
         const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO, 60, 5000);
         expect(checkForNullValues(body)).toBe(false);
         //console.log(JSON.stringify(body, null, 2));
+        await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("Close", async () => {
@@ -298,6 +312,7 @@ test.describe("Modifikace L1 - Změna tarifu", async () => {
         const body = await response.json();
         expect(checkForNullValues(body)).toBe(false);
         //console.log(JSON.stringify(body, null, 2));
+        await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
       });
     });
   });

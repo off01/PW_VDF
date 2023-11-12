@@ -1,0 +1,153 @@
+{
+  "type": "object",
+  "properties": {
+    "created": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "createdBy": {
+      "type": "object",
+      "properties": {
+        "schemeAgencyName": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["schemeAgencyName", "value"]
+    },
+    "id": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "schemeAgencyName": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": ["schemeAgencyName", "value"]
+      }
+    },
+    "lastModified": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "lastModifiedBy": {
+      "type": "object",
+      "properties": {
+        "schemeAgencyName": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["schemeAgencyName", "value"]
+    },
+    "parts": {
+      "type": "object",
+      "properties": {
+        "partyFeedbackSpecification": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "schemeAgencyName": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": ["schemeAgencyName", "value"]
+              }
+            }
+          },
+          "required": ["id"]
+        },
+        "question": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "consumerResponse": {
+                "type": "string"
+              },
+              "desc": {
+                "type": "string"
+              },
+              "id": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "schemeAgencyName": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["schemeAgencyName", "value"]
+                }
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": ["desc", "id", "type"]
+          }
+        },
+        "relatedObject": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "schemeAgencyName": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["schemeAgencyName", "value"]
+                }
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": ["id", "type"]
+          }
+        }
+      },
+      "required": ["partyFeedbackSpecification", "question", "relatedObject"]
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": ["created", "createdBy", "id", "lastModified", "lastModifiedBy", "parts", "status"]
+}

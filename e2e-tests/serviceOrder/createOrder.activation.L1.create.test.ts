@@ -6,7 +6,7 @@ import { getRandomElement, extractWHSWAS } from "@helper/listofflats";
 import { waitForExpectedStatus } from "@helper/waitingStatus";
 import { getTomorrowDate } from "@helper/timeGenerator";
 import { recordResults } from "@helper/fileOperations";
-import { checkResponseStatus, checkForNullValues } from "@helper/expectsAsserts";
+import { checkResponseStatus, checkForNullValues, validateJsonSchema } from "@helper/expectsAsserts";
 import * as fs from "fs";
 
 const L1config = JSON.parse(fs.readFileSync("config/dataL1.json", "utf8"));
@@ -35,6 +35,8 @@ test.describe(`Aktivace test L1 spolu s HW`, async () => {
         expect(checkForNullValues(body)).toBe(false);
         idWHS_SO = body.id[1].value;
         idASSET_ser = body.parts.lineItem[1].serviceSpecification[0].characteristicsValue[0].value;
+
+        await validateJsonSchema("POST_serviceOrder", "ServiceOrder", body);
       });
 
       await test.step("Ask for status QuestionsReady", async () => {
@@ -42,8 +44,9 @@ test.describe(`Aktivace test L1 spolu s HW`, async () => {
 
         await checkResponseStatus(response, 200);
 
-        const body = await waitForExpectedStatus(request, "QuestionsReady", idWHS_SO, 15, 5000);
+        const body = await waitForExpectedStatus(request, "QuestionsReady", idWHS_SO, 20, 5000);
         expect(checkForNullValues(body)).toBe(false);
+        await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("Details required for provisioning", async () => {
@@ -56,6 +59,8 @@ test.describe(`Aktivace test L1 spolu s HW`, async () => {
         const body = await response.json();
         expect(checkForNullValues(body)).toBe(false);
         idWHS_PFS = body[0].ids[0].value;
+
+        await validateJsonSchema("GET_partyFeedbackSpecification", "PartyFeedbackSpecification", body);
       });
 
       await test.step("Create", async () => {
@@ -70,6 +75,8 @@ test.describe(`Aktivace test L1 spolu s HW`, async () => {
         const body = await response.json();
         expect(checkForNullValues(body)).toBe(false);
         idWHS_PF = body.id[1].value;
+
+        await validateJsonSchema("POST_partyFeedback", "PartyFeedback", body);
       });
 
       await test.step("Ask for status QuestionsReady", async () => {
@@ -79,6 +86,7 @@ test.describe(`Aktivace test L1 spolu s HW`, async () => {
 
         const body = await waitForExpectedStatus(request, "AppointmentRequired", idWHS_SO);
         expect(checkForNullValues(body)).toBe(false);
+        await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("Ask for status QuestionsReady", async () => {
@@ -93,6 +101,8 @@ test.describe(`Aktivace test L1 spolu s HW`, async () => {
         expect(checkForNullValues(body)).toBe(false);
         const whs_was_ids = extractWHSWAS(body);
         idWHS_WAS = getRandomElement(whs_was_ids);
+
+        await validateJsonSchema("GET_workforceAppointmentSlot", "WorkforceAppointmentSlot", body);
       });
 
       await test.step("Create", async () => {
@@ -107,6 +117,8 @@ test.describe(`Aktivace test L1 spolu s HW`, async () => {
         const body = await response.json();
         expect(checkForNullValues(body)).toBe(false);
         console.log(idWHS_SO, idASSET_ser);
+
+        await validateJsonSchema("POST_customerAppointment", "CustomerAppointment", body);
       });
       await recordResults(idWHS_SO, idASSET_ser);
     });

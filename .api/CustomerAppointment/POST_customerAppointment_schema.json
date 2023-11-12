@@ -1,0 +1,99 @@
+{
+  "type": "object",
+  "properties": {
+    "created": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "createdBy": {
+      "type": "object",
+      "properties": {
+        "schemeAgencyName": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["schemeAgencyName", "value"]
+    },
+    "id": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "schemeAgencyName": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": ["schemeAgencyName", "value"]
+      }
+    },
+    "lastModified": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "lastModifiedBy": {
+      "type": "object",
+      "properties": {
+        "schemeAgencyName": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["schemeAgencyName", "value"]
+    },
+    "status": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "workforceAppointmentSlot": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "schemeAgencyName": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": ["schemeAgencyName", "value"]
+          }
+        }
+      },
+      "required": ["id"]
+    }
+  },
+  "required": [
+    "created",
+    "createdBy",
+    "id",
+    "lastModified",
+    "lastModifiedBy",
+    "status",
+    "type",
+    "workforceAppointmentSlot"
+  ]
+}

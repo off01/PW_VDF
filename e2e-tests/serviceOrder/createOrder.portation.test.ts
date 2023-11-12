@@ -1,14 +1,10 @@
 import { test, expect } from "@playwright/test";
 import { createPortationL1OrderBody, createPortationL3OrderBody } from "@datafactory/createOrder";
-import {
-  serviceOrderL1Provisioning,
-  serviceOrderL3Provisioning,
-  serviceOrderClosed,
-} from "@datafactory/serviceOrder";
+import { serviceOrderL1Provisioning, serviceOrderL3Provisioning, serviceOrderClosed } from "@datafactory/serviceOrder";
 import { waitForExpectedStatus } from "@helper/waitingStatus";
 import { generateMacAddress } from "@helper/randomGenerator";
-import { findIndexOfWHSHWONT } from "@helper/findIndex";
-import { checkResponseStatus, checkForNullValues } from "@helper/expectsAsserts";
+import { findIndexOfSpecificValue } from "@helper/findIndex";
+import { checkResponseStatus, checkForNullValues, validateJsonSchema } from "@helper/expectsAsserts";
 import { fetchOrderIdPortationMopIdL1, fetchOrderIdPortationMopIdL3 } from "@helper/dbQuerries";
 import * as fs from "fs";
 
@@ -36,6 +32,7 @@ test.describe("Portace L1", async () => {
         expect(checkForNullValues(body)).toBe(false);
         idWHS_SO = body.id[1].value;
         console.log(idWHS_SO);
+        await validateJsonSchema("POST_serviceOrder", "ServiceOrder", body);
       });
 
       await test.step("Ask for status", async () => {
@@ -45,6 +42,7 @@ test.describe("Portace L1", async () => {
 
         const body = await waitForExpectedStatus(request, "NoAppointment", idWHS_SO, 15, 5000);
         expect(checkForNullValues(body)).toBe(false);
+        await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("WHS Partner requests provisioning start", async () => {
@@ -59,6 +57,7 @@ test.describe("Portace L1", async () => {
 
         const body = await response.json();
         expect(checkForNullValues(body)).toBe(false);
+        await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("Ask for status", async () => {
@@ -68,6 +67,7 @@ test.describe("Portace L1", async () => {
 
         const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO, 60, 5000);
         expect(checkForNullValues(body)).toBe(false);
+        await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("Close", async () => {
@@ -81,6 +81,7 @@ test.describe("Portace L1", async () => {
 
         const body = await response.json();
         expect(checkForNullValues(body)).toBe(false);
+        await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
       });
     });
   });
@@ -111,6 +112,7 @@ test.describe("Portace L3", async () => {
         expect(checkForNullValues(body)).toBe(false);
         idWHS_SO = body.id[1].value;
         console.log(idWHS_SO);
+        await validateJsonSchema("POST_serviceOrder", "ServiceOrder", body);
       });
 
       await test.step("Details required for provisioning", async () => {
@@ -120,7 +122,8 @@ test.describe("Portace L3", async () => {
 
         const body = await waitForExpectedStatus(request, "WaitForRealization", idWHS_SO, 15, 5000);
         expect(checkForNullValues(body)).toBe(false);
-        IndexOfWHSHWONT = findIndexOfWHSHWONT(body);
+        IndexOfWHSHWONT = findIndexOfSpecificValue(body, "WHSHWONT");
+        await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("WHS Partner requests provisioning start", async () => {
@@ -134,6 +137,7 @@ test.describe("Portace L3", async () => {
 
         const body = await response.json();
         expect(checkForNullValues(body)).toBe(false);
+        await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("Ask for status", async () => {
@@ -143,6 +147,7 @@ test.describe("Portace L3", async () => {
 
         const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO, 60, 5000);
         expect(checkForNullValues(body)).toBe(false);
+        await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("Close", async () => {
@@ -156,6 +161,7 @@ test.describe("Portace L3", async () => {
 
         const body = await response.json();
         expect(checkForNullValues(body)).toBe(false);
+        await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
       });
     });
   });

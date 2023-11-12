@@ -4,7 +4,7 @@ import { checkL3 } from "@datafactory/serviceFeasibility";
 import { getLocationFlatIdsWithCondition, getRandomElement } from "@helper/listofflats";
 import { serviceOrderL3, serviceOrderL3Provisioning } from "@datafactory/serviceOrder";
 import { waitForExpectedStatus } from "@helper/waitingStatus";
-import { findIndexOfWHSHWONT } from "@helper/findIndex";
+import { findIndexOfSpecificValue } from "@helper/findIndex";
 import { checkResponseStatus, checkForNullValues } from "@helper/expectsAsserts";
 //import { getTariffs } from "../../lib/helper/fileOperations";
 import * as fs from "fs";
@@ -90,7 +90,7 @@ test.describe("Aktivace test L3 spolu s HW", async () => {
 
         const body = await response.json();
         expect(checkForNullValues(body)).toBe(false);
-        IndexOfWHSHWONT = findIndexOfWHSHWONT(body);
+        IndexOfWHSHWONT = findIndexOfSpecificValue(body, "WHSHWONT");
         //console.log(JSON.stringify(body, null, 2));
       });
 

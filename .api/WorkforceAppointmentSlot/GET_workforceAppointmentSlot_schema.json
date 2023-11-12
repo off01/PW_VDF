@@ -1,0 +1,102 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "created": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": ["value"]
+      },
+      "createdBy": {
+        "type": "object",
+        "properties": {
+          "schemeAgencyName": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": ["schemeAgencyName", "value"]
+      },
+      "id": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "schemeAgencyName": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": ["schemeAgencyName", "value"]
+        }
+      },
+      "parts": {
+        "type": "object",
+        "properties": {
+          "proposedTime": {
+            "type": "object",
+            "properties": {
+              "endDateTime": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": ["value"]
+              },
+              "startDateTime": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": ["value"]
+              }
+            },
+            "required": ["endDateTime", "startDateTime"]
+          },
+          "relatedObject": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "schemeAgencyName": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["schemeAgencyName", "value"]
+                  }
+                }
+              },
+              "required": ["id"]
+            }
+          }
+        },
+        "required": ["proposedTime", "relatedObject"]
+      },
+      "type": {
+        "type": "string"
+      }
+    },
+    "required": ["created", "createdBy", "id", "parts", "type"]
+  }
+}

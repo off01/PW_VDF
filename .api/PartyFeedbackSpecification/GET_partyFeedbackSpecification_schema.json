@@ -1,0 +1,117 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "created": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": ["value"]
+      },
+      "createdBy": {
+        "type": "object",
+        "properties": {
+          "schemeAgencyName": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": ["schemeAgencyName", "value"]
+      },
+      "ids": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "schemeAgencyName": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": ["schemeAgencyName", "value"]
+        }
+      },
+      "parts": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "desc": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "schemeAgencyName": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["schemeAgencyName", "value"]
+                  }
+                },
+                "questionResponse": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": ["desc", "id", "type"]
+            }
+          },
+          "relatedObject": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "schemeAgencyName": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["schemeAgencyName", "value"]
+                  }
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": ["id", "type"]
+            }
+          }
+        },
+        "required": ["question", "relatedObject"]
+      },
+      "status": {
+        "type": "string"
+      }
+    },
+    "required": ["created", "createdBy", "ids", "parts", "status"]
+  }
+}

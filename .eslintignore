@@ -5,7 +5,7 @@ node_modules/
 test-results/
 playwright-report
 summary.json
-api-tests/serviceOrder/createOrder.POKUS-NEPOUŽÍVAT.L1.test.ts
+e2e-tests/serviceOrder/createOrder.POKUS-NEPOUŽÍVAT.L1.test.ts
 config/
 playwright.config.ts
 # IDE - VSCode

@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { createTerminationL3OrderBody, createTerminationL1OrderBody } from "@datafactory/createOrder";
 import { serviceOrderProvisioning, serviceOrderClosed } from "@datafactory/serviceOrder";
 import { waitForExpectedStatus } from "@helper/waitingStatus";
-import { checkResponseStatus, checkForNullValues } from "@helper/expectsAsserts";
+import { checkResponseStatus, checkForNullValues, validateJsonSchema } from "@helper/expectsAsserts";
 import { fetchOrderIdTerminationL3, fetchOrderIdTerminationL1 } from "@helper/dbQuerries";
 
 test.describe("Terminace L3", async () => {
@@ -27,6 +27,7 @@ test.describe("Terminace L3", async () => {
       idWHS_SO = body.id[1].value;
       console.log(idASSET_sub);
       console.log(idWHS_SO);
+      await validateJsonSchema("POST_serviceOrder", "ServiceOrder", body);
     });
 
     await test.step("Ask for status", async () => {
@@ -36,6 +37,7 @@ test.describe("Terminace L3", async () => {
 
       const body = await waitForExpectedStatus(request, "WaitForRealization", idWHS_SO);
       expect(checkForNullValues(body)).toBe(false);
+      await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
     });
 
     await test.step("WHS Partner requests provisioning start", async () => {
@@ -49,6 +51,7 @@ test.describe("Terminace L3", async () => {
 
       const body = await response.json();
       expect(checkForNullValues(body)).toBe(false);
+      await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
     });
 
     await test.step("Ask for status", async () => {
@@ -58,6 +61,7 @@ test.describe("Terminace L3", async () => {
 
       const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO);
       expect(checkForNullValues(body)).toBe(false);
+      await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
     });
 
     await test.step("Close", async () => {
@@ -71,6 +75,7 @@ test.describe("Terminace L3", async () => {
 
       const body = await response.json();
       expect(checkForNullValues(body)).toBe(false);
+      await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
     });
   });
 });
@@ -97,6 +102,7 @@ test.describe("Terminace L1", async () => {
       idWHS_SO = body.id[1].value;
       console.log(idASSET_sub);
       console.log(idWHS_SO);
+      await validateJsonSchema("POST_serviceOrder", "ServiceOrder", body);
     });
 
     await test.step("Ask for status", async () => {
@@ -106,6 +112,7 @@ test.describe("Terminace L1", async () => {
 
       const body = await waitForExpectedStatus(request, "NoAppointment", idWHS_SO);
       expect(checkForNullValues(body)).toBe(false);
+      await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
     });
 
     await test.step("WHS Partner requests provisioning start", async () => {
@@ -119,6 +126,7 @@ test.describe("Terminace L1", async () => {
 
       const body = await response.json();
       expect(checkForNullValues(body)).toBe(false);
+      await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
     });
 
     await test.step("Ask for status", async () => {
@@ -128,6 +136,7 @@ test.describe("Terminace L1", async () => {
 
       const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO);
       expect(checkForNullValues(body)).toBe(false);
+      await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
     });
 
     await test.step("Close", async () => {
@@ -141,6 +150,7 @@ test.describe("Terminace L1", async () => {
 
       const body = await response.json();
       expect(checkForNullValues(body)).toBe(false);
+      await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
     });
   });
 });

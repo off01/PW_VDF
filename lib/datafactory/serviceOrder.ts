@@ -89,7 +89,7 @@ export async function serviceOrderL3Provisioning(IndexOfWHSHWONT: number) {
   return orderBody;
 }
 
-export async function serviceOrderCancel() {
+export async function serviceOrderCancel(findIndexOfWHSHFCCONN: number) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
   const orderBody = [
     {
@@ -114,7 +114,7 @@ export async function serviceOrderCancel() {
     },
     {
       op: "add",
-      path: "/parts.lineItem[0].serviceSpecification[0].characteristicsValue",
+      path: `/parts.lineItem[${findIndexOfWHSHFCCONN}].serviceSpecification[0].characteristicsValue`,
       value: {
         characteristicsValue: [
           {

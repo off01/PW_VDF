@@ -8,3 +8,4 @@ node_modules/
 /config/PRE
 /config/SYS2
 /config/currentEnv.json
+.github

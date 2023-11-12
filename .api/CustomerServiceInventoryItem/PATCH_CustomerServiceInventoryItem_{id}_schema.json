@@ -1,0 +1,243 @@
+{
+  "type": "object",
+  "properties": {
+    "created": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "createdBy": {
+      "type": "object",
+      "properties": {
+        "schemeAgencyName": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["schemeAgencyName", "value"]
+    },
+    "id": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "schemeAgencyName": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": ["schemeAgencyName", "value"]
+      }
+    },
+    "lastModified": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "lastModifiedBy": {
+      "type": "object",
+      "properties": {
+        "schemeAgencyName": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["schemeAgencyName", "value"]
+    },
+    "parts": {
+      "type": "object",
+      "properties": {
+        "customerServiceInventoryItemSite": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "siteContactPoint": {
+                "type": "object",
+                "properties": {
+                  "postal": {
+                    "type": "object",
+                    "properties": {
+                      "buildingNumber": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "string"
+                          }
+                        },
+                        "required": ["value"]
+                      },
+                      "characteristic": {
+                        "type": "object",
+                        "properties": {
+                          "characteristicsValue": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "characteristicName": {
+                                  "type": "string"
+                                },
+                                "value": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": ["characteristicName", "value"]
+                            }
+                          }
+                        },
+                        "required": ["characteristicsValue"]
+                      },
+                      "geoLocation": {
+                        "type": "object",
+                        "properties": {
+                          "latitudeMeasure": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": ["value"]
+                          },
+                          "longitudeMeasure": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": ["value"]
+                          }
+                        },
+                        "required": ["latitudeMeasure", "longitudeMeasure"]
+                      },
+                      "postCode": {
+                        "type": "string"
+                      },
+                      "street": {
+                        "type": "string"
+                      },
+                      "town": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["buildingNumber", "characteristic", "geoLocation", "postCode", "street", "town"]
+                  }
+                },
+                "required": ["postal"]
+              }
+            },
+            "required": ["siteContactPoint"]
+          }
+        },
+        "lineItem": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "schemeAgencyName": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["schemeAgencyName", "value"]
+                }
+              },
+              "specification": {
+                "type": "object",
+                "properties": {
+                  "characteristicsValue": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "characteristicName": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": ["characteristicName", "value"]
+                    }
+                  },
+                  "id": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "schemeAgencyName": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": ["schemeAgencyName", "value"]
+                    }
+                  }
+                },
+                "required": ["characteristicsValue", "id"]
+              },
+              "status": {
+                "type": "string"
+              },
+              "relatedLineItem": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "schemeAgencyName": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": ["schemeAgencyName", "value"]
+                    }
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "required": ["id"]
+              }
+            },
+            "required": ["id", "specification"]
+          }
+        }
+      },
+      "required": ["customerServiceInventoryItemSite", "lineItem"]
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": ["created", "createdBy", "id", "lastModified", "lastModifiedBy", "parts", "status"]
+}

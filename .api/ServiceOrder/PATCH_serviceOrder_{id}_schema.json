@@ -1,0 +1,334 @@
+{
+  "type": "object",
+  "properties": {
+    "created": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "createdBy": {
+      "type": "object",
+      "properties": {
+        "schemeName": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["schemeName", "value"]
+    },
+    "id": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "schemeAgencyName": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": ["schemeAgencyName", "value"]
+      }
+    },
+    "lastModified": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "lastModifiedBy": {
+      "type": "object",
+      "properties": {
+        "schemeAgencyName": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["schemeAgencyName", "value"]
+    },
+    "parts": {
+      "type": "object",
+      "properties": {
+        "lineItem": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "action": {
+                "type": "string"
+              },
+              "id": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "schemeAgencyName": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["schemeAgencyName", "value"]
+                }
+              },
+              "relatedLineItem": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "schemeAgencyName": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "string"
+                          }
+                        },
+                        "required": ["schemeAgencyName", "value"]
+                      }
+                    }
+                  },
+                  "required": ["id"]
+                }
+              },
+              "serviceSite": {
+                "type": "object",
+                "properties": {
+                  "contactPeople": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "contactPerson": {
+                          "type": "object",
+                          "properties": {
+                            "contactPoint": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "email": {
+                                    "type": "object",
+                                    "properties": {
+                                      "fullAddress": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": ["fullAddress"]
+                                  },
+                                  "postal": {
+                                    "type": "object",
+                                    "properties": {
+                                      "buildingNumber": {
+                                        "type": "object",
+                                        "properties": {
+                                          "value": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": ["value"]
+                                      },
+                                      "characteristic": {
+                                        "type": "object",
+                                        "properties": {
+                                          "characteristicsValue": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object",
+                                              "properties": {
+                                                "characteristicName": {
+                                                  "type": "string"
+                                                },
+                                                "value": {
+                                                  "type": "string"
+                                                }
+                                              },
+                                              "required": ["characteristicName", "value"]
+                                            }
+                                          }
+                                        },
+                                        "required": ["characteristicsValue"]
+                                      },
+                                      "geoLocation": {
+                                        "type": "object",
+                                        "properties": {
+                                          "latitudeMeasure": {
+                                            "type": "object",
+                                            "properties": {
+                                              "value": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": ["value"]
+                                          },
+                                          "longitudeMeasure": {
+                                            "type": "object",
+                                            "properties": {
+                                              "value": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": ["value"]
+                                          }
+                                        },
+                                        "required": ["latitudeMeasure", "longitudeMeasure"]
+                                      },
+                                      "levelNr": {
+                                        "type": "string"
+                                      },
+                                      "portalDoor": {
+                                        "type": "string"
+                                      },
+                                      "postCode": {
+                                        "type": "string"
+                                      },
+                                      "primaryClassification": {
+                                        "type": "string"
+                                      },
+                                      "street": {
+                                        "type": "string"
+                                      },
+                                      "town": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "buildingNumber",
+                                      "characteristic",
+                                      "geoLocation",
+                                      "levelNr",
+                                      "portalDoor",
+                                      "postCode",
+                                      "primaryClassification",
+                                      "street",
+                                      "town"
+                                    ]
+                                  },
+                                  "telephone": {
+                                    "type": "object",
+                                    "properties": {
+                                      "subscriberNumber": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": ["subscriberNumber"]
+                                  }
+                                },
+                                "required": ["postal"]
+                              }
+                            },
+                            "individualName": {
+                              "type": "object",
+                              "properties": {
+                                "familyName": {
+                                  "type": "string"
+                                },
+                                "firstName": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": ["familyName", "firstName", "title"]
+                            },
+                            "language": {
+                              "type": "string"
+                            }
+                          },
+                          "required": ["contactPoint"]
+                        }
+                      },
+                      "required": ["contactPerson"]
+                    }
+                  }
+                },
+                "required": ["contactPeople"]
+              },
+              "serviceSpecification": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "characteristicsValue": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "characteristicName": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "string"
+                          }
+                        },
+                        "required": ["characteristicName", "value"]
+                      }
+                    },
+                    "id": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "schemeAgencyName": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "string"
+                          }
+                        },
+                        "required": ["schemeAgencyName", "value"]
+                      }
+                    }
+                  },
+                  "required": ["characteristicsValue", "id"]
+                }
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": ["action", "id", "serviceSpecification", "status"]
+          }
+        },
+        "note": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "string"
+              }
+            },
+            "required": ["content"]
+          }
+        }
+      },
+      "required": ["lineItem"]
+    },
+    "status": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "required": ["created", "createdBy", "id", "lastModified", "lastModifiedBy", "parts", "status", "type"]
+}

@@ -1,0 +1,13 @@
+// .eslintrc.json
+
+/* eslint-env node */
+{
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:@typescript-eslint/stylistic"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "root": true,
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": { "@typescript-eslint/no-explicit-any": "off" }
+}

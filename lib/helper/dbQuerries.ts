@@ -1,14 +1,14 @@
-import oracledb from 'oracledb';
-import config from '../../config/config';
+import oracledb from "oracledb";
+import config from "../../config/config";
 
 const { WHS_DB_CONFIG, FBB_DB_CONFIG } = config.dbConfig;
 
 export async function fetchOrderIdCancelL3(): Promise<string | null> {
-    let connection;
+  let connection;
 
-    try {
-        connection = await oracledb.getConnection(WHS_DB_CONFIG);
-        const query = `
+  try {
+    connection = await oracledb.getConnection(WHS_DB_CONFIG);
+    const query = `
             SELECT o.ORDER_ID  
             FROM "ORDER" o 
             JOIN SUBSCRIPTION_ITEM si ON (o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID)
@@ -19,30 +19,29 @@ export async function fetchOrderIdCancelL3(): Promise<string | null> {
             AND o.STATUS NOT IN ('Closed','Canceled')
         `;
 
-        const result = await connection.execute(query);
+    const result = await connection.execute(query);
 
-        if (result.rows && result.rows.length > 0) {
-            return result.rows[0][0] as string;
-        }
-
-        throw new Error("No idWHS_SO found in the database.");
-
-    } catch (err) {
-        console.error(err);
-        throw err;
-    } finally {
-        if (connection) {
-            await connection.close();
-        }
+    if (result.rows && result.rows.length > 0) {
+      return result.rows[0][0] as string;
     }
+
+    throw new Error("No idWHS_SO found in the database.");
+  } catch (err) {
+    console.error(err);
+    throw err;
+  } finally {
+    if (connection) {
+      await connection.close();
+    }
+  }
 }
 
 export async function fetchOrderIdCancelL1(): Promise<string | null> {
-    let connection;
+  let connection;
 
-    try {
-        connection = await oracledb.getConnection(WHS_DB_CONFIG);
-        const query = `
+  try {
+    connection = await oracledb.getConnection(WHS_DB_CONFIG);
+    const query = `
             SELECT o.ORDER_ID  
             FROM "ORDER" o 
             JOIN SUBSCRIPTION_ITEM si ON (o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID)
@@ -53,30 +52,29 @@ export async function fetchOrderIdCancelL1(): Promise<string | null> {
             AND o.STATUS NOT IN ('Closed','Canceled')
         `;
 
-        const result = await connection.execute(query);
+    const result = await connection.execute(query);
 
-        if (result.rows && result.rows.length > 0) {
-            return result.rows[0][0] as string;
-        }
-
-        throw new Error("No idWHS_SO found in the database.");
-
-    } catch (err) {
-        console.error(err);
-        throw err;
-    } finally {
-        if (connection) {
-            await connection.close();
-        }
+    if (result.rows && result.rows.length > 0) {
+      return result.rows[0][0] as string;
     }
+
+    throw new Error("No idWHS_SO found in the database.");
+  } catch (err) {
+    console.error(err);
+    throw err;
+  } finally {
+    if (connection) {
+      await connection.close();
+    }
+  }
 }
 
 export async function fetchOrderIdTerminationL3(): Promise<string | null> {
-    let connection;
+  let connection;
 
-    try {
-        connection = await oracledb.getConnection(WHS_DB_CONFIG);
-        const query = `
+  try {
+    connection = await oracledb.getConnection(WHS_DB_CONFIG);
+    const query = `
         SELECT si.WHS_ASSET_ID  
         FROM "ORDER" o 
         JOIN SUBSCRIPTION_ITEM si ON (o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID)
@@ -89,30 +87,29 @@ export async function fetchOrderIdTerminationL3(): Promise<string | null> {
         AND si.WHS_ASSET_ID != '80016090'
         `;
 
-        const result = await connection.execute(query);
+    const result = await connection.execute(query);
 
-        if (result.rows && result.rows.length > 0) {
-            return result.rows[0][0] as string;
-        }
-
-        throw new Error("No DATA found in the database.");
-
-    } catch (err) {
-        console.error(err);
-        throw err;
-    } finally {
-        if (connection) {
-            await connection.close();
-        }
+    if (result.rows && result.rows.length > 0) {
+      return result.rows[0][0] as string;
     }
+
+    throw new Error("No DATA found in the database.");
+  } catch (err) {
+    console.error(err);
+    throw err;
+  } finally {
+    if (connection) {
+      await connection.close();
+    }
+  }
 }
 
 export async function fetchOrderIdTerminationL1(): Promise<string | null> {
-    let connection;
+  let connection;
 
-    try {
-        connection = await oracledb.getConnection(WHS_DB_CONFIG);
-        const query = `
+  try {
+    connection = await oracledb.getConnection(WHS_DB_CONFIG);
+    const query = `
         SELECT si.WHS_ASSET_ID
         FROM "ORDER" o 
         JOIN SUBSCRIPTION_ITEM si ON (o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID)
@@ -125,30 +122,29 @@ export async function fetchOrderIdTerminationL1(): Promise<string | null> {
         ORDER BY o.CREATED desc
         `;
 
-        const result = await connection.execute(query);
+    const result = await connection.execute(query);
 
-        if (result.rows && result.rows.length > 0) {
-            return result.rows[0][0] as string;
-        }
-
-        throw new Error("No DATA found in the database.");
-
-    } catch (err) {
-        console.error(err);
-        throw err;
-    } finally {
-        if (connection) {
-            await connection.close();
-        }
+    if (result.rows && result.rows.length > 0) {
+      return result.rows[0][0] as string;
     }
+
+    throw new Error("No DATA found in the database.");
+  } catch (err) {
+    console.error(err);
+    throw err;
+  } finally {
+    if (connection) {
+      await connection.close();
+    }
+  }
 }
 
 export async function fetchOrderIdPortationMopIdL1(): Promise<string | null> {
-    let connection;
+  let connection;
 
-    try {
-        connection = await oracledb.getConnection(FBB_DB_CONFIG);
-        const query = `
+  try {
+    connection = await oracledb.getConnection(FBB_DB_CONFIG);
+    const query = `
         SELECT MOP_ID 
         FROM BO_SUBSCRIPTION bos JOIN FBB_STATE_TBL fst ON (bos.FBB_STATE_ID = FST.FBB_STATE_ID)
         WHERE 1=1
@@ -159,30 +155,29 @@ export async function fetchOrderIdPortationMopIdL1(): Promise<string | null> {
         ORDER BY CREATED DESC
         `;
 
-        const result = await connection.execute(query);
+    const result = await connection.execute(query);
 
-        if (result.rows && result.rows.length > 0) {
-            return result.rows[0][0] as string;
-        }
-
-        throw new Error("No DATA found in the database.");
-
-    } catch (err) {
-        console.error(err);
-        throw err;
-    } finally {
-        if (connection) {
-            await connection.close();
-        }
+    if (result.rows && result.rows.length > 0) {
+      return result.rows[0][0] as string;
     }
+
+    throw new Error("No DATA found in the database.");
+  } catch (err) {
+    console.error(err);
+    throw err;
+  } finally {
+    if (connection) {
+      await connection.close();
+    }
+  }
 }
 
 export async function fetchOrderIdPortationMopIdL3(): Promise<string | null> {
-    let connection;
+  let connection;
 
-    try {
-        connection = await oracledb.getConnection(FBB_DB_CONFIG);
-        const query = `
+  try {
+    connection = await oracledb.getConnection(FBB_DB_CONFIG);
+    const query = `
         SELECT MOP_ID 
         FROM BO_SUBSCRIPTION bos JOIN FBB_STATE_TBL fst ON (bos.FBB_STATE_ID = FST.FBB_STATE_ID)
         WHERE 1=1
@@ -193,30 +188,29 @@ export async function fetchOrderIdPortationMopIdL3(): Promise<string | null> {
         ORDER BY CREATED DESC
         `;
 
-        const result = await connection.execute(query);
+    const result = await connection.execute(query);
 
-        if (result.rows && result.rows.length > 0) {
-            return result.rows[0][0] as string;
-        }
-
-        throw new Error("No DATA found in the database.");
-
-    } catch (err) {
-        console.error(err);
-        throw err;
-    } finally {
-        if (connection) {
-            await connection.close();
-        }
+    if (result.rows && result.rows.length > 0) {
+      return result.rows[0][0] as string;
     }
+
+    throw new Error("No DATA found in the database.");
+  } catch (err) {
+    console.error(err);
+    throw err;
+  } finally {
+    if (connection) {
+      await connection.close();
+    }
+  }
 }
 
 export async function fetchInactiveAssetId(): Promise<string | null> {
-    let connection;
+  let connection;
 
-    try {
-        connection = await oracledb.getConnection(WHS_DB_CONFIG);
-        const query = `
+  try {
+    connection = await oracledb.getConnection(WHS_DB_CONFIG);
+    const query = `
         SELECT si.WHS_ASSET_ID    
         FROM "ORDER" o 
         JOIN SUBSCRIPTION_ITEM si ON (o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID)
@@ -226,30 +220,29 @@ export async function fetchInactiveAssetId(): Promise<string | null> {
         AND si.STATUS IN ('Suspend')
         `;
 
-        const result = await connection.execute(query);
+    const result = await connection.execute(query);
 
-        if (result.rows && result.rows.length > 0) {
-            return result.rows[0][0] as string;
-        }
-
-        throw new Error("No DATA found in the database.");
-
-    } catch (err) {
-        console.error(err);
-        throw err;
-    } finally {
-        if (connection) {
-            await connection.close();
-        }
+    if (result.rows && result.rows.length > 0) {
+      return result.rows[0][0] as string;
     }
+
+    throw new Error("No DATA found in the database.");
+  } catch (err) {
+    console.error(err);
+    throw err;
+  } finally {
+    if (connection) {
+      await connection.close();
+    }
+  }
 }
 
 export async function fetchActiveAssetId(): Promise<string | null> {
-    let connection;
+  let connection;
 
-    try {
-        connection = await oracledb.getConnection(WHS_DB_CONFIG);
-        const query = `
+  try {
+    connection = await oracledb.getConnection(WHS_DB_CONFIG);
+    const query = `
         SELECT si.WHS_ASSET_ID  
         FROM "ORDER" o 
         JOIN SUBSCRIPTION_ITEM si ON (o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID)
@@ -260,30 +253,29 @@ export async function fetchActiveAssetId(): Promise<string | null> {
         AND si.STATUS IN ('Active')
         `;
 
-        const result = await connection.execute(query);
+    const result = await connection.execute(query);
 
-        if (result.rows && result.rows.length > 0) {
-            return result.rows[0][0] as string;
-        }
-
-        throw new Error("No DATA found in the database.");
-
-    } catch (err) {
-        console.error(err);
-        throw err;
-    } finally {
-        if (connection) {
-            await connection.close();
-        }
+    if (result.rows && result.rows.length > 0) {
+      return result.rows[0][0] as string;
     }
+
+    throw new Error("No DATA found in the database.");
+  } catch (err) {
+    console.error(err);
+    throw err;
+  } finally {
+    if (connection) {
+      await connection.close();
+    }
+  }
 }
 
-export async function fetchDataModificationL1_L3_WH(hwdb: string): Promise<{[key: string]: string}> {
-    let connection;
+export async function fetchDataModificationL1_L3_WH(hwdb: string): Promise<Record<string, string>> {
+  let connection;
 
-    try {
-        connection = await oracledb.getConnection(WHS_DB_CONFIG);
-        const query = `
+  try {
+    connection = await oracledb.getConnection(WHS_DB_CONFIG);
+    const query = `
         WITH AttributeData AS (
             -- Subdotaz pro ATTRIBUTE data
             SELECT 
@@ -353,40 +345,39 @@ export async function fetchDataModificationL1_L3_WH(hwdb: string): Promise<{[key
         ORDER BY s.CREATED desc
         `;
 
-        const result = await connection.execute(query, { hwdb });
+    const result = await connection.execute(query, { hwdb });
 
-        if (result.rows && result.rows.length > 0) {
-            return {
-            WHS_ASSET_ID1: result.rows[0][0],
-            WHS_ASSET_ID2: result.rows[0][1],
-            WHS_ASSET_ID3: result.rows[0][2],
-            WHS_ASSET_ID4: result.rows[0][3],
-            Tarif: result.rows[0][4],
-            HW: result.rows[0][5],
-            macAddress: result.rows[0][6],
-            rid: result.rows[0][7],
-            snNumber: result.rows[0][8]
-            }
-        }
-
-        throw new Error("No DATA found in the database.");
-
-    } catch (err) {
-        console.error(err);
-        throw err;
-    } finally {
-        if (connection) {
-            await connection.close();
-        }
+    if (result.rows && result.rows.length > 0) {
+      return {
+        WHS_ASSET_ID1: result.rows[0][0],
+        WHS_ASSET_ID2: result.rows[0][1],
+        WHS_ASSET_ID3: result.rows[0][2],
+        WHS_ASSET_ID4: result.rows[0][3],
+        Tarif: result.rows[0][4],
+        HW: result.rows[0][5],
+        macAddress: result.rows[0][6],
+        rid: result.rows[0][7],
+        snNumber: result.rows[0][8],
+      };
     }
+
+    throw new Error("No DATA found in the database.");
+  } catch (err) {
+    console.error(err);
+    throw err;
+  } finally {
+    if (connection) {
+      await connection.close();
+    }
+  }
 }
 
-export async function fetchDataModificationL1_tariff(tariffdb: string, hwdb: string): Promise<{[key: string]: string}> {
-    let connection;
+export async function fetchDataModificationL1_tariff(tariffdb: string, hwdb: string): Promise<Record<string, string>> {
+  let connection;
 
-    try {
-        connection = await oracledb.getConnection(WHS_DB_CONFIG);
-        const query = `
+  try {
+    connection = await oracledb.getConnection(WHS_DB_CONFIG);
+    const query = `
         WITH AttributeData AS (
             -- Subdotaz pro ATTRIBUTE data
             SELECT 
@@ -457,30 +448,29 @@ export async function fetchDataModificationL1_tariff(tariffdb: string, hwdb: str
         ORDER BY s.CREATED desc
         `;
 
-        const result = await connection.execute(query, { tariffdb, hwdb });
+    const result = await connection.execute(query, { tariffdb, hwdb });
 
-        if (result.rows && result.rows.length > 0) {
-            return {
-            WHS_ASSET_ID1: result.rows[0][0],
-            WHS_ASSET_ID2: result.rows[0][1],
-            WHS_ASSET_ID3: result.rows[0][2],
-            WHS_ASSET_ID4: result.rows[0][3],
-            Tarif: result.rows[0][4],
-            HW: result.rows[0][5],
-            macAddress: result.rows[0][6],
-            rid: result.rows[0][7],
-            snNumber: result.rows[0][8]
-            }
-        }
-
-        throw new Error("No DATA found in the database.");
-
-    } catch (err) {
-        console.error(err);
-        throw err;
-    } finally {
-        if (connection) {
-            await connection.close();
-        }
+    if (result.rows && result.rows.length > 0) {
+      return {
+        WHS_ASSET_ID1: result.rows[0][0],
+        WHS_ASSET_ID2: result.rows[0][1],
+        WHS_ASSET_ID3: result.rows[0][2],
+        WHS_ASSET_ID4: result.rows[0][3],
+        Tarif: result.rows[0][4],
+        HW: result.rows[0][5],
+        macAddress: result.rows[0][6],
+        rid: result.rows[0][7],
+        snNumber: result.rows[0][8],
+      };
     }
+
+    throw new Error("No DATA found in the database.");
+  } catch (err) {
+    console.error(err);
+    throw err;
+  } finally {
+    if (connection) {
+      await connection.close();
+    }
+  }
 }

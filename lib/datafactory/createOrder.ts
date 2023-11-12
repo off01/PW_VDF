@@ -1,4 +1,4 @@
-import { incrementCounterOrderId } from "../helper/counterHelper";
+import { incrementCounterOrderId } from "@helper/counterHelper";
 import moment from "moment";
 
 export async function createActivationL3OrderBody(WHSDATA: string, WHSHW: string) {

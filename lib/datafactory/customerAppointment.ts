@@ -1,4 +1,4 @@
-import { incrementCounterserviceCustomerAppointmentId } from "../helper/counterHelper";
+import { incrementCounterserviceCustomerAppointmentId } from "@helper/counterHelper";
 import moment from "moment";
 
 export async function customerAppointmentL1(idWHS_WAS: string) {

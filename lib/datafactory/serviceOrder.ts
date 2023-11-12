@@ -1,5 +1,5 @@
 import moment from "moment";
-import { generateKey, generateRandomHex } from "../helper/randomGenerator";
+import { generateKey, generateRandomHex } from "@helper/randomGenerator";
 
 export async function serviceOrderL3(idlocationFlatId: string) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");

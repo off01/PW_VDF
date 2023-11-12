@@ -1,4 +1,4 @@
-import { incrementCounterservicePartyId } from "../helper/counterHelper";
+import { incrementCounterservicePartyId } from "@helper/counterHelper";
 import moment from "moment";
 
 export async function questionaryL1(idWHS_PFS: string, idWHS_SO: string) {

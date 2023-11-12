@@ -1,4 +1,4 @@
-import { incrementCounterserviceFeasibilityId } from "../helper/counterHelper";
+import { incrementCounterserviceFeasibilityId } from "@helper/counterHelper";
 import moment from "moment";
 
 export async function checkL3(idbuildingId: string, idWHS_SO: string) {

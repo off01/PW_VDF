@@ -9,3 +9,4 @@ node_modules/
 /config/SYS2
 /config/currentEnv.json
 .github
+README.md

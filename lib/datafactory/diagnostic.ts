@@ -1,4 +1,4 @@
-import { incrementCounterDiagnosticId } from "../helper/counterHelper";
+import { incrementCounterDiagnosticId } from "@helper/counterHelper";
 
 export async function diagnosticL3() {
   const idDiagnostic = incrementCounterDiagnosticId();

@@ -3,23 +3,32 @@ import config from "../../config/config";
 
 const { WHS_DB_CONFIG, FBB_DB_CONFIG } = config.dbConfig;
 
-export async function fetchOrderIdCancelL3(): Promise<string | null> {
+export async function fetchOrderId(pc: string): Promise<string | null> {
   let connection;
 
   try {
     connection = await oracledb.getConnection(WHS_DB_CONFIG);
     const query = `
-            SELECT o.ORDER_ID  
-            FROM "ORDER" o 
-            JOIN SUBSCRIPTION_ITEM si ON (o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID)
-            WHERE 1=1
-            AND si.PRODUCT_CODE LIKE 'WHSFTTHCONN'
-            AND o."TYPE" = 'Activation'
-            AND o.PARTNER_ORDER_ID LIKE 'PW%'
-            AND o.STATUS NOT IN ('Closed','Canceled')
+    SELECT 
+      MAX(o.ORDER_ID) KEEP (DENSE_RANK LAST ORDER BY o.CREATED) AS LastOrderID
+    FROM "ORDER" o
+    JOIN SUBSCRIPTION_ITEM si ON o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID
+    WHERE 1=1
+    AND si.STATUS = 'New'
+    AND si.PRODUCT_CODE = :pc
+    AND o.PARTNER_ORDER_ID LIKE 'JM_%'
+    AND NOT EXISTS (
+    SELECT 1
+      FROM "ORDER" o2
+      JOIN SUBSCRIPTION_ITEM si2 ON o2.SUBSCRIPTION_ID = si2.SUBSCRIPTION_ID
+      WHERE si2.WHS_ASSET_ID = si.WHS_ASSET_ID
+      AND o2.STATUS IN ('Closed', 'Canceled', 'OrderProvisioned')
+    )
+    GROUP BY si.WHS_ASSET_ID
+    ORDER BY LastOrderID DESC
         `;
 
-    const result = await connection.execute(query);
+    const result = await connection.execute(query, { pc });
 
     if (result.rows && result.rows.length > 0) {
       return result.rows[0][0] as string;
@@ -36,58 +45,31 @@ export async function fetchOrderIdCancelL3(): Promise<string | null> {
   }
 }
 
-export async function fetchOrderIdCancelL1(): Promise<string | null> {
+export async function fetchAssetId(status: string, pc: string): Promise<string | null> {
   let connection;
 
   try {
     connection = await oracledb.getConnection(WHS_DB_CONFIG);
     const query = `
-            SELECT o.ORDER_ID  
-            FROM "ORDER" o 
-            JOIN SUBSCRIPTION_ITEM si ON (o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID)
-            WHERE 1=1
-            AND si.PRODUCT_CODE LIKE 'WHSHFCCONN'
-            AND o."TYPE" = 'Activation'
-            AND o.PARTNER_ORDER_ID LIKE 'PW%'
-            AND o.STATUS NOT IN ('Closed','Canceled')
+    SELECT DISTINCT
+    si.WHS_ASSET_ID
+    FROM "ORDER" o
+    JOIN SUBSCRIPTION_ITEM si ON o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID
+    WHERE 1=1
+    AND si.STATUS = :status
+    AND si.PRODUCT_CODE = :pc
+    AND o.PARTNER_ORDER_ID LIKE 'PW%'
+    AND NOT EXISTS (
+      SELECT 1
+      FROM "ORDER" o2
+      JOIN SUBSCRIPTION_ITEM si2 ON o2.SUBSCRIPTION_ID = si2.SUBSCRIPTION_ID
+      WHERE si2.WHS_ASSET_ID = si.WHS_ASSET_ID
+      AND o2.STATUS NOT IN ('Closed')
+    )
+    ORDER BY si.WHS_ASSET_ID DESC
         `;
 
-    const result = await connection.execute(query);
-
-    if (result.rows && result.rows.length > 0) {
-      return result.rows[0][0] as string;
-    }
-
-    throw new Error("No idWHS_SO found in the database.");
-  } catch (err) {
-    console.error(err);
-    throw err;
-  } finally {
-    if (connection) {
-      await connection.close();
-    }
-  }
-}
-
-export async function fetchOrderIdTerminationL3(): Promise<string | null> {
-  let connection;
-
-  try {
-    connection = await oracledb.getConnection(WHS_DB_CONFIG);
-    const query = `
-        SELECT si.WHS_ASSET_ID  
-        FROM "ORDER" o 
-        JOIN SUBSCRIPTION_ITEM si ON (o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID)
-        WHERE 1=1
-        AND si.PRODUCT_CODE LIKE 'WHSFTTHCONN'
-        AND o."TYPE" = 'Activation'
-        AND o.PARTNER_ORDER_ID LIKE 'BB%'
-        AND o.STATUS IN ('Closed')
-        AND si.STATUS IN ('Active')
-        AND si.WHS_ASSET_ID != '80016090'
-        `;
-
-    const result = await connection.execute(query);
+    const result = await connection.execute(query, { status, pc });
 
     if (result.rows && result.rows.length > 0) {
       return result.rows[0][0] as string;
@@ -104,42 +86,7 @@ export async function fetchOrderIdTerminationL3(): Promise<string | null> {
   }
 }
 
-export async function fetchOrderIdTerminationL1(): Promise<string | null> {
-  let connection;
-
-  try {
-    connection = await oracledb.getConnection(WHS_DB_CONFIG);
-    const query = `
-        SELECT si.WHS_ASSET_ID
-        FROM "ORDER" o 
-        JOIN SUBSCRIPTION_ITEM si ON (o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID)
-        WHERE 1=1
-        AND si.PRODUCT_CODE LIKE 'WHSHFCCONN'
-        AND o."TYPE" = 'Activation'
-        AND o.PARTNER_ORDER_ID LIKE 'PW%'
-        AND o.STATUS IN ('Closed')
-        AND si.STATUS IN ('Active')
-        ORDER BY o.CREATED desc
-        `;
-
-    const result = await connection.execute(query);
-
-    if (result.rows && result.rows.length > 0) {
-      return result.rows[0][0] as string;
-    }
-
-    throw new Error("No DATA found in the database.");
-  } catch (err) {
-    console.error(err);
-    throw err;
-  } finally {
-    if (connection) {
-      await connection.close();
-    }
-  }
-}
-
-export async function fetchOrderIdPortationMopIdL1(): Promise<string | null> {
+export async function fetchOrderIdPortationMopId(prefixpc: string): Promise<string | null> {
   let connection;
 
   try {
@@ -149,111 +96,13 @@ export async function fetchOrderIdPortationMopIdL1(): Promise<string | null> {
         FROM BO_SUBSCRIPTION bos JOIN FBB_STATE_TBL fst ON (bos.FBB_STATE_ID = FST.FBB_STATE_ID)
         WHERE 1=1
         AND MOP_ID IS NOT NULL
-        AND MOP_ID NOT LIKE 'VFFTH%'
+        AND MOP_ID LIKE :prefixpc
         AND EXT_CASE_ID NOT LIKE 'WHS_SO%'
         AND fst.CODE = 'Active'
         ORDER BY CREATED DESC
         `;
 
-    const result = await connection.execute(query);
-
-    if (result.rows && result.rows.length > 0) {
-      return result.rows[0][0] as string;
-    }
-
-    throw new Error("No DATA found in the database.");
-  } catch (err) {
-    console.error(err);
-    throw err;
-  } finally {
-    if (connection) {
-      await connection.close();
-    }
-  }
-}
-
-export async function fetchOrderIdPortationMopIdL3(): Promise<string | null> {
-  let connection;
-
-  try {
-    connection = await oracledb.getConnection(FBB_DB_CONFIG);
-    const query = `
-        SELECT MOP_ID 
-        FROM BO_SUBSCRIPTION bos JOIN FBB_STATE_TBL fst ON (bos.FBB_STATE_ID = FST.FBB_STATE_ID)
-        WHERE 1=1
-        AND MOP_ID IS NOT NULL
-        AND MOP_ID NOT LIKE 'VFHFC%'
-        AND EXT_CASE_ID NOT LIKE 'WHS_SO%'
-        AND fst.CODE = 'Active'
-        ORDER BY CREATED DESC
-        `;
-
-    const result = await connection.execute(query);
-
-    if (result.rows && result.rows.length > 0) {
-      return result.rows[0][0] as string;
-    }
-
-    throw new Error("No DATA found in the database.");
-  } catch (err) {
-    console.error(err);
-    throw err;
-  } finally {
-    if (connection) {
-      await connection.close();
-    }
-  }
-}
-
-export async function fetchInactiveAssetId(): Promise<string | null> {
-  let connection;
-
-  try {
-    connection = await oracledb.getConnection(WHS_DB_CONFIG);
-    const query = `
-        SELECT si.WHS_ASSET_ID    
-        FROM "ORDER" o 
-        JOIN SUBSCRIPTION_ITEM si ON (o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID)
-        WHERE 1=1
-        AND si.PRODUCT_CODE in ('WHSHFCCONN','WHSFTTHCONN')
-        AND o.PARTNER_ORDER_ID LIKE 'PW%'
-        AND si.STATUS IN ('Suspend')
-        `;
-
-    const result = await connection.execute(query);
-
-    if (result.rows && result.rows.length > 0) {
-      return result.rows[0][0] as string;
-    }
-
-    throw new Error("No DATA found in the database.");
-  } catch (err) {
-    console.error(err);
-    throw err;
-  } finally {
-    if (connection) {
-      await connection.close();
-    }
-  }
-}
-
-export async function fetchActiveAssetId(): Promise<string | null> {
-  let connection;
-
-  try {
-    connection = await oracledb.getConnection(WHS_DB_CONFIG);
-    const query = `
-        SELECT si.WHS_ASSET_ID  
-        FROM "ORDER" o 
-        JOIN SUBSCRIPTION_ITEM si ON (o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID)
-        WHERE 1=1
-        AND si.PRODUCT_CODE in ('WHSHFCCONN')
-        AND o.PARTNER_ORDER_ID LIKE 'PW%'
-        AND o.STATUS IN ('Closed')
-        AND si.STATUS IN ('Active')
-        `;
-
-    const result = await connection.execute(query);
+    const result = await connection.execute(query, { prefixpc });
 
     if (result.rows && result.rows.length > 0) {
       return result.rows[0][0] as string;

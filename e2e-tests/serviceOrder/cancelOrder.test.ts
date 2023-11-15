@@ -1,13 +1,12 @@
 import { test, expect } from "@playwright/test";
 import { serviceOrderCancel } from "@datafactory/serviceOrder";
 import { checkResponseStatus, checkForNullValues, validateJsonSchema } from "@helper/expectsAsserts";
-import { fetchOrderIdCancelL3, fetchOrderIdCancelL1 } from "@helper/dbQuerries";
+import { fetchOrderId } from "@helper/dbQuerries";
 import { findIndexOfSpecificValue } from "@helper/findIndex";
 
 test.describe("Cancel L3", async () => {
-  // skip zdůvodu předpokladu zobrazení neplatných dat (nutno ověřit chování validateJsonSchema)
-  test.skip("Zrušení rozpracované objednávky L3", async ({ request }) => {
-    const idWHS_SO = await fetchOrderIdCancelL3();
+  test("Zrušení rozpracované objednávky L3", async ({ request }) => {
+    const idWHS_SO = await fetchOrderId("WHSFTTHCONN");
     if (!idWHS_SO) {
       throw new Error("Failed to fetch idWHS_SO from the database.");
     }
@@ -44,7 +43,7 @@ test.describe("Cancel L3", async () => {
 
 test.describe("Cancel L1", async () => {
   test("Zrušení rozpracované objednávky L1", async ({ request }) => {
-    const idWHS_SO = await fetchOrderIdCancelL1();
+    const idWHS_SO = await fetchOrderId("WHSHFCCONN");
     if (!idWHS_SO) {
       throw new Error("Failed to fetch idWHS_SO from the database.");
     }

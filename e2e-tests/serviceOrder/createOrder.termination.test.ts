@@ -3,11 +3,11 @@ import { createTerminationL3OrderBody, createTerminationL1OrderBody } from "@dat
 import { serviceOrderProvisioning, serviceOrderClosed } from "@datafactory/serviceOrder";
 import { waitForExpectedStatus } from "@helper/waitingStatus";
 import { checkResponseStatus, checkForNullValues, validateJsonSchema } from "@helper/expectsAsserts";
-import { fetchOrderIdTerminationL3, fetchOrderIdTerminationL1 } from "@helper/dbQuerries";
+import { fetchAssetId } from "@helper/dbQuerries";
 
 test.describe("Terminace L3", async () => {
   test("Terminační objenávka pro L3", async ({ request }) => {
-    const idASSET_sub = await fetchOrderIdTerminationL3();
+    const idASSET_sub = await fetchAssetId("Active", "WHSFTTHCONN");
     if (!idASSET_sub) {
       throw new Error("Failed to fetch DATA from the database.");
     }
@@ -35,7 +35,7 @@ test.describe("Terminace L3", async () => {
 
       await checkResponseStatus(response, 200);
 
-      const body = await waitForExpectedStatus(request, "WaitForRealization", idWHS_SO);
+      const body = await waitForExpectedStatus(request, "WaitForRealization", idWHS_SO, 20, 5000);
       expect(checkForNullValues(body)).toBe(false);
       await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
     });
@@ -59,7 +59,7 @@ test.describe("Terminace L3", async () => {
 
       await checkResponseStatus(response, 200);
 
-      const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO);
+      const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO, 20, 5000);
       expect(checkForNullValues(body)).toBe(false);
       await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
     });
@@ -82,7 +82,7 @@ test.describe("Terminace L3", async () => {
 
 test.describe("Terminace L1", async () => {
   test("Terminační objenávka pro L1", async ({ request }) => {
-    const idASSET_sub = await fetchOrderIdTerminationL1();
+    const idASSET_sub = await fetchAssetId("Active", "WHSHFCCONN");
     if (!idASSET_sub) {
       throw new Error("Failed to fetch DATA from the database.");
     }

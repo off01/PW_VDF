@@ -5,7 +5,7 @@ import { fetchAssetId } from "@helper/dbQuerries";
 
 test.describe("Resume L1", async () => {
   test("Obnovení suspendovaného assetu", async ({ request }) => {
-    const idASSET_sub = fetchAssetId("Suspend", "WHSHFCCONN");
+    const idASSET_sub = await fetchAssetId("Suspend", "WHSHFCCONN");
     if (!idASSET_sub) {
       throw new Error("Failed to fetch idWHS_SO from the database.");
     }

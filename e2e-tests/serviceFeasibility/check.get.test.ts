@@ -1,10 +1,10 @@
 import { test, expect } from "@playwright/test"; // eslint-disable-line
 import { checkResponseStatus } from "@helper/expectsAsserts";
-import { fetchOrderIdCancelL3 } from "@helper/dbQuerries";
+import { fetchOrderId } from "@helper/dbQuerries";
 
 test.describe("Ověření funkčnosti GET", async () => {
   test("Návrat rozpracované objednávky", async ({ request }) => {
-    const idWHS_SO = await fetchOrderIdCancelL3();
+    const idWHS_SO = await fetchOrderId("WHSHFCCONN");
     if (!idWHS_SO) {
       throw new Error("Failed to fetch idWHS_SO from the database.");
     }

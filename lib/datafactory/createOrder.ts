@@ -397,7 +397,7 @@ export async function createModificationChangeTariffL1OrderBody(
               ],
               characteristicsValue: [
                 {
-                  characteristicName: "whsAassetId",
+                  characteristicName: "whsAssetId",
                   value: `${idASSET_sub}`,
                 },
               ],
@@ -433,7 +433,7 @@ export async function createModificationChangeTariffL1OrderBody(
               ],
               characteristicsValue: [
                 {
-                  characteristicName: "whsAassetId",
+                  characteristicName: "whsAssetId",
                   value: `${idASSET_ser}`,
                 },
               ],
@@ -469,7 +469,7 @@ export async function createModificationChangeTariffL1OrderBody(
               ],
               characteristicsValue: [
                 {
-                  characteristicName: "whsAassetId",
+                  characteristicName: "whsAssetId",
                   value: `${idASSET_ass1}`,
                 },
               ],
@@ -505,7 +505,7 @@ export async function createModificationChangeTariffL1OrderBody(
               ],
               characteristicsValue: [
                 {
-                  characteristicName: "whsAassetId",
+                  characteristicName: "whsAssetId",
                   value: `${idASSET_ass2}`,
                 },
                 {
@@ -611,7 +611,7 @@ export async function createModificationSwapHWL1OrderBody(
               ],
               characteristicsValue: [
                 {
-                  characteristicName: "whsAassetId",
+                  characteristicName: "whsAssetId",
                   value: `${idASSET_sub}`,
                 },
               ],
@@ -647,7 +647,7 @@ export async function createModificationSwapHWL1OrderBody(
               ],
               characteristicsValue: [
                 {
-                  characteristicName: "whsAassetId",
+                  characteristicName: "whsAssetId",
                   value: `${idASSET_ser}`,
                 },
               ],
@@ -683,7 +683,7 @@ export async function createModificationSwapHWL1OrderBody(
               ],
               characteristicsValue: [
                 {
-                  characteristicName: "whsAassetId",
+                  characteristicName: "whsAssetId",
                   value: `${idASSET_ass1}`,
                 },
               ],
@@ -719,7 +719,7 @@ export async function createModificationSwapHWL1OrderBody(
               ],
               characteristicsValue: [
                 {
-                  characteristicName: "whsAassetId",
+                  characteristicName: "whsAssetId",
                   value: `${idASSET_ass2}`,
                 },
                 {

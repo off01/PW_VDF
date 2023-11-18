@@ -5,7 +5,7 @@ import { waitForExpectedStatus } from "@helper/waitingStatus";
 import { generateMacAddress } from "@helper/randomGenerator";
 import { findIndexOfSpecificValue } from "@helper/findIndex";
 import { checkResponseStatus, checkForNullValues, validateJsonSchema } from "@helper/expectsAsserts";
-import { fetchOrderIdPortationMopIdL1, fetchOrderIdPortationMopIdL3 } from "@helper/dbQuerries";
+import { fetchOrderIdPortationMopId } from "@helper/dbQuerries";
 import * as fs from "fs";
 
 const L1config = JSON.parse(fs.readFileSync("config/dataL1.json", "utf8"));
@@ -13,7 +13,7 @@ const L1config = JSON.parse(fs.readFileSync("config/dataL1.json", "utf8"));
 test.describe("Portace L1", async () => {
   L1config.testConfigs.forEach((config) => {
     test(`Portační objednávka pro ${config.tariff} L1 s hardware typem ${config.hardwareType}`, async ({ request }) => {
-      const mopid = await fetchOrderIdPortationMopIdL1();
+      const mopid = await fetchOrderIdPortationMopId("VFHFC%");
       if (!mopid) {
         throw new Error("Failed to fetch idWHS_SO from the database.");
       }
@@ -91,8 +91,11 @@ const L3config = JSON.parse(fs.readFileSync("config/dataL3.json", "utf8"));
 
 test.describe("Portace L3", async () => {
   L3config.testConfigs.forEach((config) => {
-    test(`Portační objednávka pro ${config.tariff} L3 s hardware typem ${config.hardwareType}`, async ({ request }) => {
-      const mopid = await fetchOrderIdPortationMopIdL3();
+    // skip z důvodu, že data jsou nataženy z db a pro účely portace musí být specifická adresa
+    test.skip(`Portační objednávka pro ${config.tariff} L3 s hardware typem ${config.hardwareType}`, async ({
+      request,
+    }) => {
+      const mopid = await fetchOrderIdPortationMopId("VFFTH%");
       if (!mopid) {
         throw new Error("Failed to fetch idWHS_SO from the database.");
       }

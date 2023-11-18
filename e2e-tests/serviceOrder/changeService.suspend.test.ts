@@ -1,11 +1,11 @@
 import { test, expect } from "@playwright/test";
 import { serviceSuspend } from "@datafactory/customerServiceInventoryItem";
 import { checkResponseStatus, checkForNullValues, validateJsonSchema } from "@helper/expectsAsserts";
-import { fetchActiveAssetId } from "@helper/dbQuerries";
+import { fetchAssetId } from "@helper/dbQuerries";
 
 test.describe("Suspend L1", async () => {
   test("Suspendace assetu", async ({ request }) => {
-    const idASSET_sub = await fetchActiveAssetId();
+    const idASSET_sub = await fetchAssetId("Active", "WHSHFCCONN");
     if (!idASSET_sub) {
       throw new Error("Failed to fetch idWHS_SO from the database.");
     }
@@ -24,7 +24,7 @@ test.describe("Suspend L1", async () => {
 
       const body = await response.json();
       expect(checkForNullValues(body)).toBe(false);
-      console.log(JSON.stringify(body, null, 2));
+      //console.log(JSON.stringify(body, null, 2));
       await validateJsonSchema("PATCH_CustomerServiceInventoryItem_{id}", "CustomerServiceInventoryItem", body);
     });
   });

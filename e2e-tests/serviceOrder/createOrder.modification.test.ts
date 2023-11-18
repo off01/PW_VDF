@@ -14,7 +14,7 @@ import { waitForExpectedStatus } from "@helper/waitingStatus";
 import { generateMacAddress } from "@helper/randomGenerator";
 import { findIndexOfSpecificValue } from "@helper/findIndex";
 import { checkResponseStatus, checkForNullValues, validateJsonSchema } from "@helper/expectsAsserts";
-import { fetchDataModificationL1_tariff, fetchDataModificationL1_L3_WH } from "@helper/dbQuerries";
+import { fetchDataModification } from "@helper/dbQuerries";
 import * as fs from "fs";
 
 const L3config = JSON.parse(fs.readFileSync("config/dataL3.json", "utf8"));
@@ -22,7 +22,7 @@ const L3config = JSON.parse(fs.readFileSync("config/dataL3.json", "utf8"));
 test.describe("Modifikace L3 - SWAP HW", async () => {
   L3config.hardwarePairs.forEach((pair) => {
     test(`Změna HW z ${pair.original} na ${pair.new} pro L3`, async ({ request }) => {
-      const data = await fetchDataModificationL1_L3_WH(pair.original);
+      const data = await fetchDataModification(pair.original);
       if (!data) {
         throw new Error("Failed to fetch idWHS_SO from the database.");
       }
@@ -69,7 +69,7 @@ test.describe("Modifikace L3 - SWAP HW", async () => {
 
         await checkResponseStatus(response, 200);
 
-        const body = await waitForExpectedStatus(request, "WaitForRealization", idWHS_SO, 10, 5000);
+        const body = await waitForExpectedStatus(request, "WaitForRealization", idWHS_SO, 20, 5000);
         IndexOfWHSHWONT = findIndexOfSpecificValue(body, "WHSHWONT");
         //console.log(JSON.stringify(body, null, 2));
         await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
@@ -122,7 +122,7 @@ const L1config = JSON.parse(fs.readFileSync("config/dataL1.json", "utf8"));
 test.describe("Modifikace L1 - SWAP HW", async () => {
   L1config.hardwarePairs.forEach((pair) => {
     test(`Změna HW z ${pair.original} na ${pair.new} pro L1`, async ({ request }) => {
-      const data = await fetchDataModificationL1_L3_WH(pair.original);
+      const data = await fetchDataModification(pair.original);
       if (!data) {
         throw new Error("Failed to fetch idWHS_SO from the database.");
       }
@@ -223,7 +223,7 @@ test.describe("Modifikace L1 - Změna tarifu", async () => {
     test(`Změna z tarifu ${config.originalTariff} na tarif ${config.newTariff} s HW typu ${config.originalHW}`, async ({
       request,
     }) => {
-      const data = await fetchDataModificationL1_tariff(config.originalTariff, config.originalHW);
+      const data = await fetchDataModification(config.originalHW, config.originalTariff);
       if (!data) {
         throw new Error("Failed to fetch idWHS_SO from the database.");
       }

@@ -1,9 +1,9 @@
-import { incrementCounterserviceFeasibilityId } from "@helper/counterHelper";
+import { incrementCounterServiceFeasibilityId } from "@helper/counterHelper";
 import moment from "moment";
 
 export async function checkL3(idbuildingId: string, idWHS_SO: string) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
-  const idSF = incrementCounterserviceFeasibilityId();
+  const idSF = incrementCounterServiceFeasibilityId();
   const orderBody = {
     id: [
       {

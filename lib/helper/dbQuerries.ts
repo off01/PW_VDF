@@ -3,6 +3,22 @@ import config from "../../config/config";
 
 const { WHS_DB_CONFIG, FBB_DB_CONFIG } = config.dbConfig;
 
+/**
+ * Asynchronously retrieves the latest order ID for the specified product code.
+ *
+ * This function executes an SQL query in the Oracle database to find the maximum order ID
+ * (ORDER_ID) for products with the specified product code (`pc`) that are in the 'New' state. The selection is further
+ * is limited to orders whose PARTNER_ORDER_ID starts with 'PW_' and which are not closed,
+ * cancelled or already processed. The function will return the most recent ORDER_ID of these records.
+ *
+ * @param {string} pc - Produktový kód pro vyhledání ID objednávky (WHSFTTHCONN nebo WHSHFCCONN).
+ * @returns {Promise<string | null>} Promise, který se po úspěšném provedení dotazu 
+ *                                   vyřeší s nejnovějším ORDER_ID jako string, nebo s null, 
+ *                                   pokud nebyl nalezen žádný odpovídající záznam.
+ * @throws {Error} Pokud dojde k chybě během vykonávání dotazu nebo při práci s databází,
+ *                 funkce vyhodí výjimku s popisem chyby.
+ */
+
 export async function fetchOrderId(pc: string): Promise<string | null> {
   let connection;
 
@@ -16,7 +32,7 @@ export async function fetchOrderId(pc: string): Promise<string | null> {
     WHERE 1=1
     AND si.STATUS = 'New'
     AND si.PRODUCT_CODE = :pc
-    AND o.PARTNER_ORDER_ID LIKE 'JM_%'
+    AND o.PARTNER_ORDER_ID LIKE 'PW_%'
     AND NOT EXISTS (
     SELECT 1
       FROM "ORDER" o2
@@ -44,6 +60,25 @@ export async function fetchOrderId(pc: string): Promise<string | null> {
     }
   }
 }
+
+/**
+ * Asynchronously retrieves the asset ID (WHS_ASSET_ID) based on the specified status and product code.
+ *
+ * This function queries the Oracle database and retrieves asset IDs that match 
+ * the specified status and product code. Filters records that have PARTNER_ORDER_ID 
+ * starting with 'PW' and there is no related record in the "ORDER" table 
+ * with a status other than 'Closed'.
+ * The function returns the first WHS_ASSET_ID found if there are matching records, 
+ * Otherwise it raises an exception.
+ *
+ * @param {string} status - Stav, podle kterého se vyhledávají (Active, Suspend etc).
+ * @param {string} pc - Produktový kód, podle kterého se vyhledávají (WHSFTTHCONN nebo WHSHFCCONN).
+ * @returns {Promise<string | null>} Promise, který se po úspěšném provedení dotazu 
+ *                                  vyřeší s nalezeným WHS_ASSET_ID jako string, 
+ *                                  nebo s null, pokud nebyl nalezen žádný odpovídající záznam.
+ * @throws {Error} Pokud dojde k chybě během vykonávání dotazu nebo při práci s databází,
+ *                 funkce vyhodí výjimku s popisem chyby.
+ */
 
 export async function fetchAssetId(status: string, pc: string): Promise<string | null> {
   let connection;
@@ -86,6 +121,21 @@ export async function fetchAssetId(status: string, pc: string): Promise<string |
   }
 }
 
+/**
+ * Retrieves the MOP port ID of the specified PC prefix.
+ *
+ * This asynchronous function executes an SQL query to the Oracle database to retrieve the MOP_ID.
+ * Searches for active records that match the specified PC prefix and are not marked as WHS_SO.
+ * The function returns the first MOP_ID found or throws an error if no matching record is found.
+ *
+ * @param {string} prefixpc - Prefix pro vyhledání MOP ID (VFHFC% nebo VFFTTH%).
+ * @returns {Promise<string | null>} Promise, který se po úspěšném provedení dotazu 
+ *                                  vyřeší s nalezeným MOP_ID jako string, nebo s null, 
+ *                                  pokud nebyl nalezen žádný odpovídající záznam.
+ * @throws {Error} Pokud dojde k chybě během vykonávání dotazu nebo při práci s databází,
+ *                 funkce vyhodí výjimku s popisem chyby.
+ */
+
 export async function fetchOrderIdPortationMopId(prefixpc: string): Promise<string | null> {
   let connection;
 
@@ -118,6 +168,23 @@ export async function fetchOrderIdPortationMopId(prefixpc: string): Promise<stri
     }
   }
 }
+
+/**
+ * Retrieves and transforms hardware and tariff modification data from the database.
+ *
+ * This asynchronous function executes a complex SQL query to the Oracle database to retrieve detailed information 
+ * The function expects specific HW and tariff codes as input parameters.
+ * The result is structured as an object with keys corresponding to various properties of the retrieved data.
+ * 
+ * @param {string} hwdb - Kód hardwaru, který má být vyhledán.
+ * @param {string} [tariffdb=null] - Kód tarifu, který má být vyhledán. Je volitelný a výchozí hodnota je `null`.
+ * @returns {Promise<Record<string, string>>} Promise, který se po úspěšném provedení dotazu
+ *                                            vyřeší s objektem obsahujícím data o HW a tarifech.
+ *                                            Každý klíč objektu reprezentuje jednu vlastnost (např. `WHS_ASSET_ID1`, `Tarif`),
+ *                                            a hodnota je odpovídající řetězec.
+ * @throws {Error} Pokud dojde k chybě během vykonávání dotazu nebo při práci s databází,
+ *                 nebo pokud nejsou nalezena žádná data, funkce vyhodí výjimku s popisem chyby.
+ */
 
 export async function fetchDataModification(hwdb: string, tariffdb: string = null): Promise<Record<string, string>> {
   let connection;

@@ -2,44 +2,37 @@ import fs from "fs";
 import path from "path";
 import config from "../../config/config";
 
+/**
+ * Increments a specific counter in the counter file.
+ *
+ * @param {string} counterKey - Klíč čítače, který má být inkrementován. 
+ * Měl by odpovídat vlastnosti v souboru čítače.
+ * 
+ * @returns {number} Nová hodnota čítače po inkrementaci.
+ *
+ * @description
+ * This function reads the current state of counters from a JSON file,
+ * increments the value of the specified counter, and then writes the updated
+ * state back to the file. It is designed to work with a specific structure
+ * of JSON file where each key represents a different counter.
+ *
+ * @example
+ * // To increment the 'diagnosticId' counter
+ * incrementCounter('diagnosticId');
+ */
+
 const counterFilePath = path.join(__dirname, `../../config/${config.currentEnv}/counter.json`);
 
-export function incrementCounterDiagnosticId(): number {
+function incrementCounter(counterKey: string): number {
   const data = JSON.parse(fs.readFileSync(counterFilePath, "utf-8"));
-  const newCounter = data.diagnosticId + 1;
-  data.diagnosticId = newCounter;
-  fs.writeFileSync(counterFilePath, JSON.stringify(data, null, 2)); // Změna zde
+  const newCounter = data[counterKey] + 1;
+  data[counterKey] = newCounter;
+  fs.writeFileSync(counterFilePath, JSON.stringify(data, null, 2));
   return newCounter;
 }
 
-export function incrementCounterOrderId(): number {
-  const data = JSON.parse(fs.readFileSync(counterFilePath, "utf-8"));
-  const newCounter = data.idSO + 1;
-  data.idSO = newCounter;
-  fs.writeFileSync(counterFilePath, JSON.stringify(data, null, 2)); // Změna zde
-  return newCounter;
-}
-
-export function incrementCounterserviceFeasibilityId(): number {
-  const data = JSON.parse(fs.readFileSync(counterFilePath, "utf-8"));
-  const newCounter = data.idSF + 1;
-  data.idSF = newCounter;
-  fs.writeFileSync(counterFilePath, JSON.stringify(data, null, 2)); // Změna zde
-  return newCounter;
-}
-
-export function incrementCounterservicePartyId(): number {
-  const data = JSON.parse(fs.readFileSync(counterFilePath, "utf-8"));
-  const newCounter = data.idPF + 1;
-  data.idPF = newCounter;
-  fs.writeFileSync(counterFilePath, JSON.stringify(data, null, 2)); // Změna zde
-  return newCounter;
-}
-
-export function incrementCounterserviceCustomerAppointmentId(): number {
-  const data = JSON.parse(fs.readFileSync(counterFilePath, "utf-8"));
-  const newCounter = data.idCA + 1;
-  data.idCA = newCounter;
-  fs.writeFileSync(counterFilePath, JSON.stringify(data, null, 2)); // Změna zde
-  return newCounter;
-}
+export const incrementCounterDiagnosticId = () => incrementCounter("diagnosticId");
+export const incrementCounterOrderId = () => incrementCounter("idSO");
+export const incrementCounterServiceFeasibilityId = () => incrementCounter("idSF");
+export const incrementCounterServicePartyId = () => incrementCounter("idPF");
+export const incrementCounterServiceCustomerAppointmentId = () => incrementCounter("idCA");

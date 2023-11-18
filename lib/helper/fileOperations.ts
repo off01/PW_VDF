@@ -2,7 +2,8 @@ import * as fs from "fs";
 import * as path from "path";
 
 /**
- * Funkce pro zaznamenání výsledků do souboru JSON.
+ * Function to record the results in a JSON file.
+ * 
  * @param idWHS_SO ID WHS SO.
  * @param idASSET_ser ID ASSET ser.
  * @param filePath Relativní cesta k souboru JSON z kořenového adresáře projektu. Výchozí hodnota je 'results/results.json'.
@@ -26,7 +27,8 @@ export async function recordResults(
 }
 
 /**
- * Funkce pro přidání dat do souboru JSON.
+ * Function for adding data to JSON file.
+ * 
  * @param filepath Absolutní cesta k souboru JSON.
  * @param data Data k přidání do souboru JSON.
  */
@@ -46,20 +48,4 @@ export async function appendToJson(filepath: string, data: { idWHS_SO: string; i
 
   // Zápis aktualizovaných dat zpět do souboru
   await fs.promises.writeFile(filepath, JSON.stringify(existingData, null, 2));
-}
-
-export async function getTestCases(filePath: string): Promise<string[]> {
-  const absoluteFilePath = path.resolve(__dirname, "../../", filePath);
-  if (!fs.existsSync(absoluteFilePath)) {
-    throw new Error(`File ${absoluteFilePath} does not exist.`);
-  }
-
-  const content = fs.readFileSync(absoluteFilePath, "utf8");
-  const records = JSON.parse(content);
-
-  if (!Array.isArray(records)) {
-    throw new Error(`The file content is not an array of objects.`);
-  }
-
-  return records.map((record: { idWHS_SO: string }) => record.idWHS_SO);
 }

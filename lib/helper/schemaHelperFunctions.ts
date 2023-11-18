@@ -38,8 +38,6 @@ export async function createJsonSchema(name: string, path: string, json: object)
  * Asynchronously writes data to a JSON file at the specified location.
  * If an error occurs during writing, the error is logged to the console.
  *
- * @async
- * @function writeJsonFile
  * @param {string} location - Cesta k souboru, do kterého se mají data zapsat.
  * @param {string} data - Řetězec obsahující data, která mají být zapsána do souboru.
  * @returns {Promise<void>} Promise, která se vyřeší, jakmile je zápis do souboru dokončen.

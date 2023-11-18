@@ -1,9 +1,9 @@
-import { incrementCounterserviceCustomerAppointmentId } from "@helper/counterHelper";
+import { incrementCounterServiceCustomerAppointmentId } from "@helper/counterHelper";
 import moment from "moment";
 
 export async function customerAppointmentL1(idWHS_WAS: string) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
-  const idCA = incrementCounterserviceCustomerAppointmentId();
+  const idCA = incrementCounterServiceCustomerAppointmentId();
   const orderBody = {
     id: [
       {

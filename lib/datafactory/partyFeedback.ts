@@ -1,9 +1,9 @@
-import { incrementCounterservicePartyId } from "@helper/counterHelper";
+import { incrementCounterServicePartyId } from "@helper/counterHelper";
 import moment from "moment";
 
 export async function questionaryL1(idWHS_PFS: string, idWHS_SO: string) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
-  const idPF = incrementCounterservicePartyId();
+  const idPF = incrementCounterServicePartyId();
   const orderBody = {
     id: [
       {

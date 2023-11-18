@@ -77,7 +77,7 @@ export function generateRandomHex(): string {
  *
  * This function generates a string representing the MAC address in standard 12 hexadecimal digits format.
  * separated by colons. Each pair of hexadecimal digits is generated randomly.
- * 
+ *
  * @returns {string} Náhodně vygenerovaná MAC adresa ve formátu XX:XX:XX:XX:XX:XX, kde X představuje
  *                   hexadecimální číslici (0-9, A-F).
  */

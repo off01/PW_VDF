@@ -12,8 +12,8 @@ const { WHS_DB_CONFIG, FBB_DB_CONFIG } = config.dbConfig;
  * cancelled or already processed. The function will return the most recent ORDER_ID of these records.
  *
  * @param {string} pc - Produktový kód pro vyhledání ID objednávky (WHSFTTHCONN nebo WHSHFCCONN).
- * @returns {Promise<string | null>} Promise, který se po úspěšném provedení dotazu 
- *                                   vyřeší s nejnovějším ORDER_ID jako string, nebo s null, 
+ * @returns {Promise<string | null>} Promise, který se po úspěšném provedení dotazu
+ *                                   vyřeší s nejnovějším ORDER_ID jako string, nebo s null,
  *                                   pokud nebyl nalezen žádný odpovídající záznam.
  * @throws {Error} Pokud dojde k chybě během vykonávání dotazu nebo při práci s databází,
  *                 funkce vyhodí výjimku s popisem chyby.
@@ -64,17 +64,17 @@ export async function fetchOrderId(pc: string): Promise<string | null> {
 /**
  * Asynchronously retrieves the asset ID (WHS_ASSET_ID) based on the specified status and product code.
  *
- * This function queries the Oracle database and retrieves asset IDs that match 
- * the specified status and product code. Filters records that have PARTNER_ORDER_ID 
- * starting with 'PW' and there is no related record in the "ORDER" table 
+ * This function queries the Oracle database and retrieves asset IDs that match
+ * the specified status and product code. Filters records that have PARTNER_ORDER_ID
+ * starting with 'PW' and there is no related record in the "ORDER" table
  * with a status other than 'Closed'.
- * The function returns the first WHS_ASSET_ID found if there are matching records, 
+ * The function returns the first WHS_ASSET_ID found if there are matching records,
  * Otherwise it raises an exception.
  *
  * @param {string} status - Stav, podle kterého se vyhledávají (Active, Suspend etc).
  * @param {string} pc - Produktový kód, podle kterého se vyhledávají (WHSFTTHCONN nebo WHSHFCCONN).
- * @returns {Promise<string | null>} Promise, který se po úspěšném provedení dotazu 
- *                                  vyřeší s nalezeným WHS_ASSET_ID jako string, 
+ * @returns {Promise<string | null>} Promise, který se po úspěšném provedení dotazu
+ *                                  vyřeší s nalezeným WHS_ASSET_ID jako string,
  *                                  nebo s null, pokud nebyl nalezen žádný odpovídající záznam.
  * @throws {Error} Pokud dojde k chybě během vykonávání dotazu nebo při práci s databází,
  *                 funkce vyhodí výjimku s popisem chyby.
@@ -129,8 +129,8 @@ export async function fetchAssetId(status: string, pc: string): Promise<string |
  * The function returns the first MOP_ID found or throws an error if no matching record is found.
  *
  * @param {string} prefixpc - Prefix pro vyhledání MOP ID (VFHFC% nebo VFFTTH%).
- * @returns {Promise<string | null>} Promise, který se po úspěšném provedení dotazu 
- *                                  vyřeší s nalezeným MOP_ID jako string, nebo s null, 
+ * @returns {Promise<string | null>} Promise, který se po úspěšném provedení dotazu
+ *                                  vyřeší s nalezeným MOP_ID jako string, nebo s null,
  *                                  pokud nebyl nalezen žádný odpovídající záznam.
  * @throws {Error} Pokud dojde k chybě během vykonávání dotazu nebo při práci s databází,
  *                 funkce vyhodí výjimku s popisem chyby.
@@ -172,10 +172,10 @@ export async function fetchOrderIdPortationMopId(prefixpc: string): Promise<stri
 /**
  * Retrieves and transforms hardware and tariff modification data from the database.
  *
- * This asynchronous function executes a complex SQL query to the Oracle database to retrieve detailed information 
+ * This asynchronous function executes a complex SQL query to the Oracle database to retrieve detailed information
  * The function expects specific HW and tariff codes as input parameters.
  * The result is structured as an object with keys corresponding to various properties of the retrieved data.
- * 
+ *
  * @param {string} hwdb - Kód hardwaru, který má být vyhledán.
  * @param {string} [tariffdb=null] - Kód tarifu, který má být vyhledán. Je volitelný a výchozí hodnota je `null`.
  * @returns {Promise<Record<string, string>>} Promise, který se po úspěšném provedení dotazu

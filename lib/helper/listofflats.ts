@@ -6,7 +6,7 @@
  * This function scans the lineItem field in the message body for items that meet a specific criterion.
  * Specifically, it looks for items where the characteristicName 'socketInstalled' has the value 'N'.
  * For these items, it then extracts the 'locationFlatId' value from their locations.
- * 
+ *
  * @param {any} body - Objekt, který obsahuje pole lineItem a další související data.
  * @returns {string[]} Pole řetězců obsahujících ID bytových jednotek, které splňují zadané kritérium.
  *                     Pokud nejsou nalezeny žádné odpovídající položky, vrátí prázdné pole.

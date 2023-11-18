@@ -1,19 +1,19 @@
 /**
  * Repeatedly checks the status of the order and waits for the expected status.
  *
- * This asynchronous function repeatedly sends an HTTP GET request to the specified URL 
- * (via the passed request object) to obtain the status of the order. 
- * The function attempts to retrieve the expected status in the specified number of attempts and between attempts 
+ * This asynchronous function repeatedly sends an HTTP GET request to the specified URL
+ * (via the passed request object) to obtain the status of the order.
+ * The function attempts to retrieve the expected status in the specified number of attempts and between attempts
  * waits for a fixed interval.
- * 
+ *
  * @param {object} request - Objekt, který umožňuje vysílat HTTP požadavky.
  * @param {string} expectedStatus - Očekávaný status objednávky, na který funkce čeká.
  * @param {string} id - Identifikátor objednávky, pro kterou se kontroluje status.
  * @param {number} [maxRetries=10] - Maximální počet pokusů pro kontrolu statusu.
  * @param {number} [retryInterval=1000] - Interval mezi pokusy v milisekundách.
- * @returns {Promise<object>} Promise, který se vyřeší s tělem odpovědi, pokud byl 
+ * @returns {Promise<object>} Promise, který se vyřeší s tělem odpovědi, pokud byl
  *                            dosažen očekávaný status.
- * @throws {Error} Vyhodí chybu, pokud odpověď od serveru není status 200, nebo pokud 
+ * @throws {Error} Vyhodí chybu, pokud odpověď od serveru není status 200, nebo pokud
  *                 není dosaženo očekávaného statusu po maximálním počtu pokusů.
  */
 

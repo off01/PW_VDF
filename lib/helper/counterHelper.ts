@@ -5,9 +5,9 @@ import config from "../../config/config";
 /**
  * Increments a specific counter in the counter file.
  *
- * @param {string} counterKey - Klíč čítače, který má být inkrementován. 
+ * @param {string} counterKey - Klíč čítače, který má být inkrementován.
  * Měl by odpovídat vlastnosti v souboru čítače.
- * 
+ *
  * @returns {number} Nová hodnota čítače po inkrementaci.
  *
  * @description

@@ -3,7 +3,7 @@ import * as path from "path";
 
 /**
  * Function to record the results in a JSON file.
- * 
+ *
  * @param idWHS_SO ID WHS SO.
  * @param idASSET_ser ID ASSET ser.
  * @param filePath Relativní cesta k souboru JSON z kořenového adresáře projektu. Výchozí hodnota je 'results/results.json'.
@@ -28,7 +28,7 @@ export async function recordResults(
 
 /**
  * Function for adding data to JSON file.
- * 
+ *
  * @param filepath Absolutní cesta k souboru JSON.
  * @param data Data k přidání do souboru JSON.
  */

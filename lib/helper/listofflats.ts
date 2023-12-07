@@ -1,32 +1,28 @@
 // LocationFlatIds (L3)
 
 /**
- * Gets the housing unit ID field with the specific condition from the provided object.
+ * Extracts and returns a list of byte IDs that meet specific conditions from the output of a SOAP call.
  *
- * This function scans the lineItem field in the message body for items that meet a specific criterion.
- * Specifically, it looks for items where the characteristicName 'socketInstalled' has the value 'N'.
- * For these items, it then extracts the 'locationFlatId' value from their locations.
+ * @param {object} parsedXml - Vyparsovaný XML objekt z SOAP odpovědi.
+ * @returns {string[]} Seznam ID bytů, které splňují podmínky (socketInstalled je 'true' a serviceActive je 'false').
  *
- * @param {any} body - Objekt, který obsahuje pole lineItem a další související data.
- * @returns {string[]} Pole řetězců obsahujících ID bytových jednotek, které splňují zadané kritérium.
- *                     Pokud nejsou nalezeny žádné odpovídající položky, vrátí prázdné pole.
- * @throws {TypeError} Pokud je struktura objektu 'body' neplatná nebo neobsahuje očekávaná data,
- *                     může dojít k chybě při pokusu o přístup k neexistujícím vlastnostem.
+ * @example
+ * const parsedXml = await parseXml(responseBodyText);
+ * const locationFlatIds = getLocationFlatIdsWithCondition2(parsedXml);
+ * console.log(locationFlatIds); // Vypíše ID bytů, které splňují podmínky.
  */
 
-export function getLocationFlatIdsWithCondition(body: any): string[] {
-  return body.parts.lineItem
-    .filter((item: any) => {
-      const characteristics = item.serviceSpecification[0]?.specification?.characteristicsValue || [];
-      return characteristics.some((char: any) => char.characteristicName === "socketInstalled" && char.value === "Y");
-    })
-    .map((item: any) => {
-      const characteristics = item.locations[0]?.characteristic?.characteristicsValue || [];
-      const locationFlatIdChar = characteristics.find((char: any) => char.characteristicName === "locationFlatId");
-      return locationFlatIdChar?.value;
-    })
-    .filter(Boolean);
+export function getLocationFlatIdsWithCondition(parsedXml) {
+  const flats = parsedXml["SOAP-ENV:Envelope"]["SOAP-ENV:Body"]["ns0:getLocationFlatListResponse"]["ns1:flats"]["ns1:flat"];
+  // Filtrujte pouze ty byty, které splňují dané podmínky
+  const filteredFlats = flats.filter(flat => 
+    flat["ns1:socketInstalled"] === 'true' && flat["ns1:serviceActive"] === 'false'
+  );
+  // Extrahujte 'locationFlatId' z vyhovujících bytů
+  const locationFlatIds = filteredFlats.map(flat => flat["ns1:locationFlatId"]);
+  return locationFlatIds;
 }
+
 
 // WHS_WAS ids (L1)
 

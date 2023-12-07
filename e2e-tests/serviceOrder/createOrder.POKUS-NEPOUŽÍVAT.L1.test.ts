@@ -1,8 +1,9 @@
 import { test, expect } from "@playwright/test";
 import { fetchDataModification } from "@helper/dbQuerries";
 import { getLocationFlatList } from "@datafactory/getLocationFlatList";
-
+import { parseXml } from "@helper/xmlParser";
 import * as fs from "fs";
+import { getLocationFlatIdsWithCondition, getRandomElement } from "@helper/listofflats";
 
 const L1config = JSON.parse(fs.readFileSync("config/dataL1.json", "utf8"));
 
@@ -34,7 +35,6 @@ test.describe("Modifikace L1 - SWAP HW", async () => {
   });
   test(`Aktivační objednávka FF - Schválená`, async ({ request }) => {
     let idWHS_SO: string; // eslint-disable-line
-
     await test.step("Create", async () => {
       const { body: requestBody, headers } = await getLocationFlatList("1026629", "WHS_SO_08000003530");
 
@@ -47,10 +47,10 @@ test.describe("Modifikace L1 - SWAP HW", async () => {
 
       const body = await response.text();
       //expect(checkForNullValues(body)).toBe(false);
-      console.log(body);
-      //idWHS_SO = body.id[1].value;
-      //console.log(idbuildingId)
-      //console.log(idWHS_SO)
+      const parsedXml = await parseXml(body);
+      const locationFlatIds = getLocationFlatIdsWithCondition(parsedXml);
+      const idlocationFlatId = getRandomElement(locationFlatIds);
+      console.log(idlocationFlatId);
     });
   });
 });

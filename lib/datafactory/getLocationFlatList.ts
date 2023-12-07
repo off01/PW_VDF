@@ -1,16 +1,7 @@
 export async function getLocationFlatList(idbuildingId: string, idWHS_SO: string) {
   const requestBody = `
     <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:head="http://www.vodafone.cz/Common/xml/Header" xmlns:v1="http://www.vodafone.cz/WhsApi/ResourceInterface/v1_0" xmlns:v11="http://www.vodafone.cz/WhsApi/Type/v1_0">
-    <soap:Header>
-        <head:vfHeader>
-            <head:traceIdentifier>
-                <head:applicationId>?</head:applicationId>
-                <head:serviceId>?</head:serviceId>
-                <head:serviceInterfaceVersion>?</head:serviceInterfaceVersion>
-                <head:identityId>?</head:identityId>
-            </head:traceIdentifier>
-        </head:vfHeader>
-    </soap:Header>
+    <soap:Header/>
     <soap:Body>
         <v1:getLocationFlatListRequest>
             <v11:partnerCode>TMCZ</v11:partnerCode>

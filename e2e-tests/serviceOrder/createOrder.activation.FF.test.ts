@@ -6,7 +6,7 @@ import { serviceOrderClosed } from "@datafactory/serviceOrder";
 
 test.describe("Aktivace test FF", async () => {
   test(`Aktivační objednávka FF - Schválená`, async ({ request }) => {
-    let idWHS_SO: string; // eslint-disable-line
+    let idWHS_SO: string;
 
     await test.step("Create", async () => {
       const requestBody = await serviceOrderFF("AUTO-APPROVE");

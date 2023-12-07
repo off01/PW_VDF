@@ -1,0 +1,331 @@
+{
+  "type": "object",
+  "properties": {
+    "category": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": ["value"]
+      }
+    },
+    "created": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "createdBy": {
+      "type": "object",
+      "properties": {
+        "schemeAgencyName": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["schemeAgencyName", "value"]
+    },
+    "desc": {
+      "type": "string"
+    },
+    "details": {
+      "type": "object",
+      "properties": {
+        "priorityCode": {
+          "type": "string"
+        }
+      },
+      "required": ["priorityCode"]
+    },
+    "id": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "schemeAgencyName": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": ["schemeAgencyName", "value"]
+      }
+    },
+    "lastModified": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["value"]
+    },
+    "lastModifiedBy": {
+      "type": "object",
+      "properties": {
+        "schemeAgencyName": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["schemeAgencyName", "value"]
+    },
+    "parts": {
+      "type": "object",
+      "properties": {
+        "attachment": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "binaryObject": {
+                "type": "object",
+                "properties": {
+                  "fileName": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": ["fileName", "value"]
+              },
+              "id": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "schemeAgencyName": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["schemeAgencyName", "value"]
+                }
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": ["binaryObject", "id", "status"]
+          }
+        },
+        "incident": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "schemeAgencyName": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["schemeAgencyName", "value"]
+                }
+              }
+            },
+            "required": ["id"]
+          }
+        },
+        "service": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "schemeAgencyName": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["schemeAgencyName", "value"]
+                }
+              }
+            },
+            "required": ["id"]
+          }
+        },
+        "statusHistory": {
+          "type": "object",
+          "properties": {
+            "stateTransition": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "changedByUserId": {
+                    "type": "object",
+                    "properties": {
+                      "schemeAgencyName": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["schemeAgencyName", "value"]
+                  },
+                  "effectiveDateTime": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["value"]
+                  },
+                  "id": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "schemeAgencyName": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": ["schemeAgencyName", "value"]
+                    }
+                  },
+                  "toStatusCode": {
+                    "type": "string"
+                  }
+                },
+                "required": ["changedByUserId", "effectiveDateTime", "id", "toStatusCode"]
+              }
+            }
+          },
+          "required": ["stateTransition"]
+        },
+        "workLog": {
+          "type": "object",
+          "properties": {
+            "workInfo": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "schemeAgencyName": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": ["schemeAgencyName", "value"]
+                    }
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "loggedDateTime": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["value"]
+                  },
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "required": ["id", "status", "type", "loggedDateTime", "text"]
+              }
+            }
+          },
+          "required": ["workInfo"]
+        }
+      },
+      "required": ["attachment", "incident", "service", "statusHistory", "workLog"]
+    },
+    "roles": {
+      "type": "object",
+      "properties": {
+        "assignee": {
+          "type": "object",
+          "properties": {
+            "assignedToGroup": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "object",
+                  "properties": {
+                    "schemeAgencyName": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["schemeAgencyName", "value"]
+                }
+              },
+              "required": ["id"]
+            }
+          },
+          "required": ["assignedToGroup"]
+        }
+      },
+      "required": ["assignee"]
+    },
+    "status": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "category",
+    "created",
+    "createdBy",
+    "desc",
+    "details",
+    "id",
+    "lastModified",
+    "lastModifiedBy",
+    "parts",
+    "roles",
+    "status",
+    "type"
+  ]
+}

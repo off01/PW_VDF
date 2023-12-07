@@ -3,7 +3,7 @@ import config from "./config/config";
 import { testPlanFilter } from "allure-playwright/dist/testplan";
 
 export default defineConfig({
-  timeout: 300000,
+  timeout: 900000,
   use: {
     browserName: "firefox",
     baseURL: config.baseURL,

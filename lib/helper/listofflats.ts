@@ -18,7 +18,7 @@ export function getLocationFlatIdsWithCondition(body: any): string[] {
   return body.parts.lineItem
     .filter((item: any) => {
       const characteristics = item.serviceSpecification[0]?.specification?.characteristicsValue || [];
-      return characteristics.some((char: any) => char.characteristicName === "socketInstalled" && char.value === "N");
+      return characteristics.some((char: any) => char.characteristicName === "socketInstalled" && char.value === "Y");
     })
     .map((item: any) => {
       const characteristics = item.locations[0]?.characteristic?.characteristicsValue || [];

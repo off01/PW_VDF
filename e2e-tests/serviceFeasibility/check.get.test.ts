@@ -4,7 +4,7 @@ import { fetchOrderId } from "@helper/dbQuerries";
 
 test.describe("Ověření funkčnosti GET", async () => {
   test("Návrat rozpracované objednávky", async ({ request }) => {
-    const idWHS_SO = await fetchOrderId("WHSHFCCONN");
+    const idWHS_SO = await fetchOrderId("New","WHSHFCCONN");
     if (!idWHS_SO) {
       throw new Error("Failed to fetch idWHS_SO from the database.");
     }

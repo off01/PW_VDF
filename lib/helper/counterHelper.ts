@@ -36,3 +36,4 @@ export const incrementCounterOrderId = () => incrementCounter("idSO");
 export const incrementCounterServiceFeasibilityId = () => incrementCounter("idSF");
 export const incrementCounterServicePartyId = () => incrementCounter("idPF");
 export const incrementCounterServiceCustomerAppointmentId = () => incrementCounter("idCA");
+export const incrementCounterTroubleticketId = () => incrementCounter("idTT");

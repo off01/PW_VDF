@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
 import { createTerminationL3OrderBody, createTerminationL1OrderBody } from "@datafactory/createOrder";
-import { serviceOrderProvisioning, serviceOrderClosed } from "@datafactory/serviceOrder";
+import { serviceOrderProvisioning, serviceOrderClosed, serviceOrderFFTermination } from "@datafactory/serviceOrder";
 import { waitForExpectedStatus } from "@helper/waitingStatus";
 import { checkResponseStatus, checkForNullValues, validateJsonSchema } from "@helper/expectsAsserts";
-import { fetchAssetId } from "@helper/dbQuerries";
+import { fetchAssetId, fetchOrderIdFF } from "@helper/dbQuerries";
 
 test.describe("Terminace L3", async () => {
   test("Terminační objenávka pro L3", async ({ request }) => {
@@ -154,3 +154,67 @@ test.describe("Terminace L1", async () => {
     });
   });
 });
+
+test.describe("Terminace FF", async () => {
+  test("Terminační objenávka pro FF", async ({ request }) => {
+    const idWHS_SOdata = await fetchOrderIdFF("Active", "WHSFTTHFLEXI");
+    if (!idWHS_SOdata) {
+      throw new Error("Failed to fetch DATA from the database.");
+    }
+    let whsAssetId: string;
+    let ffServiceId: string;
+    let idWHS_SO: string;
+
+    await test.step("Get data for termination order", async () => {
+      const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SOdata}`);
+
+      await checkResponseStatus(response, 200);
+
+      const body = await response.json();
+      whsAssetId = body.parts.lineItem[0].serviceSpecification[0].characteristicsValue[0].value;
+      ffServiceId = body.parts.lineItem[0].serviceSpecification[0].characteristicsValue[1].value;
+    });
+
+    await test.step("Create", async () => {
+      const requestBody = await serviceOrderFFTermination(whsAssetId, ffServiceId);
+
+      const response = await request.post(`/serviceOrderAPI/v2/serviceOrder`, {
+        data: requestBody,
+      });
+
+      await checkResponseStatus(response, 201);
+
+      const body = await response.json();
+      expect(checkForNullValues(body)).toBe(false);
+      idWHS_SO = body.id[1].value
+      console.log(idWHS_SO);
+      //await validateJsonSchema("POST_serviceOrder", "ServiceOrder", body);
+    });
+
+    await test.step("Ask for status", async () => {
+      const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`);
+
+      await checkResponseStatus(response, 200);
+
+      const body = await waitForExpectedStatus(request, "Realized", idWHS_SO, 11, 60000);
+      expect(checkForNullValues(body)).toBe(false);
+      //await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
+    });
+
+    await test.step("Close", async () => {
+      const requestBody = await serviceOrderClosed();
+
+      const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
+        data: requestBody,
+      });
+
+      await checkResponseStatus(response, 200);
+
+      const body = await response.json();
+      expect(checkForNullValues(body)).toBe(false);
+      console.log(JSON.stringify(body, null, 2));
+      //await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
+    });
+  });
+});
+

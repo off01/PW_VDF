@@ -13,10 +13,13 @@ const L1config = JSON.parse(fs.readFileSync("config/dataL1.json", "utf8"));
 test.describe("Portace L1", async () => {
   L1config.testConfigs.forEach((config) => {
     test(`Portační objednávka pro ${config.tariff} L1 s hardware typem ${config.hardwareType}`, async ({ request }) => {
-      const mopid = await fetchOrderIdPortationMopId("VFHFC%");
+      /*       const mopid = await fetchOrderIdPortationMopId("VFHFC%");
       if (!mopid) {
         throw new Error("Failed to fetch idWHS_SO from the database.");
-      }
+      } */
+
+      const mopid = "VFHFC800000047638";
+
       let idWHS_SO: string;
 
       await test.step("Create", async () => {

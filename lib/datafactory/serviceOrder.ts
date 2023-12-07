@@ -876,7 +876,7 @@ export async function serviceOrderFFModification(autoApprove: string, whsAssetId
                     }
                 ],
                 "status": "New",
-                "action": "NoChange",
+                "action": "Delete",
                 "relatedLineItem": [
                     {
                         "id": [
@@ -916,7 +916,7 @@ export async function serviceOrderFFModification(autoApprove: string, whsAssetId
                     }
                 ],
                 "status": "New",
-                "action": "NoChange",
+                "action": "Delete",
                 "relatedLineItem": [
                     {
                         "id": [

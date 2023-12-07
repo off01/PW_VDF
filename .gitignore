@@ -10,3 +10,4 @@ node_modules/
 /config/currentEnv.json
 .github
 README.md
+test.txt

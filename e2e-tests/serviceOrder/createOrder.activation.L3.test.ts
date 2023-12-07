@@ -6,14 +6,17 @@ import { serviceOrderL3, serviceOrderL3Provisioning } from "@datafactory/service
 import { waitForExpectedStatus } from "@helper/waitingStatus";
 import { findIndexOfSpecificValue } from "@helper/findIndex";
 import { checkResponseStatus, checkForNullValues } from "@helper/expectsAsserts";
+import { parseXml } from "@helper/xmlParser";
+import { getLocationFlatList } from "@datafactory/getLocationFlatList";
+import { serviceOrderClosed } from "@datafactory/serviceOrder";
 //import { getTariffs } from "../../lib/helper/fileOperations";
 import * as fs from "fs";
 
 const L3config = JSON.parse(fs.readFileSync("config/dataL3.json", "utf8"));
 
-test.describe("Aktivace test L3 spolu s HW", async () => {
+test.describe("Aktivace L3 spolu s HW", async () => {
   L3config.testConfigs.forEach((config) => {
-    test.skip(`Aktivační objednávka pro ${config.tariff} L3 s hardware typem ${config.hardwareType}`, async ({
+    test(`Aktivační objednávka pro ${config.tariff} L3 s hardware typem ${config.hardwareType}`, async ({
       request,
     }) => {
       let idbuildingId: string;
@@ -52,12 +55,23 @@ test.describe("Aktivace test L3 spolu s HW", async () => {
 
         const body = await response.json();
         expect(checkForNullValues(body)).toBe(false);
-        //console.log(JSON.stringify(body, null, 2));
-        const availableFlatIds = getLocationFlatIdsWithCondition(body);
-        idlocationFlatId = getRandomElement(availableFlatIds);
-        //console.log(idlocationFlatId)
-        //console.log(availableFlatIds)
       });
+
+
+      await test.step("Get LocationFlatId", async () => {
+        const { body: requestBody, headers } = await getLocationFlatList("1026629", "WHS_SO_08000003530");
+  
+        const response = await request.post(`https://v4tibco-int.vfcz.dc-ratingen.de:12096/WhsApiResource`, {
+          data: requestBody,
+          headers: headers,
+        });
+  
+        const body = await response.text();
+        const parsedXml = await parseXml(body);
+        const locationFlatIds = getLocationFlatIdsWithCondition(parsedXml);
+        idlocationFlatId = getRandomElement(locationFlatIds);
+      });
+
 
       await test.step("Info about selected locationFlatid", async () => {
         const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`);
@@ -107,6 +121,31 @@ test.describe("Aktivace test L3 spolu s HW", async () => {
         expect(checkForNullValues(body)).toBe(false);
         console.log(JSON.stringify(body, null, 2));
         //console.log();
+      });
+
+      await test.step("Info about selected locationFlatid", async () => {
+        const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`);
+  
+        await checkResponseStatus(response, 200);
+  
+        const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO, 7, 60000);
+        expect(checkForNullValues(body)).toBe(false);
+        //console.log(JSON.stringify(body, null, 2));
+      });
+
+      await test.step("WHS Partner requests provisioning start", async () => {
+        const requestBody = await serviceOrderClosed();
+  
+        const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
+          data: requestBody,
+        });
+  
+        await checkResponseStatus(response, 200);
+  
+        const body = await response.json();
+        expect(checkForNullValues(body)).toBe(false);
+        //console.log(JSON.stringify(body, null, 2));
+        //await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
       });
     });
   });

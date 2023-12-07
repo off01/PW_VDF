@@ -5,15 +5,15 @@ import { fetchOrderId } from "@helper/dbQuerries";
 import { findIndexOfSpecificValue } from "@helper/findIndex";
 
 test.describe("Cancel L3", async () => {
-  test("Zrušení rozpracované objednávky L3", async ({ request }) => {
-    const idWHS_SO = await fetchOrderId("WHSFTTHCONN");
+  test("WHS Partner cancels ServiceOrder L3", async ({ request }) => {
+    const idWHS_SO = await fetchOrderId("New","WHSFTTHCONN");
     if (!idWHS_SO) {
       throw new Error("Failed to fetch idWHS_SO from the database.");
     }
 
     let IndexOfWHSFTTHCONN: number;
 
-    await test.step("GET ", async () => {
+    await test.step("GET with valid WHS_SO", async () => {
       const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`);
 
       await checkResponseStatus(response, 200);
@@ -24,7 +24,7 @@ test.describe("Cancel L3", async () => {
       await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
     });
 
-    await test.step("Details required for provisioning #2", async () => {
+    await test.step("PATCH with valid WHS_SO", async () => {
       const requestBody = await serviceOrderCancel(IndexOfWHSFTTHCONN);
 
       const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
@@ -42,15 +42,15 @@ test.describe("Cancel L3", async () => {
 });
 
 test.describe("Cancel L1", async () => {
-  test("Zrušení rozpracované objednávky L1", async ({ request }) => {
-    const idWHS_SO = await fetchOrderId("WHSHFCCONN");
+  test("WHS Partner cancels ServiceOrder L1", async ({ request }) => {
+    const idWHS_SO = await fetchOrderId("New","WHSHFCCONN");
     if (!idWHS_SO) {
       throw new Error("Failed to fetch idWHS_SO from the database.");
     }
 
     let IndexOfWHSHFCCONN: number;
 
-    await test.step("Details required for provisioning", async () => {
+    await test.step("GET with valid WHS_SO", async () => {
       const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`);
 
       await checkResponseStatus(response, 200);
@@ -60,7 +60,7 @@ test.describe("Cancel L1", async () => {
       await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
     });
 
-    await test.step("Details required for provisioning #2", async () => {
+    await test.step("PATCH with valid WHS_SO", async () => {
       const requestBody = await serviceOrderCancel(IndexOfWHSHFCCONN);
 
       const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {

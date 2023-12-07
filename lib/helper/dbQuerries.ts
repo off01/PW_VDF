@@ -11,6 +11,7 @@ const { WHS_DB_CONFIG, FBB_DB_CONFIG } = config.dbConfig;
  * is limited to orders whose PARTNER_ORDER_ID starts with 'PW_' and which are not closed,
  * cancelled or already processed. The function will return the most recent ORDER_ID of these records.
  *
+ * @param {string} status - Stav, podle kterého se vyhledávají (Active, Suspend etc).
  * @param {string} pc - Produktový kód pro vyhledání ID objednávky (WHSFTTHCONN nebo WHSHFCCONN).
  * @returns {Promise<string | null>} Promise, který se po úspěšném provedení dotazu
  *                                   vyřeší s nejnovějším ORDER_ID jako string, nebo s null,
@@ -19,7 +20,7 @@ const { WHS_DB_CONFIG, FBB_DB_CONFIG } = config.dbConfig;
  *                 funkce vyhodí výjimku s popisem chyby.
  */
 
-export async function fetchOrderId(pc: string): Promise<string | null> {
+export async function fetchOrderId(status: string, pc: string): Promise<string | null> {
   let connection;
 
   try {
@@ -30,7 +31,7 @@ export async function fetchOrderId(pc: string): Promise<string | null> {
     FROM "ORDER" o
     JOIN SUBSCRIPTION_ITEM si ON o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID
     WHERE 1=1
-    AND si.STATUS = 'New'
+    AND si.STATUS = :status
     AND si.PRODUCT_CODE = :pc
     AND o.PARTNER_ORDER_ID LIKE 'PW_%'
     AND NOT EXISTS (
@@ -44,7 +45,49 @@ export async function fetchOrderId(pc: string): Promise<string | null> {
     ORDER BY LastOrderID DESC
         `;
 
-    const result = await connection.execute(query, { pc });
+    const result = await connection.execute(query, { status, pc });
+
+    if (result.rows && result.rows.length > 0) {
+      return result.rows[0][0] as string;
+    }
+
+    throw new Error("No idWHS_SO found in the database.");
+  } catch (err) {
+    console.error(err);
+    throw err;
+  } finally {
+    if (connection) {
+      await connection.close();
+    }
+  }
+}
+
+export async function fetchOrderIdFF(status: string, pc: string): Promise<string | null> {
+  let connection;
+
+  try {
+    connection = await oracledb.getConnection(WHS_DB_CONFIG);
+    const query = `
+    SELECT 
+      MAX(o.ORDER_ID) KEEP (DENSE_RANK LAST ORDER BY o.CREATED) AS LastOrderID
+    FROM "ORDER" o
+    JOIN SUBSCRIPTION_ITEM si ON o.SUBSCRIPTION_ID = si.SUBSCRIPTION_ID
+    WHERE 1=1
+    AND si.STATUS = :status
+    AND si.PRODUCT_CODE = :pc
+    AND o.PARTNER_ORDER_ID LIKE 'PW_%'
+    AND NOT EXISTS (
+    SELECT 1
+      FROM "ORDER" o2
+      JOIN SUBSCRIPTION_ITEM si2 ON o2.SUBSCRIPTION_ID = si2.SUBSCRIPTION_ID
+      WHERE si2.WHS_ASSET_ID = si.WHS_ASSET_ID
+      AND o2.STATUS IN ('Canceled', 'InstallationNotFeasible', 'Realized', 'WaitForRealization')
+    )
+    GROUP BY si.WHS_ASSET_ID
+    ORDER BY LastOrderID DESC
+        `;
+
+    const result = await connection.execute(query, { status, pc });
 
     if (result.rows && result.rows.length > 0) {
       return result.rows[0][0] as string;
@@ -149,6 +192,7 @@ export async function fetchOrderIdPortationMopId(prefixpc: string): Promise<stri
         AND MOP_ID LIKE :prefixpc
         AND EXT_CASE_ID NOT LIKE 'WHS_SO%'
         AND fst.CODE = 'Active'
+        AND MOP_ID NOT IN ('VFHFC800000047589','VFHFC800000047588','VFHFC800000047564','VFHFC800000047557','VFHFC800000047522','VFHFC800000047519')
         ORDER BY CREATED DESC
         `;
 

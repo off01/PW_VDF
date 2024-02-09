@@ -36,6 +36,7 @@ test.describe("Modifikace L3 - SWAP HW", async () => {
       const randomrsnNumber_OG = data.snNumber;
       const randomrid_OG = data.rid;
       const WHSHW_OG = data.HW;
+      const hwProfile: data.hwProfile;
       let idWHS_SO: string;
       let IndexOfWHSHWONT: number;
 

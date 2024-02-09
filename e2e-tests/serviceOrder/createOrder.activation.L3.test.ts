@@ -57,7 +57,6 @@ test.describe("Aktivace L3 spolu s HW", async () => {
         expect(checkForNullValues(body)).toBe(false);
       });
 
-
       await test.step("Get LocationFlatId", async () => {
         const { body: requestBody, headers } = await getLocationFlatList("1026629", "WHS_SO_08000003530");
   
@@ -71,7 +70,6 @@ test.describe("Aktivace L3 spolu s HW", async () => {
         const locationFlatIds = getLocationFlatIdsWithCondition(parsedXml);
         idlocationFlatId = getRandomElement(locationFlatIds);
       });
-
 
       await test.step("Info about selected locationFlatid", async () => {
         const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`);

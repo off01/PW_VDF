@@ -156,7 +156,7 @@ test.describe("Terminace L1", async () => {
 });
 
 test.describe("Terminace FF", async () => {
-  test("Terminační objenávka pro FF", async ({ request }) => {
+  test("Terminační objenávka pro FF - Schválená", async ({ request }) => {
     const idWHS_SOdata = await fetchOrderIdFF("Active", "WHSFTTHFLEXI");
     if (!idWHS_SOdata) {
       throw new Error("Failed to fetch DATA from the database.");
@@ -176,7 +176,7 @@ test.describe("Terminace FF", async () => {
     });
 
     await test.step("Create", async () => {
-      const requestBody = await serviceOrderFFTermination(whsAssetId, ffServiceId);
+      const requestBody = await serviceOrderFFTermination("AUTO-TERMINATE", whsAssetId, ffServiceId);
 
       const response = await request.post(`/serviceOrderAPI/v2/serviceOrder`, {
         data: requestBody,
@@ -214,6 +214,41 @@ test.describe("Terminace FF", async () => {
       expect(checkForNullValues(body)).toBe(false);
       console.log(JSON.stringify(body, null, 2));
       //await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
+    });
+  });
+  test("Terminační objenávka pro FF - Manuální zpracování - /*Pouze vytvoření*/", async ({ request }) => {
+    const idWHS_SOdata = await fetchOrderIdFF("Active", "WHSFTTHFLEXI");
+    if (!idWHS_SOdata) {
+      throw new Error("Failed to fetch DATA from the database.");
+    }
+    let whsAssetId: string;
+    let ffServiceId: string;
+    let idWHS_SO: string;
+
+    await test.step("Get data for termination order", async () => {
+      const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SOdata}`);
+
+      await checkResponseStatus(response, 200);
+
+      const body = await response.json();
+      whsAssetId = body.parts.lineItem[0].serviceSpecification[0].characteristicsValue[0].value;
+      ffServiceId = body.parts.lineItem[0].serviceSpecification[0].characteristicsValue[1].value;
+    });
+
+    await test.step("Create", async () => {
+      const requestBody = await serviceOrderFFTermination("Manuálání zpracování", whsAssetId, ffServiceId);
+
+      const response = await request.post(`/serviceOrderAPI/v2/serviceOrder`, {
+        data: requestBody,
+      });
+
+      await checkResponseStatus(response, 201);
+
+      const body = await response.json();
+      expect(checkForNullValues(body)).toBe(false);
+      idWHS_SO = body.id[1].value
+      console.log(idWHS_SO);
+      //await validateJsonSchema("POST_serviceOrder", "ServiceOrder", body);
     });
   });
 });

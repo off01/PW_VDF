@@ -242,10 +242,11 @@ export async function fetchDataModification(hwdb: string, tariffdb: string = nul
                 ENTITY_ID,
                 MAX(CASE WHEN NAME = 'macAddress' THEN VALUE END) AS macAddress,
                 MAX(CASE WHEN NAME = 'rid' THEN VALUE END) AS rid,
-                MAX(CASE WHEN NAME = 'snNumber' THEN VALUE END) AS snNumber
+                MAX(CASE WHEN NAME = 'snNumber' THEN VALUE END) AS snNumber,
+                MAX(CASE WHEN NAME = 'hwProfile' THEN VALUE END) AS hwProfile
             FROM "ATTRIBUTE"
             WHERE ENTITY_TYPE = 'SubscriptionItem' 
-            AND NAME IN ('macAddress', 'rid', 'snNumber')
+            AND NAME IN ('macAddress', 'rid', 'snNumber', 'hwProfile')
             GROUP BY ENTITY_ID
         ),
         AssetData AS (
@@ -275,7 +276,8 @@ export async function fetchDataModification(hwdb: string, tariffdb: string = nul
             hw.PRODUCT_CODE AS HW,
             ad.macAddress,
             ad.rid, 
-            ad.snNumber 
+            ad.snNumber,
+            ad.hwProfile 
         FROM SUBSCRIPTION_ITEM si
         JOIN SUBSCRIPTION s  ON si.SUBSCRIPTION_ID = s.SUBSCRIPTION_ID
         JOIN AttributeData ad ON ad.ENTITY_ID = si.SUBSCRIPTION_ITEM_ID
@@ -319,6 +321,7 @@ export async function fetchDataModification(hwdb: string, tariffdb: string = nul
         macAddress: result.rows[0][6],
         rid: result.rows[0][7],
         snNumber: result.rows[0][8],
+        hwProfile: result.rows[0][9],
       };
     }
 

@@ -136,3 +136,16 @@ export function randomTextGenerator(length: number): string {
   }
   return text.trim();
 }
+
+export function choosehwProfile(typeHW: string): string {
+  if (typeHW === 'WHSHWCG31' || typeHW === 'WHSHWCG31P') {
+      return 'TMCZ DOCSIS';
+  } else if (typeHW === 'WHSHWCBYOD') {
+      return 'TMCZ CBYOD';
+  } else if (typeHW === 'WHSHWONT') {
+      // Náhodný výběr mezi 'TMCZ VEIP14' a 'TMCZ VEIP6'
+      return Math.random() < 0.5 ? 'TMCZ VEIP14' : 'TMCZ VEIP6';
+  } else if (typeHW === 'WHSHWOBYOD') {
+      return 'TMCZ OBYOD';
+  }
+}

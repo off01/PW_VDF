@@ -6,11 +6,13 @@ import * as path from "path";
  *
  * @param idWHS_SO ID WHS SO.
  * @param idASSET_ser ID ASSET ser.
+ * @param hwProfile Profile name.
  * @param filePath Relativní cesta k souboru JSON z kořenového adresáře projektu. Výchozí hodnota je 'results/results.json'.
  */
 export async function recordResults(
   idWHS_SO: string,
   idASSET_ser: string,
+  hwProfile: string,
   filePath = "results/results.json"
 ): Promise<void> {
   // Absolutní cesta k souboru JSON
@@ -20,6 +22,7 @@ export async function recordResults(
   const data = {
     idWHS_SO,
     idASSET_ser,
+    hwProfile
   };
 
   // Převedení dat na řetězec JSON a přidání na konec souboru

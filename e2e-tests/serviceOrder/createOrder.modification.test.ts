@@ -16,6 +16,7 @@ import { generateMacAddress } from "@helper/randomGenerator";
 import { findIndexOfSpecificValue } from "@helper/findIndex";
 import { checkResponseStatus, checkForNullValues, validateJsonSchema } from "@helper/expectsAsserts";
 import { fetchDataModification, fetchOrderIdFF } from "@helper/dbQuerries";
+import { choosehwProfile } from "@helper/randomGenerator"
 import * as fs from "fs";
 
 const L3config = JSON.parse(fs.readFileSync("config/dataL3.json", "utf8"));
@@ -35,10 +36,13 @@ test.describe("Modifikace L3 - SWAP HW", async () => {
       const WHSDATA = data.Tarif;
       const randomrsnNumber_OG = data.snNumber;
       const randomrid_OG = data.rid;
-      const WHSHW_OG = data.HW;
-      const hwProfile: data.hwProfile;
+      const WHSHW_OG = data.HW; 
+      const hwProfile_OG = data.hwProfile;
       let idWHS_SO: string;
-      let IndexOfWHSHWONT: number;
+      let IndexOfWHSHW: number;
+      let hwProfile: string;
+      let hwType: string; // eslint-disable-line
+      
 
       await test.step("Create", async () => {
         const requestBody = await createModificationSwapHWL3OrderBody(
@@ -50,6 +54,7 @@ test.describe("Modifikace L3 - SWAP HW", async () => {
           idASSET_ass2,
           randomrsnNumber_OG,
           randomrid_OG,
+          hwProfile_OG,
           pair.new
         );
 
@@ -63,6 +68,8 @@ test.describe("Modifikace L3 - SWAP HW", async () => {
         //console.log(JSON.stringify(body, null, 2));
         idWHS_SO = body.id[1].value;
         console.log(idWHS_SO);
+        hwProfile = choosehwProfile(pair.new);
+        hwType = pair.new;
         await validateJsonSchema("POST_serviceOrder", "ServiceOrder", body);
       });
 
@@ -72,13 +79,13 @@ test.describe("Modifikace L3 - SWAP HW", async () => {
         await checkResponseStatus(response, 200);
 
         const body = await waitForExpectedStatus(request, "WaitForRealization", idWHS_SO, 20, 5000);
-        IndexOfWHSHWONT = findIndexOfSpecificValue(body, "WHSHWONT");
+        IndexOfWHSHW = findIndexOfSpecificValue(body, WHSHW_OG);
         //console.log(JSON.stringify(body, null, 2));
         await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
       });
 
       await test.step("Details required for provisioning #2", async () => {
-        const requestBody = await serviceOrderL3Provisioning(IndexOfWHSHWONT);
+        const requestBody = await serviceOrderL3Provisioning(IndexOfWHSHW, hwProfile);
 
         const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
           data: requestBody,
@@ -97,7 +104,7 @@ test.describe("Modifikace L3 - SWAP HW", async () => {
 
         await checkResponseStatus(response, 200);
 
-        const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO, 10, 5000);
+        const body = await waitForExpectedStatus(request, "OrderProvisioned", idWHS_SO, 7, 60000);
         console.log(JSON.stringify(body, null, 2));
         await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
       });
@@ -136,7 +143,10 @@ test.describe("Modifikace L1 - SWAP HW", async () => {
       const WHSDATA = data.Tarif;
       const macAddress = data.macAddress;
       const WHSHW_OG = data.HW;
+      const hwProfile_OG = data.hwProfile;
       let idWHS_SO: string;
+      let hwProfile: string;
+      let hwType: string; // eslint-disable-line
 
       await test.step("Create", async () => {
         const requestBody = await createModificationSwapHWL1OrderBody(
@@ -147,6 +157,7 @@ test.describe("Modifikace L1 - SWAP HW", async () => {
           WHSHW_OG,
           idASSET_ass2,
           macAddress,
+          hwProfile_OG,
           pair.new
         );
 
@@ -160,7 +171,10 @@ test.describe("Modifikace L1 - SWAP HW", async () => {
         expect(checkForNullValues(body)).toBe(false);
         //console.log(JSON.stringify(body, null, 2));
         idWHS_SO = body.id[1].value;
-        console.log(idWHS_SO);
+        console.log(idWHS_SO); //Výpis do konzole č.obj
+        hwProfile = choosehwProfile(pair.new);
+        console.log(hwProfile); //Výpis do konzole budoucí hwProfile 
+        hwType = pair.new;
         await validateJsonSchema("POST_serviceOrder", "ServiceOrder", body);
       });
 
@@ -177,7 +191,7 @@ test.describe("Modifikace L1 - SWAP HW", async () => {
 
       await test.step("WHS Partner requests provisioning start", async () => {
         const macAddress = generateMacAddress();
-        const requestBody = await TEMPserviceOrderL1Provisioning(macAddress);
+        const requestBody = await TEMPserviceOrderL1Provisioning(macAddress, hwProfile);
 
         const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
           data: requestBody,
@@ -468,6 +482,56 @@ test.describe("Modifikace FF - Změna fiberu", async () => {
       expect(checkForNullValues(body)).toBe(false);
       console.log(JSON.stringify(body, null, 2));
       //await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
+    });
+  });
+
+  test("Modifikační objednávka FF - Manuální zpracování - /*Pouze vytvoření*/", async ({ request }) => {
+    const idWHS_SOdata = await fetchOrderIdFF("Active", "WHSFTTHFLEXI");
+    if (!idWHS_SOdata) {
+      throw new Error("Failed to fetch DATA from the database.");
+    }
+    let whsAssetId: string;
+    let whsAssetId_1: string;
+    let whsAssetId_2: string;
+    let whsAssetId_3: string;
+    let whsAssetId_4: string;
+    let whsAssetId_5: string;
+    let ffServiceId: string;
+    let fiberSegmentID_1: string;
+    let fiberSegmentID_2: string;
+    let idWHS_SO: string;
+
+    await test.step("Get data for modification order", async () => {
+      const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SOdata}`);
+
+      await checkResponseStatus(response, 200);
+
+      const body = await response.json();
+      whsAssetId = body.parts.lineItem[0].serviceSpecification[0].characteristicsValue[0].value;
+      whsAssetId_1 = body.parts.lineItem[1].serviceSpecification[0].characteristicsValue[0].value;
+      whsAssetId_2 = body.parts.lineItem[2].serviceSpecification[0].characteristicsValue[0].value;	
+      whsAssetId_3 = body.parts.lineItem[3].serviceSpecification[0].characteristicsValue[0].value;
+      whsAssetId_4 = body.parts.lineItem[4].serviceSpecification[0].characteristicsValue[0].value;
+      whsAssetId_5 = body.parts.lineItem[5].serviceSpecification[0].characteristicsValue[0].value;
+      ffServiceId = body.parts.lineItem[0].serviceSpecification[0].characteristicsValue[1].value;
+      fiberSegmentID_1 = body.parts.lineItem[4].serviceSpecification[0].characteristicsValue[1].value;
+      fiberSegmentID_2 = body.parts.lineItem[5].serviceSpecification[0].characteristicsValue[1].value;
+    });
+
+    await test.step("Vytvoření modifikační objednávky - s manuálním zásahem", async () => {
+      const requestBody = await serviceOrderFFModification("Manuální zásah", whsAssetId, whsAssetId_1, whsAssetId_2, whsAssetId_3, whsAssetId_4, whsAssetId_5, ffServiceId, fiberSegmentID_1, fiberSegmentID_2);
+
+      const response = await request.post(`/serviceOrderAPI/v2/serviceOrder`, {
+        data: requestBody,
+      });
+
+      await checkResponseStatus(response, 201);
+
+      const body = await response.json();
+      expect(checkForNullValues(body)).toBe(false);
+      idWHS_SO = body.id[1].value
+      console.log(idWHS_SO);
+      //await validateJsonSchema("POST_serviceOrder", "ServiceOrder", body);
     });
   });
 });

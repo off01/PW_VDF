@@ -6,7 +6,7 @@
     },
     {
       "tariff": "WHSDATA009",
-      "hardwareType": "WHSHWCBYOD"
+      "hardwareType": "WHSHWOBYOD"
     }
   ],
   "hardwarePairs": [
@@ -16,14 +16,14 @@
     },
     {
       "original": "WHSHWONT",
-      "new": "WHSHWCBYOD"
+      "new": "WHSHWOBYOD"
     },
     {
-      "original": "WHSHWCBYOD",
-      "new": "WHSHWCBYOD"
+      "original": "WHSHWOBYOD",
+      "new": "WHSHWOBYOD"
     },
     {
-      "original": "WHSHWCBYOD",
+      "original": "WHSHWOBYOD",
       "new": "WHSHWONT"
     }
   ]

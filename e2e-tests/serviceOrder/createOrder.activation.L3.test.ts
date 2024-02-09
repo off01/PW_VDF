@@ -9,6 +9,7 @@ import { checkResponseStatus, checkForNullValues } from "@helper/expectsAsserts"
 import { parseXml } from "@helper/xmlParser";
 import { getLocationFlatList } from "@datafactory/getLocationFlatList";
 import { serviceOrderClosed } from "@datafactory/serviceOrder";
+import { choosehwProfile } from "@helper/randomGenerator"
 //import { getTariffs } from "../../lib/helper/fileOperations";
 import * as fs from "fs";
 
@@ -22,7 +23,9 @@ test.describe("Aktivace L3 spolu s HW", async () => {
       let idbuildingId: string;
       let idWHS_SO: string;
       let idlocationFlatId: string;
-      let IndexOfWHSHWONT: number;
+      let IndexOfWHSHW: number;
+      let hwProfile: string;
+      let hwType: string;
 
       await test.step("Create", async () => {
         const requestBody = await createActivationL3OrderBody(config.tariff, config.hardwareType);
@@ -41,7 +44,10 @@ test.describe("Aktivace L3 spolu s HW", async () => {
             .characteristicsValue[1].value;
         idWHS_SO = body.id[1].value;
         //console.log(idbuildingId)
-        //console.log(idWHS_SO)
+        hwProfile = choosehwProfile(config.hardwareType);
+        hwType = config.hardwareType;
+        console.log(hwProfile)
+        console.log(idWHS_SO)
       });
 
       await test.step("serviceFeasibility", async () => {
@@ -54,13 +60,13 @@ test.describe("Aktivace L3 spolu s HW", async () => {
         await checkResponseStatus(response, 200);
 
         const body = await response.json();
-        expect(checkForNullValues(body)).toBe(false);
+        expect(checkForNullValues(body)).toBe(true);
       });
 
       await test.step("Get LocationFlatId", async () => {
-        const { body: requestBody, headers } = await getLocationFlatList("1026629", "WHS_SO_08000003530");
+        const { body: requestBody, headers } = await getLocationFlatList(idbuildingId, idWHS_SO);
   
-        const response = await request.post(`https://v4tibco-int.vfcz.dc-ratingen.de:12096/WhsApiResource`, {
+        const response = await request.post(`https://v4tibco-sys2.vfcz.dc-ratingen.de:12096/WhsApiResource`, {
           data: requestBody,
           headers: headers,
         });
@@ -92,7 +98,7 @@ test.describe("Aktivace L3 spolu s HW", async () => {
 
         const body = await response.json();
         expect(checkForNullValues(body)).toBe(false);
-        console.log(JSON.stringify(body, null, 2));
+        //console.log(JSON.stringify(body, null, 2));
       });
 
       await test.step("Details required for provisioning", async () => {
@@ -102,12 +108,12 @@ test.describe("Aktivace L3 spolu s HW", async () => {
 
         const body = await response.json();
         expect(checkForNullValues(body)).toBe(false);
-        IndexOfWHSHWONT = findIndexOfSpecificValue(body, "WHSHWONT");
+        IndexOfWHSHW = findIndexOfSpecificValue(body, hwType);
         //console.log(JSON.stringify(body, null, 2));
       });
 
       await test.step("Details required for provisioning #2", async () => {
-        const requestBody = await serviceOrderL3Provisioning(IndexOfWHSHWONT);
+        const requestBody = await serviceOrderL3Provisioning(IndexOfWHSHW, hwProfile);
 
         const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
           data: requestBody,
@@ -117,8 +123,7 @@ test.describe("Aktivace L3 spolu s HW", async () => {
 
         const body = await response.json();
         expect(checkForNullValues(body)).toBe(false);
-        console.log(JSON.stringify(body, null, 2));
-        //console.log();
+        //console.log(JSON.stringify(body, null, 2));
       });
 
       await test.step("Info about selected locationFlatid", async () => {

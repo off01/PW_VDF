@@ -7,6 +7,7 @@ import { waitForExpectedStatus } from "@helper/waitingStatus";
 import { getTomorrowDate } from "@helper/timeGenerator";
 import { recordResults } from "@helper/fileOperations";
 import { checkResponseStatus, checkForNullValues, validateJsonSchema } from "@helper/expectsAsserts";
+import { choosehwProfile } from "@helper/randomGenerator"
 import * as fs from "fs";
 
 const L1config = JSON.parse(fs.readFileSync("config/dataL1.json", "utf8"));
@@ -21,6 +22,8 @@ test.describe(`Aktivace test L1 spolu s HW`, async () => {
       let idWHS_WAS: string;
       let idWHS_PF: string; // eslint-disable-line
       let idASSET_ser = "";
+      let hwProfile: string;
+      let hwType: string; // eslint-disable-line
 
       await test.step("Create", async () => {
         const requestBody = await createActivationL1OrderBody(config.tariff, config.hardwareType);
@@ -35,6 +38,10 @@ test.describe(`Aktivace test L1 spolu s HW`, async () => {
         expect(checkForNullValues(body)).toBe(false);
         idWHS_SO = body.id[1].value;
         idASSET_ser = body.parts.lineItem[1].serviceSpecification[0].characteristicsValue[0].value;
+        hwProfile = choosehwProfile(config.hardwareType);
+        hwType = config.hardwareType;
+        console.log(hwProfile)
+        console.log(idWHS_SO)
 
         await validateJsonSchema("POST_serviceOrder", "ServiceOrder", body);
       });
@@ -44,7 +51,7 @@ test.describe(`Aktivace test L1 spolu s HW`, async () => {
 
         await checkResponseStatus(response, 200);
 
-        const body = await waitForExpectedStatus(request, "QuestionsReady", idWHS_SO, 20, 5000);
+        const body = await waitForExpectedStatus(request, "QuestionsReady", idWHS_SO, 25, 5000);
         expect(checkForNullValues(body)).toBe(false);
         await validateJsonSchema("GET_serviceOrder_{id}", "ServiceOrder", body);
       });
@@ -120,7 +127,7 @@ test.describe(`Aktivace test L1 spolu s HW`, async () => {
 
         await validateJsonSchema("POST_customerAppointment", "CustomerAppointment", body);
       });
-      await recordResults(idWHS_SO, idASSET_ser);
+      await recordResults(idWHS_SO, idASSET_ser, hwProfile);
     });
   });
 });

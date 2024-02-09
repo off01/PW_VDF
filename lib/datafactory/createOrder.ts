@@ -569,6 +569,7 @@ export async function createModificationSwapHWL1OrderBody(
   WHSHW_OG: string,
   idASSET_ass2: string,
   macAddress: string,
+  hwProfile_OG: string,
   WHSHW: string
 ) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
@@ -730,6 +731,10 @@ export async function createModificationSwapHWL1OrderBody(
                   characteristicName: "hwType",
                   value: "Compal CH7465",
                 },
+                {
+                  characteristicName: "hwProfile",
+                  value: `${hwProfile_OG}`
+                }  
               ],
             },
           ],
@@ -784,6 +789,7 @@ export async function createModificationSwapHWL3OrderBody(
   idASSET_ass2: string,
   randomrsnNumber_OG: string,
   randomrid_OG: string,
+  hwProfile_OG: string,
   WHSHW: string
 ) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
@@ -949,6 +955,10 @@ export async function createModificationSwapHWL3OrderBody(
                   characteristicName: "rid",
                   value: `${randomrid_OG}`,
                 },
+                {
+                  characteristicName: "hwProfile",
+                  value: `${hwProfile_OG}`
+                }  
               ],
             },
           ],

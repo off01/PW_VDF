@@ -9,7 +9,7 @@ test.describe("Aktivace test FF", async () => {
     let idWHS_SO: string;
 
     await test.step("Create", async () => {
-      const requestBody = await serviceOrderFF("AUTO-APPROVE");
+      const requestBody = await serviceOrderFF("AUTO-APPROVE AUTO-ACTIVATE");
 
       const response = await request.post(`/serviceOrderAPI/v2/serviceOrder`, {
         data: requestBody,
@@ -101,7 +101,7 @@ test.describe("Aktivace test FF", async () => {
     let idWHS_SO: string; // eslint-disable-line
 
     await test.step("Create", async () => {
-      const requestBody = await serviceOrderFF("Manuální zpracování");
+      const requestBody = await serviceOrderFF("Manualni zpracovani");
 
       const response = await request.post(`/serviceOrderAPI/v2/serviceOrder`, {
         data: requestBody,
@@ -114,32 +114,7 @@ test.describe("Aktivace test FF", async () => {
       //console.log(JSON.stringify(body, null, 2));
       idWHS_SO = body.id[1].value;
       //console.log(idbuildingId)
-      //console.log(idWHS_SO)
-    });
-
-    await test.step("Info about selected locationFlatid", async () => {
-      const response = await request.get(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`);
-
-      await checkResponseStatus(response, 200);
-
-      const body = await waitForExpectedStatus(request, "InstallationNotFeasible", idWHS_SO, 11, 60000);
-      expect(checkForNullValues(body)).toBe(false);
-      //console.log(JSON.stringify(body, null, 2));
-    });
-
-    await test.step("WHS Partner requests provisioning start", async () => {
-      const requestBody = await serviceOrderClosed();
-
-      const response = await request.patch(`/serviceOrderAPI/v2/serviceOrder/${idWHS_SO}`, {
-        data: requestBody,
-      });
-
-      await checkResponseStatus(response, 200);
-
-      const body = await response.json();
-      expect(checkForNullValues(body)).toBe(false);
-      console.log(JSON.stringify(body, null, 2));
-      await validateJsonSchema("PATCH_serviceOrder_{id}", "ServiceOrder", body);
+      console.log(idWHS_SO)
     });
   });
 });

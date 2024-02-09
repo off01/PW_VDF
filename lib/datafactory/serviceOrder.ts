@@ -41,7 +41,7 @@ export async function serviceOrderL3(idlocationFlatId: string) {
   return orderBody;
 }
 
-export async function serviceOrderL3Provisioning(IndexOfWHSHWONT: number) {
+export async function serviceOrderL3Provisioning(IndexOfWHSHW: number, hwProfile: string) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
   const randomrid = generateKey();
   const randomrsnNumber = generateRandomHex();
@@ -68,7 +68,7 @@ export async function serviceOrderL3Provisioning(IndexOfWHSHWONT: number) {
     },
     {
       op: "add",
-      path: `/parts.lineItem[${IndexOfWHSHWONT}].serviceSpecification[0].characteristicsValue`,
+      path: `/parts.lineItem[${IndexOfWHSHW}].serviceSpecification[0].characteristicsValue`,
       value: {
         characteristicsValue: [
           {
@@ -82,6 +82,10 @@ export async function serviceOrderL3Provisioning(IndexOfWHSHWONT: number) {
           {
             characteristicName: "rid",
             value: `${randomrid}`,
+          },
+          {
+            characteristicName: "hwProfile",
+            value: `${hwProfile}`,
           },
         ],
       },
@@ -160,7 +164,7 @@ export async function serviceOrderProvisioning() {
   return orderBody;
 }
 
-export async function serviceOrderL1Provisioning(macAddress: string) {
+export async function serviceOrderL1Provisioning(macAddress: string, hwProfile: string) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
   const orderBody = [
     {
@@ -196,6 +200,10 @@ export async function serviceOrderL1Provisioning(macAddress: string) {
             characteristicName: "hwType",
             value: "Compal CH7465",
           },
+          {
+            characteristicName: "hwProfile",
+            value: `${hwProfile}`
+          }
         ],
       },
     },
@@ -203,7 +211,7 @@ export async function serviceOrderL1Provisioning(macAddress: string) {
   return orderBody;
 }
 
-export async function TEMPserviceOrderL1Provisioning(macAddress: string) {
+export async function TEMPserviceOrderL1Provisioning(macAddress: string, hwProfile: string) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
   const orderBody = [
     {
@@ -239,6 +247,11 @@ export async function TEMPserviceOrderL1Provisioning(macAddress: string) {
             characteristicName: "hwType",
             value: "Compal CH7465",
           },
+          {
+            characteristicName: "hwProfile",
+            value: `${hwProfile}`
+          }
+  
         ],
       },
     },
@@ -555,7 +568,7 @@ export async function serviceOrderFF(autoApprove: string) {
   return orderBody;
 }
 
-export async function serviceOrderFFTermination(whsAssetId: string, tisServiceId: string) {
+export async function serviceOrderFFTermination(autoApprove: string, whsAssetId: string, tisServiceId: string) {
   const timestamp = moment().utcOffset(1).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
   const idSO = incrementCounterOrderId();
   const idPrefix = process.env.ID_PREFIX || "PW";
@@ -633,7 +646,7 @@ export async function serviceOrderFFTermination(whsAssetId: string, tisServiceId
         ],
         "note": [
             {
-                "content": "Poznámka"
+                "content": `${autoApprove}`
             }
         ]
     }
